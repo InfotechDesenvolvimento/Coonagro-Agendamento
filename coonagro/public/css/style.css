@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+#imgForm{
+  width: 600px;
+}
+
+#fontConfirmation{
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+@media (max-width: 900px) {
+
+    #imgForm {
+        width: 300px;
+    }
+
+    #formconfirmation{
+      font-size: 13px;
+    }
+}
