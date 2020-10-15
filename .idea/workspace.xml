@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/coonagro/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="composer.json" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/coonagro/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/composer" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/fruitcake/laravel-cors" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/geekcom/validator-docs" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/scrivo/highlight.php" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/facade/flare-client-php" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/facade/ignition" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/nunomaduro/collision" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1is5LeuIhSSylLI39jDGBgr5O1m" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Coonagro" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\coonagro-agendamento\coonagro" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="" />
+      <created>1602683409560</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602683409560</updated>
+      <workItem from="1602683413614" duration="130000" />
+      <workItem from="1602683605354" duration="1783000" />
+      <workItem from="1602696634875" duration="6609000" />
+      <workItem from="1602765098773" duration="7874000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="493" y="248" key="#Composer" timestamp="1602683437021">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="493" y="248" key="#Composer/0.0.1366.738@0.0.1366.738" timestamp="1602683437021" />
+    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602768205833">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1602768205833" />
+    <state x="459" y="251" width="447" height="308" key="ComposerInitDialogKey" timestamp="1602683627663">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="459" y="251" width="447" height="308" key="ComposerInitDialogKey/0.0.1366.738@0.0.1366.738" timestamp="1602683627663" />
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1602772792494">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1602772792494" />
+    <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1602768164542">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1366.738@0.0.1366.738" timestamp="1602768164542" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1602771101803">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1602771101803" />
+    <state x="184" y="14" key="SettingsEditor" timestamp="1602765283898">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="184" y="14" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1602765283898" />
+    <state x="0" y="0" width="583" height="738" key="find.popup" timestamp="1602766287277">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="0" y="0" width="583" height="738" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1602766287277" />
+  </component>
+</project>
