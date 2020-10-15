@@ -7,37 +7,29 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::get('/', function () {
-        return view('formulario1');
-    });
+  Route::get('/', function () {
+      return view('formulario1');
+  });
 
-    Route::get('/formulario', function () {
-        return view('formulario2');
-    });
+  Route::get('/formulario', function () {
+      return view('formulario2');
+  });
 
-    Route::get('/finish', function () {
-        return view('message-success');
-    });
+  Route::get('/finish', function () {
+      return view('message-success');
+  });
 
-    Route::get('/error', function () {
-        return view('error');
-    });
+  Route::get('/error', function () {
+      return view('error');
+  });
 
-    Route::get('/outros', function (){
-        return view('outros');
-    })->name('outros');
-
-    //validações
-    Route::post('/validation-pedido', 'FormController@validationNumPedido');
-    Route::post('/validation-saldo', 'FormController@validationSaldoProduct');
-    Route::post('/concluir-agendamento', 'FormController@finalizarAgendamento');
-    Route::post('/concluir-agendamento-outros', 'FormController@finalizarAgendamentoOutros');
-    Route::get('/finalizar-agendamento', 'FormController@confirmation');
-    Route::get('/finalizar-agendamento-outros', 'FormController@confirmationOutros');
-    Route::get('/imprimir', 'FormController@imprimirAgendamento');
-    Route::get('/imprimir-outros', 'FormController@imprimirAgendamentoOutros');
-    Route::get('/success', 'FormController@success');
-    Route::get('/sucesso', 'FormController@successOutros');
+  //validações
+  Route::post('/validation-pedido', 'FormController@validationNumPedido');
+  Route::post('/validation-saldo', 'FormController@validationSaldoProduct');
+  Route::post('/concluir-agendamento', 'FormController@finalizarAgendamento');
+  Route::get('/finalizar-agendamento', 'FormController@confirmation');
+  Route::get('/imprimir', 'FormController@imprimirAgendamento');
+  Route::get('/success', 'FormController@success');
 
 });
 

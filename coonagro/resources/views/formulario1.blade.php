@@ -6,13 +6,13 @@
 <div class="col-12">
 
 <div class="container" style="text-align:center; border-radius: 15px; max-width: 580px; background: #E8E8E8">
-  <h4 style="padding: 30px; color: #63950A"> <b> AGENDAMENTO DE CARREGAMENTO</b> </h4>
+  <h4 style="padding: 30px; color: #63950A"> <b> FORMULÁRIO AGENDAMENTO<b> </h4>
   <form action="{{ action('FormController@validationNumPedido') }}" method="post">
     <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 
     <div class="form-group">
       <div style="text-align: left">
-          <label><b>Data do Agendamento:</b></label>
+        <label>Data do Agendamento:</label>
       </div>
       <input
         name="data_agendamento"
@@ -23,7 +23,7 @@
       <br>
 
       <div style="text-align: left">
-          <label><b>Número do pedido:</b></label>
+        <label>Número do pedido:</label>
       </div>
       <input
         id="num_pedido"
@@ -37,18 +37,15 @@
         onpaste="noPasteCaracterNumPedido(this.value)"
         >
 
-      @if(isset($error))
+      @if($error)
         <div style="text-align: left">
-          <span style="color: red; font-size: 14px"> Número do pedido inválido! </span>
+          <span style="color: red; font-size: 14px"> Número do pedido inválido! <span>
         </div>
       @endif
     </div>
 
     <button type="submit" class="btn btn-success btn-lg btn-block"> <b> <i class="fas fa-arrow-circle-right"></i> AVANÇAR </b> </button></form>
   </form> <br>
-
-  <hr>
-  <a href="{{route('outros')}}" class="btn btn-success btn-lg btn-block" id="outras"> <b> <i class="fas fa-hand-point-right"></i> OUTRAS OPERAÇÕES </b> </a>
 </div>
 </div>
 

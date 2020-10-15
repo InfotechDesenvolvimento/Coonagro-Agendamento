@@ -8,7 +8,7 @@
   </head>
   <body>
     <div style="text-align:center">
-      <h1> Coonagro </h1> <h1>Cooperativa Nacional Agroindustrial </h1> <br><br>
+      <h1> Coonagro </h1> <h1>Cooperativa Naciona Agroindustrial </h1> <br><br>
     </div>
       <p><b>NÚMERO DO PEDIDO: {{session()->get('num_pedido')}}</b></p>
       <p><b>QUANTIDADE: {{session()->get('qtde')}}</b></p>
