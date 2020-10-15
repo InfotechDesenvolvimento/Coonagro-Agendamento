@@ -176,6 +176,7 @@ class FormController extends Controller{
         $peso_bruto = Request::get('peso_bruto');
         $peso_liquido = Request::get('peso_liquido');
         $observacao = Request::get('observacao');
+        $motivo = Request::get('motivo');
 
         session()->put('data', $data_agendamento);
         session()->put('hora', $hora_agendamento);
@@ -188,6 +189,7 @@ class FormController extends Controller{
         session()->put('peso_bruto', $peso_bruto);
         session()->put('peso_liquido', $peso_liquido);
         session()->put('observacao', $observacao);
+        session()->put('motivo', $motivo);
 
         return view('confirmacao');
     }
@@ -206,6 +208,7 @@ class FormController extends Controller{
         $agendamento->COD_STATUS_XML = 4;
         $agendamento->COD_OPERACAO = session('tipo_operacao');
         $agendamento->NUM_NOTA_FISCAL_ELETRONICA = session('num_nota');
+        $agendamento->MOTIVO_AGENDAMENTO = strtoupper(session('motivo'));
 
         if(session('peso_bruto') != ""){
             $peso_bruto = session('peso_bruto');

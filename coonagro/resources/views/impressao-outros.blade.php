@@ -14,6 +14,8 @@
     <p><b>DATA AGENDAMENTO: {{session()->get('hora')}}</b></p>
     <p><b>HORA PREVISTA: {{session()->get('data')}}</b></p>
     <p><b>TIPO DE OPERAÇÃO: @if(session()->get('tipo_operacao') == 3) Administração @else Outros @endif</b></p>
+    <p><b>MOTIVO DO AGENDAMENTO: {{session()->get('motivo')}}</b></p>
+
 
     <br>
     <p class="card-text"><b>TRANSPORTADORA: {{session()->get('transp')}}</b></p>

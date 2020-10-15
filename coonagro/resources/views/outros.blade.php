@@ -41,6 +41,19 @@
 
                 <div class="form-group">
                     <div style="text-align: left">
+                        <label><b>Motivo do Agendamento:</b></label>
+                    </div>
+
+                    <input
+                        name="motivo"
+                        type="text"
+                        class="form-control"
+                    >
+                    <br>
+                </div>
+
+                <div class="form-group">
+                    <div style="text-align: left">
                         <label><b>Tipo de Operação:</b></label>
                     </div>
 

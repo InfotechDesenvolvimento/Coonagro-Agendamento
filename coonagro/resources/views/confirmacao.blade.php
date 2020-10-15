@@ -31,6 +31,7 @@
                             </div>
                         </div> <hr>
 
+                        <p id="formconfirmation" class="card-text"><b>MOTIVO DO AGENDAMENTO: {{session()->get('motivo')}}</b></p> <hr>
                         <p id="formconfirmation" class="card-text"><b>CPF MOTORISTA: {{session()->get('cpf_motorista')}}</b></p> <hr>
                         <p id="formconfirmation" class="card-text"><b>NOME MOTORISTA: {{session()->get('nome_motorista')}}</b></p><hr>
                         <p id="formconfirmation" class="card-text"><b>TRANSPORTADORA: {{session()->get('transp')}}</b></p><hr>
