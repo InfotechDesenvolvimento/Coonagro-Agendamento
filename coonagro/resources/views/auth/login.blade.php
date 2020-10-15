@@ -12,7 +12,7 @@
 </head>
 
 <body style="background-image: url(/img/fundo_coonagro.jpeg); background-size: cover">
-	@if($error)
+	@if(isset($error))
 		<div id="msg" style="position: absolute" class="alert alert-danger alert-dismissible fade show" role="alert">
 	  <strong><i class="fas fa-exclamation-circle"></i> {{$error}}</strong>
 	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
