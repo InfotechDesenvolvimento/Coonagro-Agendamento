@@ -124,7 +124,7 @@
 
                     <input
                         name="num_nota"
-                        type="text"
+                        type="number"
                         class="form-control">
                     <br>
                 </div>
