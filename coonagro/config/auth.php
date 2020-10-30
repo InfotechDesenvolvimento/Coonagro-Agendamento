@@ -51,6 +51,16 @@ return [
             'driver' => 'session',
             'provider' => 'clientes',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'transportadora' => [
+            'driver' => 'session',
+            'provider' => 'transportadoras',
+        ]
     ],
 
     /*
@@ -73,7 +83,22 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\ClienteModel::class,
+            'model' => App\User::class,
+        ],
+
+        'clientes' => [
+            'driver' => 'eloquent',
+            'model' => App\Cliente::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Administrador::class,
+        ],
+
+        'transportadoras' => [
+            'driver' => 'eloquent',
+            'model' => App\Transportadora::class,
         ],
 
         // 'clientes' => [

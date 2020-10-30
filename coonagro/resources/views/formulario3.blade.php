@@ -1,4 +1,4 @@
-@extends('form-principal')
+@extends('layouts.form-principal')
 
 @section('conteudo')
 

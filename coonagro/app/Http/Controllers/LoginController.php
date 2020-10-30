@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\ClienteModel;
+use App\Cliente;
 
 class LoginController extends Controller{
     public function __construct(){
@@ -32,10 +32,10 @@ class LoginController extends Controller{
         return redirect('/login');
       }
 
-      $user = ClienteModel::where('USUARIO', '=', $request->get('user'))->first();
+      $user = Cliente::where('USUARIO', '=', $request->get('user'))->first();
 
       if($user){
-        $user = ClienteModel::where('SENHA', '=', $request->get('password'))->where('BLOQUEADO', '=', 'N')->first();
+        $user = Cliente::where('SENHA', '=', $request->get('password'))->where('BLOQUEADO', '=', 'N')->first();
 
         if($user!=null){
           Auth::login($user);

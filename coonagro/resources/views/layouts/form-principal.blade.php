@@ -22,12 +22,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js"></script>
 
-
-
 </head>
 <body style="-webkit-font-smoothing: antialiased;">
 <div style="text-align:center">
-    <img id="imgForm" src="img/fundoForm.png" style="max-height: 230px;">
+    <img id="imgForm" src="/img/capa.png" style="max-height: 230px;">
 </div>
 @yield('conteudo')
 </body>
