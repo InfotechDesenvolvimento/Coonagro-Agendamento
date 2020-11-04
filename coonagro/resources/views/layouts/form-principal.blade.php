@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="@yield('css')">
 
     <script
         src="https://code.jquery.com/jquery-3.5.1.min.js"

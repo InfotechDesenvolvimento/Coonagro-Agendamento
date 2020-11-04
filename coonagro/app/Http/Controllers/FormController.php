@@ -6,7 +6,7 @@ use App\AgendamentoOutrosModel;
 use DB;
 use Request;
 // use Illuminate\Http\Request;
-use App\PedidoTransporteModel;
+use App\PedidoTransporte;
 use App\AgendamentoModel;
 use App\ProdAgendamentoModel;
 use App\EmbalagemModel;
@@ -24,7 +24,7 @@ class FormController extends Controller{
         session()->put('num_pedido', $num_pedido);
         session()->put('data_agendamento', $data_agendamento);
 
-        $pedido = PedidoTransporteModel::where('NUM_PEDIDO', '=', $num_pedido)
+        $pedido = PedidoTransporte::where('NUM_PEDIDO', '=', $num_pedido)
             ->where('COD_STATUS', '=', 1)
             ->get();
 
@@ -49,7 +49,7 @@ class FormController extends Controller{
 
     public function validationSaldoProduct(){
         $cod_product = Request::input('cod_product');
-        $pedido = PedidoTransporteModel::where('NUM_PEDIDO', '=', session('num_pedido'))
+        $pedido = PedidoTransporte::where('NUM_PEDIDO', '=', session('num_pedido'))
             ->where('COD_STATUS', '=', 1)
             ->where('COD_PRODUTO', '=', $cod_product)
             ->first();

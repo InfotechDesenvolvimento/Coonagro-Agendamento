@@ -7,6 +7,7 @@ use Auth;
 use App\Cliente;
 
 class LoginController extends Controller{
+
     public function __construct(){
       $user = Auth::user();
     }

@@ -7,9 +7,14 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
+Route::get('/', function (){
+    return view('auth.login');
+});
 
+Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
+Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
+Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');
 
 
 //Route::group(['middleware' => 'auth'], function() {

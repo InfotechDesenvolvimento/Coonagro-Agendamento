@@ -1,0 +1,22 @@
+.container, .container .modal-body, .container .row{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.container .row{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.title{
+    color: #969595;
+    font-weight: 600;
+}
+
+.title, .dado{
+    font-size: 1.0rem;
+}
+
+.modal-body div{
+    text-align: left;
+}

@@ -2,33 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Administrador.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Transportadora.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/public/img/fundo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/home.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/operacao.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/coonagro-agendamento.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/coonagro-agendamento.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/346df58b-9c47-4cd4-90e8-766f6fa7965a.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/AgendamentoController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/CarregamentoController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/TransportadoraController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/public/css/agendamento.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/public/css/carregamento.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/agendamento.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/carregamento.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/ClienteModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Cliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/FormController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/public/css/loginAdm.css" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/public/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/PedidoTransporteModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/PedidoTransporte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/ProdutoModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Produto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Transportadora.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Transportadora.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/public/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/confirmacao.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/confirmacao.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/confirmation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/confirmation.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/error.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/error.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/form-principal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/layouts/form-principal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/formulario1.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/formulario1.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/formulario2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/formulario2.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/formulario3.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/formulario3.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/mensagem-sucesso.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/mensagem-sucesso.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/message-success.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/message-success.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/outros.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/outros.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/operacao.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/operacao.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/layouts/form-principal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/layouts/form-principal.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +39,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="composer.json" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -169,7 +163,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/coonagro/public/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Coonagro-Chamado" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -217,7 +212,11 @@
       <workItem from="1603980415800" duration="4077000" />
       <workItem from="1603997966172" duration="7158000" />
       <workItem from="1604057077144" duration="1259000" />
-      <workItem from="1604064518607" duration="10858000" />
+      <workItem from="1604064518607" duration="12987000" />
+      <workItem from="1604143531718" duration="4151000" />
+      <workItem from="1604402608199" duration="1611000" />
+      <workItem from="1604431291287" duration="3378000" />
+      <workItem from="1604490053114" duration="14512000" />
     </task>
     <servers />
   </component>
@@ -233,10 +232,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1602768205833" />
-    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603998115213">
+    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604152454060">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1603998115213" />
+    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1604152454060" />
     <state x="413" y="125" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603998149559">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -245,22 +244,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="459" y="251" width="447" height="308" key="ComposerInitDialogKey/0.0.1366.738@0.0.1366.738" timestamp="1602683627663" />
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1604067429876">
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1604427560359">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604067429876" />
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604427560359" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1602768164542">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1366.738@0.0.1366.738" timestamp="1602768164542" />
-    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1603998138201">
+    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1604513951776">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1603998138201" />
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1604085263483">
+    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1604513951776" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1604494848487">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1604085263483" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1604494848487" />
     <state x="184" y="14" key="SettingsEditor" timestamp="1602765283898">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -269,5 +268,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="0" y="0" width="627" height="738" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1603997952492" />
+    <state x="339" y="165" key="run.anything.popup" timestamp="1604144960772">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1604144960772" />
   </component>
 </project>
