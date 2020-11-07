@@ -26,7 +26,7 @@
                             <tr>
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->produto->DESCRICAO}}</td>
-                                <td>{{$pedido->SALDO_RESTANTE}}</td>
+                                <td>{{number_format($pedido->SALDO_RESTANTE, 3, ',', '.')}}</td>
                                 <td class="agendamento">
                                     <a href="{{route('cliente.agendamento', $pedido->NUM_PEDIDO)}}" title="Realizar Agendamento">
                                         <i class="fas fa-arrow-right"></i>

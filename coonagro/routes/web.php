@@ -16,7 +16,7 @@ Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente
 Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
 Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');
 
-
+Route::post('cliente/carregamento', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
 //Route::group(['middleware' => 'auth'], function() {
 //
 //    Route::get('/', function () {

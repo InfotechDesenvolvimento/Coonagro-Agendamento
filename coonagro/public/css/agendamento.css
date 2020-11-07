@@ -20,3 +20,25 @@
 .modal-body div{
     text-align: left;
 }
+
+fieldset{
+    border: 1px dotted #cecece;
+}
+
+legend{
+    width: auto;
+    margin-left: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #5f5e5e;
+}
+
+.invalido{
+    border-color: red;
+}
+
+.invalido:focus{
+    border-color: red;
+    box-shadow: 0 0 0 0.2rem rgb(255 0 0 / 25%);
+}
