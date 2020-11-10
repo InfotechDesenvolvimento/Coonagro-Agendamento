@@ -9,6 +9,13 @@
 
         <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTO DE CARREGAMENTO</b> </h4>
 
+        <?php
+            $old = null;
+
+            if(session()->has('agendamento'))
+                $old = json_decode(session()->get('agendamento'));
+        ?>
+
         <div class="modal-body">
             <div class="row">
                 <div class="col-sm-4 col-12">
@@ -27,6 +34,8 @@
             <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post">
                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                 <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE}}">
+                <input type="hidden" name="num_pedido" value="{{$pedido->NUM_PEDIDO}}">
+                <input type="hidden" name="produto" value="{{$pedido->produto->DESCRICAO}}">
 
                 <div class="row">
                     <div class="form-group col-sm-6">
@@ -37,7 +46,7 @@
                             id="data_agendamento"
                             min='<?php echo date("Y-m-d"); ?>'
                             type="date"
-                            value='<?php echo date("Y-m-d", strtotime("+1 day"))?>'
+                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
                             class="form-control"
                             required
                         >
@@ -55,6 +64,7 @@
                                name="quantidade"
                                class="form-control peso"
                                onkeypress="return somenteNumeros(event)"
+                               value="@if($old != null) {{$old->quantidade}} @endif"
                                required
                         >
 
@@ -72,6 +82,7 @@
                                inputmode="numeric"
                                type="text"
                                name="cnpj_transportadora"
+                               value="@if($old != null) {{$old->cnpj_transportadora}} @endif"
                                class="form-control"
                                maxlength="18"
                                minlength="14"
@@ -86,6 +97,7 @@
                         <input id="transportadora"
                                type="text"
                                name="transportadora"
+                               value="@if($old != null) {{$old->transportadora}} @endif"
                                class="form-control"
                                required
                         >
@@ -104,6 +116,7 @@
                                     <input id="placa_cavalo"
                                            type="text"
                                            name="placa_cavalo"
+                                           value="@if($old != null) {{$old->placa_cavalo}} @endif"
                                            class="form-control"
                                            style="text-transform: uppercase"
                                            maxlength="7"
@@ -119,6 +132,7 @@
                                     <input id="placa_carreta"
                                            type="text"
                                            name="placa_carreta"
+                                           value="@if($old != null) {{$old->placa_carreta}} @endif"
                                            class="form-control"
                                            style="text-transform: uppercase"
                                            maxlength="7"
@@ -138,11 +152,25 @@
                                             name="tipo_veiculo[]"
                                             required
                                     >
-                                        <option value='{"id": 0, "carga": 0}'>--</option>
+                                        <?php
+                                            $tipo_veiculo = null;
+
+                                           if($old != null)
+                                               $tipo_veiculo = json_decode($old->tipo_veiculo[0]);
+                                        ?>
+
                                         @foreach($tipos as $tipo)
-                                            <option value='{"id": {{$tipo->CODIGO}}, "carga": {{$tipo->CARGA_MAXIMA}}}'>{{$tipo->TIPO_VEICULO}}</option>
+                                            <option value='{"id": {{$tipo->CODIGO}}, "carga": {{$tipo->CARGA_MAXIMA}}}'
+                                                    @if($tipo_veiculo != null)
+                                                        @if($tipo_veiculo->id == $tipo->CODIGO)
+                                                            selected
+                                                        @endif
+                                                    @endif
+                                            >{{$tipo->TIPO_VEICULO}}</option>
                                         @endforeach
                                     </select>
+
+                                    <input type="hidden" name="tipo_veiculo_nome" id="tipo_veiculo_id" value="">
 
                                     <div class="invalid-feedback" id="invalid-carga">
                                         Capacidade máxima do veículo não suporta a quantidade informada
@@ -157,6 +185,7 @@
                                     <input id="tara"
                                            type="text"
                                            name="tara"
+                                           value="@if($old != null) {{$old->tara}} @endif"
                                            class="form-control peso"
                                            required
                                     >
@@ -168,6 +197,7 @@
                                     <input id="renavam"
                                            type="text"
                                            name="renavam"
+                                           value="@if($old != null) {{$old->renavam}} @endif"
                                            class="form-control"
                                            maxlength="11"
                                            minlength="11"
@@ -192,6 +222,7 @@
                                     <input id="cpf_motorista"
                                            type="text"
                                            name="cpf_motorista"
+                                           value="@if($old != null) {{$old->cpf_motorista}} @endif"
                                            class="form-control"
                                            required
                                     >
@@ -203,6 +234,7 @@
                                     <input id="nome_motorista"
                                            type="text"
                                            name="nome_motorista"
+                                           value="@if($old != null) {{$old->nome_motorista}} @endif"
                                            class="form-control"
                                            required
                                     >
@@ -216,6 +248,7 @@
                                     <input id="cnh"
                                            type="text"
                                            name="cnh"
+                                           value="@if($old != null) {{$old->cnh}} @endif"
                                            class="form-control"
                                            minlength="11"
                                            maxlength="11"
@@ -225,11 +258,12 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Validade CNH</label>
+                                    <label class="title">Validade da CNH</label>
 
                                     <input
                                         id="validade_cnh"
                                         name="validade_cnh"
+                                        value="<?php if($old != null) echo $old->validade_cnh ?>"
                                         type="date"
                                         class="form-control"
                                         required
@@ -249,9 +283,14 @@
                                 class="form-control"
                                 required
                         >
-                            <option value="0">--</option>
                             @foreach($embalagens as $embalagem)
-                                <option value="{{$embalagem->CODIGO}}">{{$embalagem->TIPO_EMBALAGEM}}</option>
+                                <option value="{{$embalagem->CODIGO}}"
+                                    @if($old != null)
+                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
+                                            selected
+                                        @endif
+                                    @endif
+                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -273,7 +312,7 @@
             <div class="col-sm-12">
                 <a href="{{route('cliente.carregamento')}}">
                     <button class="btn btn-success btn-lg btn-block back">
-                        <b> <i class="fas fa-arrow-left"></i> Voltar </b>
+                        <i class="fas fa-arrow-left"></i> Voltar
                     </button>
                 </a>
             </div>

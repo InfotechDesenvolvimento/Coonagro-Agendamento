@@ -42,3 +42,11 @@ legend{
     border-color: red;
     box-shadow: 0 0 0 0.2rem rgb(255 0 0 / 25%);
 }
+
+.confirmacao .row div{
+    text-align: left;
+}
+
+.modal-body{
+    padding-bottom: 0;
+}

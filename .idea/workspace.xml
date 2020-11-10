@@ -2,22 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/MotoristaController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/VeiculoController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Motorista.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/TipoEmbalagem.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/TipoVeiculo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/app/Veiculo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/public/js/agendamento.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/confirmacao-carregamento.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/AgendamentoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/AgendamentoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/TransportadoraController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/TransportadoraController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/VeiculoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/VeiculoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Veiculo.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Veiculo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/public/css/agendamento.css" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/public/css/agendamento.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/public/js/agendamento.js" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/public/js/agendamento.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/agendamento.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/agendamento.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/carregamento.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/carregamento.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/layouts/form-principal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/layouts/form-principal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +210,9 @@
       <workItem from="1604490053114" duration="18231000" />
       <workItem from="1604574623912" duration="14600000" />
       <workItem from="1604660772975" duration="15034000" />
-      <workItem from="1604749763910" duration="6992000" />
+      <workItem from="1604749763910" duration="7083000" />
+      <workItem from="1604924407518" duration="13745000" />
+      <workItem from="1605010545176" duration="9498000" />
     </task>
     <servers />
   </component>
@@ -252,22 +248,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1366.738@0.0.1366.738" timestamp="1602768164542" />
-    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1604689807306">
+    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1604925001741">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1604689807306" />
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1604494848487">
+    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1604925001741" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1604925011987">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1604494848487" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1604925011987" />
     <state x="184" y="14" key="SettingsEditor" timestamp="1602765283898">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="184" y="14" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1602765283898" />
-    <state x="0" y="0" width="627" height="738" key="find.popup" timestamp="1604576227780">
+    <state x="0" y="0" width="627" height="738" key="find.popup" timestamp="1604946365077">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="0" y="0" width="627" height="738" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1604576227780" />
+    <state x="0" y="0" width="627" height="738" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1604946365077" />
     <state x="339" y="165" key="run.anything.popup" timestamp="1604144960772">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

@@ -16,7 +16,13 @@ Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente
 Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
 Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');
 
-Route::post('cliente/carregamento', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
+Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
+Route::post('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
+//Route::get('cliente/carregamento-retornar', 'cliente\AgendamentoController@retornarCarregamento');
+//
+//Route::get('cliente/carregamento/confirmacao', function (){
+//    return view('cliente.')
+//})
 //Route::group(['middleware' => 'auth'], function() {
 //
 //    Route::get('/', function () {

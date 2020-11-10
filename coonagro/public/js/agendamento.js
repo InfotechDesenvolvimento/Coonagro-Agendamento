@@ -50,8 +50,9 @@ $('#placa_cavalo').focusout(function () {
 
             let tipo_veiculo = data.COD_TIPO_VEICULO;
 
-            if(tipo_veiculo > 0)
-                document.getElementById('tipo_veiculo').value = tipo_veiculo;
+            if(tipo_veiculo > 0) {
+                document.getElementById('tipo_veiculo').value = `{"id": ${tipo_veiculo}, "carga": ${data.tipo_veiculo.CARGA_MAXIMA}}`;
+            }
         });
     }
 });
@@ -112,6 +113,8 @@ $('#tipo_veiculo').change(function () {
 
     if (tipo_veiculo.id > 0){
         verificarTipoVeiculo(tipo_veiculo.carga);
+
+        $('#tipo_veiculo_id').val(tipo_veiculo.id);
     }
 });
 

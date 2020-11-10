@@ -44,7 +44,7 @@
             <div class="col-lg-4 col-md-6 col-sm-7">
                 <a href="{{route('cliente.operacao')}}">
                     <button class="btn btn-success btn-lg btn-block back">
-                        <b> <i class="fas fa-arrow-left"></i> Voltar </b>
+                        <i class="fas fa-arrow-left"></i> Voltar
                     </button>
                 </a>
             </div>
