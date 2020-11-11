@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Codigos;
 use App\Transportadora;
 
 class TransportadoraController extends Controller
@@ -17,6 +18,26 @@ class TransportadoraController extends Controller
         }
 
         return response()->json(Transportadora::where('CPF_CNPJ', $identificacao)->first());
+    }
+
+    public function getTransportadoraFormatada($identificacao){
+        return response()->json(Transportadora::where('CPF_CNPJ', $identificacao)->first());
+    }
+
+    public function insert(Transportadora $transportadora){
+        $codigos = Codigos::find(274);
+
+        $transportadora->CODIGO = $codigos->CODIGO_PRIMARIO;
+
+        $codigos->CODIGO_PRIMARIO = $codigos->CODIGO_PRIMARIO + 1;
+        $codigos->save();
+
+        $transportadora->DATA_CADASTRO = date("Y/m/d");
+        $transportadora->DATA_ALTERACAO = date("Y/m/d");
+
+        $transportadora->save();
+
+        return $transportadora;
     }
 
     public function formataCpf($identificacao){

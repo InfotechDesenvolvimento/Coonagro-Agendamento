@@ -132,13 +132,33 @@ $('#data_agendamento').change(function () {
         if(data_atual.getHours() >= 17){
             $('#invalid-data').css('display', 'block');
             $('#data_agendamento').addClass('invalido');
+
+            invalida_data = true;
         } else {
             $('#invalid-data').css('display', 'none');
             $('#data_agendamento').removeClass('invalido');
+
+            invalida_data = false;
         }
     } else {
         $('#invalid-data').css('display', 'none');
         $('#data_agendamento').removeClass('invalido');
+
+        invalida_data = false;
+    }
+});
+
+$('#formAgendamento').submit(function (event) {
+
+    if(invalida_data){
+        event.preventDefault();
+        $('#data_agendamento').focus();
+    } else if(invalida_carga){
+        event.preventDefault();
+        $('#tipo_veiculo').focus();
+    } else if(invalida_quantidade){
+        event.preventDefault();
+        $('#quantidade').focus();
     }
 });
 

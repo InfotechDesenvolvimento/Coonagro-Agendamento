@@ -7,7 +7,7 @@ use DB;
 use Request;
 // use Illuminate\Http\Request;
 use App\PedidoTransporte;
-use App\AgendamentoModel;
+use App\Agendamento;
 use App\ProdAgendamentoModel;
 use App\EmbalagemModel;
 
@@ -100,7 +100,7 @@ class FormController extends Controller{
         if($aux){
             return view('error');
         }else{
-            $agendamento = new AgendamentoModel();
+            $agendamento = new Agendamento();
 
             $agendamento->DATA_CADASTRO = date("Y/m/d");
             $agendamento->DATA_ALTERACAO = date("Y/m/d");

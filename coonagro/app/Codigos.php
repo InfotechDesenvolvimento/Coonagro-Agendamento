@@ -1,14 +1,12 @@
 <?php
 
-
 namespace App;
-
 
 use Illuminate\Database\Eloquent\Model;
 
-class Motorista extends Model
+class Codigos extends Model
 {
-    protected $table = 'motorista';
-
+    protected $primaryKey = 'CODIGO';
+    protected $table = "codigos";
     public $timestamps = false;
 }

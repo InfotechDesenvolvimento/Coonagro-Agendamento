@@ -31,11 +31,12 @@
 
             <hr>
 
-            <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                 <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE}}">
                 <input type="hidden" name="num_pedido" value="{{$pedido->NUM_PEDIDO}}">
                 <input type="hidden" name="produto" value="{{$pedido->produto->DESCRICAO}}">
+                <input type="hidden" name="cod_produto" value="{{$pedido->produto->CODIGO}}">
 
                 <div class="row">
                     <div class="form-group col-sm-6">
