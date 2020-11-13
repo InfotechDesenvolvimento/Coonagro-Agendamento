@@ -2,21 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/coonagro/public/css/sucesso.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/mensagem-sucesso.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/imprimir.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/coonagro-agendamento.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/coonagro-agendamento.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/AgendamentoModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Agendamento.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Agendamento.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Agendamento.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/AgendamentoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/AgendamentoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/MotoristaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/MotoristaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/TransportadoraController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/TransportadoraController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/VeiculoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/VeiculoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Motorista.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Motorista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Transportadora.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Transportadora.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/app/Veiculo.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Veiculo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/CarregamentoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/Http/Controllers/Cliente/CarregamentoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/app/PedidoTransporte.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/app/PedidoTransporte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/public/css/sucesso.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/public/js/agendamento.js" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/public/js/agendamento.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/agendamento.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/agendamento.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/carregamento.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/carregamento.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/resources/views/cliente/mensagem-sucesso.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/resources/views/cliente/mensagem-sucesso.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coonagro/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,6 +145,9 @@
       <path value="$PROJECT_DIR$/coonagro/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/coonagro/vendor/mockery/mockery" />
       <path value="$PROJECT_DIR$/coonagro/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/simplesoftwareio/simple-qrcode" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/coonagro/vendor/dasprid/enum" />
     </include_path>
   </component>
   <component name="ProjectId" id="1is5LeuIhSSylLI39jDGBgr5O1m" />
@@ -166,13 +170,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\Coonagro-Agendamento\coonagro\resources\views\layouts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Coonagro-Agendamento\coonagro\public\img" />
       <recent name="C:\xampp\htdocs\Coonagro-Agendamento\coonagro" />
       <recent name="C:\xampp\htdocs\coonagro-agendamento\coonagro" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Coonagro-Agendamento\coonagro\resources\views\layouts" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -218,7 +222,8 @@
       <workItem from="1604749763910" duration="7083000" />
       <workItem from="1604924407518" duration="13745000" />
       <workItem from="1605010545176" duration="22015000" />
-      <workItem from="1605099002098" duration="6323000" />
+      <workItem from="1605099002098" duration="20450000" />
+      <workItem from="1605271264044" duration="12433000" />
     </task>
     <servers />
   </component>
@@ -230,10 +235,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="493" y="248" key="#Composer/0.0.1366.738@0.0.1366.738" timestamp="1602683437021" />
-    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602768205833">
+    <state x="204" y="50" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605121085058">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1602768205833" />
+    <state x="204" y="50" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1605121085058" />
     <state x="488" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1605037483602">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -242,10 +247,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1605028182569" />
-    <state x="413" y="125" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605035873137">
+    <state x="413" y="125" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605273361510">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="413" y="125" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1605035873137" />
+    <state x="413" y="125" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1605273361510" />
     <state x="459" y="251" width="447" height="308" key="ComposerInitDialogKey" timestamp="1602683627663">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -262,10 +267,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1604925001741" />
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1605104991657">
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1605106565986">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1605104991657" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1605106565986" />
     <state x="184" y="14" key="SettingsEditor" timestamp="1602765283898">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

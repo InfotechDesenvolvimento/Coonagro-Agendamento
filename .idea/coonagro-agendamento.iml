@@ -7,9 +7,11 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/coonagro/app" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/asm89/stack-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/bacon/bacon-qr-code" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/barryvdh/laravel-dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/dasprid/enum" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/doctrine/inflector" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/doctrine/instantiator" />
@@ -79,6 +81,7 @@
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/sebastian/resource-operations" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/simplesoftwareio/simple-qrcode" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/coonagro/vendor/symfony/css-selector" />

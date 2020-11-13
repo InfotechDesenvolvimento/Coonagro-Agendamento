@@ -10,3 +10,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/transportadora/{identificacao}', 'TransportadoraController@getTransportadora');
 Route::get('/veiculo/{placa}', 'VeiculoController@getVeiculo');
 Route::get('/motorista/{identificacao}', 'MotoristaController@show');
+Route::get('/cota/{cliente}/{data}', 'CotaClienteController@show');

@@ -1,6 +1,7 @@
 let invalida_quantidade = false;
 let invalida_carga = false;
 let invalida_data = false;
+let invalida_cota = false;
 
 $(document).ready(function () {
     $(".peso").maskMoney({symbol:'R$ ',
@@ -14,13 +15,20 @@ $(document).ready(function () {
     $('#cpf_motorista').mask('000.000.000-00');
 });
 
-
 let options = {
     onKeyPress: function (cpf, ev, el, op) {
         let masks = ['000.000.000-000', '00.000.000/0000-00'];
         $('#cnpj_transportadora').mask((cpf.length > 14) ? masks[1] : masks[0], op);
     }
 };
+
+$('#data_agendamento').focusout(function () {
+    verificarCota();
+});
+
+$('#quantidade').focusout(function () {
+    verificarCota();
+});
 
 $('#cnpj_transportadora').focusout(function () {
     let identificacao = retirarEspeciais($('#cnpj_transportadora').val());
@@ -149,8 +157,7 @@ $('#data_agendamento').change(function () {
 });
 
 $('#formAgendamento').submit(function (event) {
-
-    if(invalida_data){
+    if(invalida_data || invalida_cota){
         event.preventDefault();
         $('#data_agendamento').focus();
     } else if(invalida_carga){
@@ -185,6 +192,36 @@ function verificarTipoVeiculo(valor) {
         $('#tipo_veiculo').removeClass('invalido');
 
         invalida_carga = false;
+    }
+}
+
+function verificarCota() {
+
+    if(!invalida_quantidade && !invalida_data) {
+        let cliente = $('#cod_cliente').val();
+        let data = $('#data_agendamento').val();
+        let quantidade = formatarValor($('#quantidade').val());
+
+        if(quantidade > 0){
+            $.getJSON('/api/cota/' + cliente + '/' + data, function (data) {
+                if((data.SALDO_LIVRE - data.TOTAL_AGENDADO) >= quantidade){
+                    invalida_cota = false;
+
+                    $('#invalid-cota').css('display', 'none');
+                    $('#data_agendamento').removeClass('invalido');
+                } else {
+                    invalida_cota = true;
+
+                    $('#invalid-cota').css('display', 'block');
+                    $('#data_agendamento').addClass('invalido');
+                }
+            });
+        }
+    } else {
+        invalida_cota = false;
+
+        $('#invalid-cota').css('display', 'none');
+        $(this).removeClass('invalido');
     }
 }
 

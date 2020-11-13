@@ -33,10 +33,11 @@
 
             <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-                <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE}}">
+                <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO}}">
                 <input type="hidden" name="num_pedido" value="{{$pedido->NUM_PEDIDO}}">
                 <input type="hidden" name="produto" value="{{$pedido->produto->DESCRICAO}}">
                 <input type="hidden" name="cod_produto" value="{{$pedido->produto->CODIGO}}">
+                <input type="hidden" id="cod_cliente" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
 
                 <div class="row">
                     <div class="form-group col-sm-6">
@@ -54,6 +55,10 @@
 
                         <div class="invalid-feedback" id="invalid-data">
                             Horário limite até às 17:00 hrs
+                        </div>
+
+                        <div class="invalid-feedback" id="invalid-cota">
+                            Cota diária do cliente excedida
                         </div>
                     </div>
 

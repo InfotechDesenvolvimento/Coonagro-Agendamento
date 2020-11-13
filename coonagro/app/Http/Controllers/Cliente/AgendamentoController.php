@@ -7,7 +7,9 @@ namespace App\Http\Controllers\Cliente;
 use App\Agendamento;
 use App\Codigos;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CotaClienteController;
 use App\Http\Controllers\MotoristaController;
+use App\Http\Controllers\PedidoTransporteController;
 use App\Http\Controllers\TransportadoraController;
 use App\Http\Controllers\VeiculoController;
 use App\Motorista;
@@ -18,11 +20,10 @@ use App\Transportadora;
 use App\Veiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AgendamentoController extends Controller
 {
-    private $request;
-
     public function __construct(){
         $this->middleware('auth:cliente');
     }
@@ -148,18 +149,40 @@ class AgendamentoController extends Controller
         $agendamento->DATA_ALTERACAO = date("Y/m/d");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
 
-        $agendamento->save();
+        if($agendamento->save())
+        {
+            $objPedidoTransporte = new PedidoTransporteController();
+            $objPedidoTransporte->update($agendamento->NUM_PEDIDO, $agendamento->QUANTIDADE);
 
-        //session()->forget('agendamento');
+            $cod_cliente = Auth::user()->getAuthIdentifier();
+            $objCotaCliente = new CotaClienteController();
+            $objCotaCliente->update($cod_cliente, $agendamento->DATA_AGENDAMENTO, $agendamento->QUANTIDADE);
+        }
 
-        return view('cliente.mensagem-sucesso', compact('agendamento'));
+        $cod_agendamento = $agendamento->CODIGO;
+
+        session()->forget('agendamento');
+
+        return redirect()->route('carregamento.sucesso', $cod_agendamento);
+    }
+
+    public function sucesso($cod_agendamento){
+        return view('cliente.mensagem-sucesso', compact('cod_agendamento'));
+    }
+
+    public function show($codigo){
+        return Agendamento::find($codigo)->with(['produto', 'embalagem', 'tipoVeiculo'])->first();
     }
 
     public function imprimir($cod_agendamento){
-        
+
+        $agendamento = $this->show($cod_agendamento);
+
+        $qrcode = QrCode::size(150)->generate($agendamento->CODIGO);
+
+        return \PDF::loadView('cliente.imprimir', ['agendamento' => $agendamento, 'qrcode' => $qrcode])
+            ->stream('agendamento-coonagro.pdf');
     }
-
-
 
     public function formataValor($valor){
         $valor = str_replace('.', '', $valor);

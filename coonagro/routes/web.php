@@ -18,6 +18,12 @@ Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index'
 
 Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
 Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
+Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
+Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
+
+
+
+
 //Route::get('cliente/carregamento-retornar', 'cliente\AgendamentoController@retornarCarregamento');
 //
 //Route::get('cliente/carregamento/confirmacao', function (){
