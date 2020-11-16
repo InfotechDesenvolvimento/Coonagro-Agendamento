@@ -9,11 +9,11 @@
             <h4 style="padding: 30px; color: #63950A"> <b>TIPO DE OPERAÇÃO</b> </h4>
 
             <a href="{{route('cliente.carregamento')}}">
-                <button class="btn btn-success btn-lg btn-block btn2">
+                <button class="btn btn-info btn-lg btn-block">
                     <b><i class="fas fa-truck-loading"></i> Carregamento </b>
                 </button>
             </a>
-            <button class="btn btn-success btn-lg btn-block btn1">
+            <button class="btn btn-warning btn-lg btn-block">
                 <b> <i class="fas fa-hand-point-right"></i> Outros </b>
             </button>
 
