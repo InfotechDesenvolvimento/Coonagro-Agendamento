@@ -12,6 +12,7 @@ Route::get('/', function (){
 });
 
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
+Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
 Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
 Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');

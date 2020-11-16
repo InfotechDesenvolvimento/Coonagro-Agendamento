@@ -1,0 +1,42 @@
+#formConsulta div{
+    text-align: left;
+    font-weight: 500;
+    color: grey;
+}
+
+.panel-reduzido{
+    padding: 0;
+}
+
+button{
+    width: 100%;
+}
+
+.tabela .row{
+    width: 100%;
+    margin-left: 0;
+}
+
+.tabela .row .col-sm-12{
+    padding-left: 0;
+    padding-right: 0;
+}
+#table{
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
+    margin-top: 8px;
+    background-color: #00a755 !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    margin-top: 8px;
+}
+
+table.dataTable {
+    border-collapse: collapse !important;
+}

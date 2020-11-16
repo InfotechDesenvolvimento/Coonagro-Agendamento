@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 #imgForm{
-  width: 600px;
+    width: 600px;
 }
 
 #fontConfirmation{
@@ -86,10 +86,20 @@ a:hover {
 @media (max-width: 900px) {
 
     #imgForm {
+        width: 500px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #imgForm {
         width: 300px;
     }
+}
 
-    #formconfirmation{
-      font-size: 13px;
+@media (max-width: 300px) {
+
+    #imgForm {
+        width: 200px;
     }
 }

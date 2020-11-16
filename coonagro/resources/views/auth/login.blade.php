@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="input-group mb-3 justify-content-center" style="margin-top: 15px;">
-                        <div class="row" style="margin-left: 0; margin-right: 0">
+                        <div class="row" style="margin-left: 0; margin-right: 0; width: 100%">
                             <div class="opcao col-sm-4 col-6 text-center">
                                 <input type="radio" id="adm" name="tipo_usuario" value="adn">
                                 <label for="adm"><img src="./img/manager.svg" alt="">Administrativo</label>

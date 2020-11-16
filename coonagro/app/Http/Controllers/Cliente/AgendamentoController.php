@@ -184,6 +184,21 @@ class AgendamentoController extends Controller
             ->stream('agendamento-coonagro.pdf');
     }
 
+    public function filter(Request $request){
+
+        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                $query->where('CODIGO', $request->get('num_agendamento'));
+                        })->when($request->get('status') != "0", function ($query) use ($request){
+                                $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                        })->when($request->get('data_inicial') != "", function ($query) use ($request){
+                                $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
+                        })->when($request->get('data_final') != "", function ($query) use ($request){
+                                $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
+                        })->with('status')->orderBy('CODIGO')->get();
+
+        return response()->json($agendamentos);
+    }
+
     public function formataValor($valor){
         $valor = str_replace('.', '', $valor);
         $valor = str_replace(',', '.', $valor);

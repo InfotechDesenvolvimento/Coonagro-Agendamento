@@ -26,10 +26,10 @@ class CotaClienteController extends Controller
 
                 $cota->COD_CLIENTE = $cliente->CODIGO;
                 $cota->DATA = $data;
-                $cota->COTA_DIARIA = $cliente->COTA_LIVRE;
+                $cota->COTA_DIARIA = $cliente->COTA_MAXIMA_DIARIA;
                 $cota->TOTAL_AGENDADO = 0;
                 $cota->TOTAL_MOVIMENTADO = 0;
-                $cota->SALDO_LIVRE = $cliente->COTA_LIVRE;
+                $cota->SALDO_LIVRE = $cliente->COTA_MAXIMA_DIARIA;
                 $cota->PERCENTUAL_LIVRE = 100;
                 $cota->PERCENTUAL_MOVIMENTADO = 0;
 

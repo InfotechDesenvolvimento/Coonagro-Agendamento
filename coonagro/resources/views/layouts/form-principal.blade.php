@@ -28,7 +28,7 @@
 </head>
 <body style="-webkit-font-smoothing: antialiased;">
     <div style="text-align:center">
-        <img id="imgForm" src="/img/capa.png" style="max-height: 230px;">
+        <img id="imgForm" src="/img/capa.png">
     </div>
 
     @yield('conteudo')
@@ -39,3 +39,5 @@
 
 <script type="text/javascript" src="@yield('js')"></script>
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
+
+@yield('bloco-js')
