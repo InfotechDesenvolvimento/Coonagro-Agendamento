@@ -9,8 +9,9 @@ Auth::routes();
 
 Route::get('/', function (){
     return view('auth.login');
-});
+})->name('login');
 
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');

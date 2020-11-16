@@ -208,7 +208,6 @@
                                            maxlength="11"
                                            minlength="11"
                                            onkeypress="somenteNumeros(event)"
-                                           required
                                     >
                                 </div>
                             </div>

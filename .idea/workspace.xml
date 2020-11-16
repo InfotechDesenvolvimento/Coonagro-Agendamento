@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd582a-1865-4f71-93e3-d0740bacebcb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/operacao.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/operacao.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/agendamento.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/agendamento.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/mensagem-sucesso.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/resources/views/cliente/mensagem-sucesso.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coonagro/coonagro/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/coonagro/coonagro/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +153,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Coonagro-Chamado" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../agendamento" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
@@ -212,7 +217,8 @@
       <workItem from="1605352374289" duration="10650000" />
       <workItem from="1605524510070" duration="4382000" />
       <workItem from="1605529559194" duration="3762000" />
-      <workItem from="1605534634337" duration="39000" />
+      <workItem from="1605534634337" duration="1476000" />
+      <workItem from="1605558360739" duration="655000" />
     </task>
     <servers />
   </component>
@@ -244,18 +250,18 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="459" y="251" width="447" height="308" key="ComposerInitDialogKey/0.0.1366.738@0.0.1366.738" timestamp="1602683627663" />
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1604427560359">
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1605538279114">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604427560359" />
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1605538279114" />
     <state width="196" height="539" key="HiddenNamespacesPopup" timestamp="1602768164542">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="196" height="539" key="HiddenNamespacesPopup/0.0.1366.738@0.0.1366.738" timestamp="1602768164542" />
-    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1604925001741">
+    <state x="448" y="168" key="NewPhpClassDialog" timestamp="1605538054639">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1604925001741" />
+    <state x="448" y="168" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1605538054639" />
     <state x="517" y="288" key="NewPhpFileDialog" timestamp="1605106565986">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

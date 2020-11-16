@@ -86,6 +86,14 @@
                     </thead>
                 </table>
             </div>
+
+            <div class="row  justify-content-end">
+                <div class="col-sm-6">
+                    <a href="{{route('logout')}}">
+                        <button class="btn btn-danger">Sair</button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
