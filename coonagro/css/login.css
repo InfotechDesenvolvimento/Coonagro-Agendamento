@@ -7,7 +7,7 @@ html {
 }
 
 body{
-    background-image: url('/img/fundo.jpg'); background-size: cover
+    background-image: url('../img/fundo.jpg'); background-size: cover
 }
 
 .user_card {

@@ -34,7 +34,7 @@ $('#cnpj_transportadora').focusout(function () {
     let identificacao = retirarEspeciais($('#cnpj_transportadora').val());
 
     if(identificacao.length >= 11){
-        $.getJSON('/api/transportadora/' + identificacao, function (data) {
+        $.getJSON('../../api/transportadora/' + identificacao, function (data) {
             if(data){
                 $('#transportadora').val(data.NOME);
             }
@@ -46,7 +46,7 @@ $('#placa_cavalo').focusout(function () {
     let placa = retirarEspeciais($('#placa_cavalo').val());
 
     if(placa.length >= 7){
-        $.getJSON('/api/veiculo/' + placa, function (data) {
+        $.getJSON('../../api/veiculo/' + placa, function (data) {
             $('#renavam').val(data.RENAVAM);
             $('#placa_carreta').val(data.PLACA_CARRETA);
 
@@ -69,7 +69,7 @@ $('#cpf_motorista').focusout(function () {
    let cpf_motorista = $('#cpf_motorista').val();
 
    if(cpf_motorista.length >= 11){
-        $.getJSON('/api/motorista/' + cpf_motorista, function (data) {
+        $.getJSON('../../api/motorista/' + cpf_motorista, function (data) {
             $('#nome_motorista').val(data.NOME);
             $('#cnh').val(data.CNH);
             $('#validade_cnh').val(data.DATA_VALIDADE_CNH)
@@ -203,7 +203,7 @@ function verificarCota() {
         let quantidade = formatarValor($('#quantidade').val());
 
         if(quantidade > 0){
-            $.getJSON('/api/cota/' + cliente + '/' + data, function (data) {
+            $.getJSON('../../api/cota/' + cliente + '/' + data, function (data) {
 
                 if((data.SALDO_LIVRE - data.TOTAL_AGENDADO) >= quantidade){
                     invalida_cota = false;

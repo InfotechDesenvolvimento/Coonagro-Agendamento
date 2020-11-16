@@ -20,6 +20,7 @@ use App\Transportadora;
 use App\Veiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AgendamentoController extends Controller
@@ -171,17 +172,18 @@ class AgendamentoController extends Controller
     }
 
     public function show($codigo){
-        return Agendamento::find($codigo)->with(['produto', 'embalagem', 'tipoVeiculo'])->first();
+        return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo'])->first();
     }
 
     public function imprimir($cod_agendamento){
-
         $agendamento = $this->show($cod_agendamento);
 
         $qrcode = QrCode::size(150)->generate($agendamento->CODIGO);
 
         return \PDF::loadView('cliente.imprimir', ['agendamento' => $agendamento, 'qrcode' => $qrcode])
             ->stream('agendamento-coonagro.pdf');
+
+        //return view('cliente.imprimir', compact('agendamento'));
     }
 
     public function filter(Request $request){

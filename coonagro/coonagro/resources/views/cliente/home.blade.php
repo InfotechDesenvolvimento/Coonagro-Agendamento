@@ -1,6 +1,6 @@
 @extends('layouts.form-principal')
 
-@section('css')../../css/home.css @endsection
+@section('css')css/home.css @endsection
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
@@ -90,7 +90,7 @@
     </div>
 @endsection
 
-@section('js')../../js/home.js @endsection
+@section('js')js/home.js @endsection
 
 @section('bloco-js')
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

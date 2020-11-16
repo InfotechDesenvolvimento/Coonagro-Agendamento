@@ -2,15 +2,15 @@
 <html>
 
 <head>
-    <link rel="sortcut icon" href="/img/logo-login.png" type="image/png" style="border-radius:50px" />
+    <link rel="sortcut icon" href="img/logo-login.png" type="image/png" style="border-radius:50px" />
     <title>Coonagro - Cooperativa Naciona Agroindustrial</title>
     <meta charset="utf-8" name="viewport" content="{{ csrf_token() }} width=device-width, initial-scale=1.0" >
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/css/login.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <div class="user_card">
             <div class="d-flex justify-content-center">
                 <div class="brand_logo_container">
-                    <img src="/img/logo-login.png" class="brand_logo" alt="Logo">
+                    <img src="img/logo-login.png" class="brand_logo" alt="Logo">
                 </div>
             </div>
             <div class="d-flex justify-content-center">
