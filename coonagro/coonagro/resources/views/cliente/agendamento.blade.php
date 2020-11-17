@@ -301,6 +301,19 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label class="title">Observação</label>
+                        <textarea 
+                                    name="observacao"
+                                    id="observacao" 
+                                    rows="10"
+                                    class="form-control"
+                                    ></textarea>
+                    </div>
+                </div>
+
+                <br>
 
                 <div class="row">
                     <div class="form-group col-sm-12">

@@ -49,7 +49,7 @@ class LoginController extends Controller
                 case('cliente'):
                     return redirect()->route('cliente.home');
                 case('transporadora'):
-                    return redirect()->route('transporadora.home');
+                    return redirect()->route('transportadora.home');
                 case('administrador'):
                     return redirect()->route('administrador.home');
             

@@ -111,6 +111,13 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <h5 class="title">Observação</label>
+                <h4 class="dado">{{$confirmacao['observacao']}}</h4>
+            </div>
+        </div>
+
         <hr>
 
         <div class="row">

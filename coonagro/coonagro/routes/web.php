@@ -12,6 +12,8 @@ Route::get('/', function (){
 })->name('login');
 
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('transportadora', 'transportadora\HomeController@index')->name('transportadora.home');
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
@@ -23,7 +25,7 @@ Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@fin
 Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
 
-
+//Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 
 
 //Route::get('cliente/carregamento-retornar', 'cliente\AgendamentoController@retornarCarregamento');

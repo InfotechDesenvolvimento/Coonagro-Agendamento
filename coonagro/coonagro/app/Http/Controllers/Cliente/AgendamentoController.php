@@ -61,7 +61,6 @@ class AgendamentoController extends Controller
 
         $date = date_create($confirmacao['validade_cnh']);
         $confirmacao['validade_cnh_formatado'] = date_format($date, "d/m/Y");
-
         session()->put('agendamento', json_encode($request->input()));
 
         return view('cliente.confirmacao-carregamento', compact(['confirmacao']));
@@ -137,6 +136,7 @@ class AgendamentoController extends Controller
             $agendamento->COD_PRODUTO = $dados->cod_produto;
             $agendamento->QUANTIDADE = $this->formataValor($dados->quantidade);
             $agendamento->COD_EMBALAGEM = $dados->tipo_embalagem;
+            $agendamento->OBS = $dados->observacao;
 
             return $this->insert($agendamento);
         } else {

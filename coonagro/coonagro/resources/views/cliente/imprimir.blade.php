@@ -103,6 +103,9 @@
                 </td>
             </tr>
         </tbody>
+
+        <p>{{$agendamento->OBS}}</p>
+        <b style="color: darkgray">Observação</b>
     </table>
 </body>
 </html>
