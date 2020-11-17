@@ -8,11 +8,6 @@
     <div class="col-12">
         <div class="container panel-form panel-reduzido">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
-            
-        <a href=""><button class="btn btn-primary btn-lg btn-block">
-                    <b><i class="far fa-calendar-plus"></i> Novo </b>
-                </button>
-            </a>
 
             <div id="formConsulta">
                 <div class="row">

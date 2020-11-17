@@ -48,7 +48,7 @@ class LoginController extends Controller
             switch($tipo_acesso):
                 case('cliente'):
                     return redirect()->route('cliente.home');
-                case('transporadora'):
+                case('transportadora'):
                     return redirect()->route('transportadora.home');
                 case('administrador'):
                     return redirect()->route('administrador.home');

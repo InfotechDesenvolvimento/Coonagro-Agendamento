@@ -12,6 +12,8 @@ class HomeController extends Controller{
     }
 
     public function index(){
-        return view('admin.home');
+        $status = StatusAgendamento::orderBy('STATUS')->get();
+
+        return view('admin.home', compact('status'));
     }
 }

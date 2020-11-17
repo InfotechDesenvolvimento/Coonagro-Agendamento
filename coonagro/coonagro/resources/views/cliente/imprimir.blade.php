@@ -76,7 +76,7 @@
 
             <tr>
                 <td>
-                    <b style="color: darkgray">Tara (KG)</b>
+                    <b style="color: darkgray">Tara (Toneladas)</b>
                     <p>{{$agendamento->TARA_VEICULO}}</p>
                 </td>
                 <td style="padding-left: 50px">

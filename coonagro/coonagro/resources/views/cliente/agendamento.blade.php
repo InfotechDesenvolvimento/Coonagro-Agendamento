@@ -186,7 +186,7 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Tara (KG)</label>
+                                    <label class="title">Tara (Toneladas)</label>
 
                                     <input id="tara"
                                            type="text"
@@ -309,7 +309,7 @@
                                     id="observacao" 
                                     rows="10"
                                     class="form-control"
-                                    ></textarea>
+                                    >@if($old != null) {{$old->observacao}} @endif</textarea>
                     </div>
                 </div>
 

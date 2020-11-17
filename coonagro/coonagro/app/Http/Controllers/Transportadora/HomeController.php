@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\StatusAgendamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Transportadora;
 
 class HomeController extends Controller{
 
@@ -16,7 +15,7 @@ class HomeController extends Controller{
 
     public function index(){
         $status = StatusAgendamento::orderBy('STATUS')->get();
-        
+       
         return view('transportadora.home', compact('status'));
     }
 }

@@ -68,7 +68,7 @@
             </div>
 
             <div class="col-sm-6">
-                <h5 class="title">Tara (KG)</h5>
+                <h5 class="title">Tara (Toneladas)</h5>
                 <h4 class="dado">{{$confirmacao['tara']}}</h4>
             </div>
 
