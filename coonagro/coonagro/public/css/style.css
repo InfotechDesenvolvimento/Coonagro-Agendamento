@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+#imgForm{
+    width: 600px;
+}
+
+#fontConfirmation{
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+#outras{
+    color: #fff!important;
+    background-color: #2280b3;
+    border-color: #1d6992;
+}
+
+#outras:hover{
+    background-color: #1c6790;
+}
+
+.panel-form{
+    margin-top: 15px;
+    border-top: 2px solid #00a755;
+    text-align:center;
+    /*max-width: 580px;*/
+}
+
+.panel-reduzido{
+    max-width: 580px;
+}
+
+.opcao{
+    padding: 0 10px;
+}
+
+.opcao input[type="radio"] {
+    visibility: hidden;
+    padding: 5px 0;
+}
+
+.opcao input[type="radio"]:checked+label {
+    border: 2px solid #5fb404;
+    border-radius: 5px;
+}
+
+.opcao label{
+    align-items: center;
+    cursor: pointer;
+    color: gray;
+    font-weight: 600;
+}
+
+.opcao img{
+    width: 40px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn1{
+    background: #00abfd;
+    border-color: #00abfd;
+}
+
+.btn2{
+    background: #0044ab;
+    border-color: #0044ab;
+}
+
+.back{
+    background: #969696;
+    border-color: #969696;
+}
+
+.btn{
+    margin-bottom: 25px;
+}
+
+.btn i{
+    margin-right: 15px;
+}
+
+@media (max-width: 900px) {
+
+    #imgForm {
+        width: 500px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #imgForm {
+        width: 300px;
+    }
+}
+
+@media (max-width: 300px) {
+
+    #imgForm {
+        width: 200px;
+    }
+}

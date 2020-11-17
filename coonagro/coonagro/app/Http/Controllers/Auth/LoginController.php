@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Cliente;
+use App\Administrador;
+use App\Transportadora;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -26,16 +28,32 @@ class LoginController extends Controller
 
         $user = null;
 
-        if($tipo_acesso == "cli"){
+        if($tipo_acesso == "cliente"){
             $user = Cliente::where('USUARIO', $usuario)
+                ->where('SENHA', $senha)
+                ->first();
+        } else if($tipo_acesso == "transportadora"){
+            $user = Transportadora::where('USUARIO', $usuario)
+                ->where('SENHA', $senha)
+                ->first();
+        } else if($tipo_acesso == "administrador") {
+            $user = Administrador::where('USUARIO', $usuario)
                 ->where('SENHA', $senha)
                 ->first();
         }
 
         if($user != null){
-            Auth::guard('cliente')->login($user);
-
-            return redirect()->route('cliente.home');
+            Auth::guard($tipo_acesso)->login($user);
+            
+            switch($tipo_acesso):
+                case('cliente'):
+                    return redirect()->route('cliente.home');
+                case('transporadora'):
+                    return redirect()->route('transporadora.home');
+                case('administrador'):
+                    return redirect()->route('administrador.home');
+            
+            endswitch;
         } else {
             return redirect()->back()->withInput()->with('error', 'Usuário ou senha incorretos!');
         }

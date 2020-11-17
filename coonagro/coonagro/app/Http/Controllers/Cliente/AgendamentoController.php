@@ -149,6 +149,7 @@ class AgendamentoController extends Controller
         $agendamento->DATA_CADASTRO = date("Y/m/d");
         $agendamento->DATA_ALTERACAO = date("Y/m/d");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
+        $agendamento->COD_CLIENTE = Auth::user()->getAuthIdentifier();
 
         if($agendamento->save())
         {
@@ -188,6 +189,8 @@ class AgendamentoController extends Controller
 
     public function filter(Request $request){
 
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
         $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                 $query->where('CODIGO', $request->get('num_agendamento'));
                         })->when($request->get('status') != "0", function ($query) use ($request){
@@ -196,7 +199,8 @@ class AgendamentoController extends Controller
                                 $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                         })->when($request->get('data_final') != "", function ($query) use ($request){
                                 $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->with('status')->orderBy('CODIGO')->get();
+                        })->where('COD_CLIENTE', $cod_cliente)
+                        ->with('status')->orderBy('CODIGO')->get();
 
         return response()->json($agendamentos);
     }

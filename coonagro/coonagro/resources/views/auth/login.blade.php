@@ -58,15 +58,15 @@
                     <div class="input-group mb-3 justify-content-center" style="margin-top: 15px;">
                         <div class="row" style="margin-left: 0; margin-right: 0; width: 100%">
                             <div class="opcao col-sm-4 col-6 text-center">
-                                <input type="radio" id="adm" name="tipo_usuario" value="adn">
+                                <input type="radio" id="adm" name="tipo_usuario" value="administrador">
                                 <label for="adm"><img src="./img/manager.svg" alt="">Administrativo</label>
                             </div>
                             <div class="opcao col-sm-4 col-6 text-center">
-                                <input type="radio" id="cli" name="tipo_usuario" value="cli" checked>
+                                <input type="radio" id="cli" name="tipo_usuario" value="cliente" checked>
                                 <label for="cli"><img src="./img/employees.svg" alt="">Cliente</label>
                             </div>
                             <div class="opcao col-sm-4 col-6 text-center">
-                                <input type="radio" id="transp" name="tipo_usuario" value="transp">
+                                <input type="radio" id="transp" name="tipo_usuario" value="transportadora">
                                 <label for="transp"><img src="./img/truck.svg" alt="">Transportadora</label>
                             </div>
                         </div>

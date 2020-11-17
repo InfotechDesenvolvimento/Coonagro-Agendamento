@@ -14,6 +14,4 @@ class Transportadora extends Authenticatable {
     protected $table = 'transportadoras';
     public $timestamps = false;
 
-
-
 }
