@@ -20,7 +20,8 @@
 
         <form action="{{ route('transportadora.carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
             <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-        <div class="modal-body">
+        
+            <div class="modal-body">
             <div class="row">
                 <div class="col-sm-4 col-12">
                     <h5 class="title">Nº Pedido</h5>
@@ -28,7 +29,12 @@
                             name="num_pedido" 
                             id="num_pedido"
                             class="form-control"
+                            value="@if($old != null) {{$old->num_pedido}} @endif"
                             required>
+
+                    <div class="invalid-feedback" id="invalid-pedido">
+                        Pedido não encontrado!
+                    </div>
                 </div>
 
                 <div class="col-sm-8 col-12">
@@ -37,6 +43,7 @@
                             name="produto"
                             id="produto"
                             class="form-control"
+                            value="@if($old != null) {{$old->produto}} @endif"
                             required>
                 </div>
             </div>

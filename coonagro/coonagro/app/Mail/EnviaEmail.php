@@ -30,7 +30,7 @@ class EnviaEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Agendamento finalizado!')
+        return $this->subject('Coonagro - Agendamento n° '.$this->agendamento->{'CODIGO'})
                     ->view('email');
     }
 }
