@@ -13,7 +13,16 @@ Route::get('/', function (){
 
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+
+Route::get('transportadora/agendamento', 'transportadora\AgendamentoController@index')->name('transportadora.agendamento');
+Route::post('transportadora/carregamento/confirmar', 'transportadora\AgendamentoController@validarDados')->name('transportadora.carregamento.validar');
+Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 Route::get('transportadora', 'transportadora\HomeController@index')->name('transportadora.home');
+Route::get('/transportadora/filter', 'transportadora\AgendamentoController@filter')->name('transportadora.filter');
+Route::get('transportadora/carregamento/imprimir/{cod_agendamento}', 'transportadora\AgendamentoController@imprimir')->name('transportadora.carregamento.imprimir');
+Route::get('transportadora/carregamento/finalizar', 'transportadora\AgendamentoController@finalizar')->name('transportadora.carregamento.finalizar');
+Route::get('/transportadora/carregamento/sucesso/{cod_agendamento}', 'transportadora\AgendamentoController@sucesso')->name('transportadora.carregamento.sucesso');
+
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
@@ -24,6 +33,7 @@ Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@val
 Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
 Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
+
 
 //Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 

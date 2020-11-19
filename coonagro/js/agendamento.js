@@ -42,6 +42,23 @@ $('#cnpj_transportadora').focusout(function () {
     }
 });
 
+$('#num_pedido').focusout(function () {
+    let num_pedido = $('#num_pedido').val();
+    $.getJSON('../../api/pedido/' + num_pedido, function (data) {
+        if(JSON.stringify(data) === '{}'){
+            $('#num_pedido').val('');
+        } else {
+            $('#cod_produto').val(data.COD_PRODUTO);
+            $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
+
+            $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
+                $('#produto').val(data.DESCRICAO);
+            });
+        }
+    });
+});
+
+
 $('#placa_cavalo').focusout(function () {
     let placa = retirarEspeciais($('#placa_cavalo').val());
 

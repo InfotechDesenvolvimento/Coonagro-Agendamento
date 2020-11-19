@@ -9,7 +9,7 @@
         <div class="container panel-form panel-reduzido">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
             
-        <a href=""><button class="btn btn-primary btn-lg btn-block">
+        <a href="{{route('transportadora.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
                     <b><i class="far fa-calendar-plus"></i> Novo </b>
                 </button>
             </a>
@@ -58,7 +58,7 @@
 
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <button class="btn btn-warning" id="filtrar">
+                        <button class="btn btn-warning" id="filtrar_transportadora">
                             <i class="fas fa-search mr-3"></i>
                             Filtrar
                         </button>
@@ -98,7 +98,7 @@
     </div>
 @endsection
 
-@section('js')js/home.js @endsection
+@section('js')js/home_transportadora.js @endsection
 
 @section('bloco-js')
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

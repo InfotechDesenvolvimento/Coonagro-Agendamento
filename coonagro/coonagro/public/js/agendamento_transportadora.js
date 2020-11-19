@@ -44,19 +44,29 @@ $('#cnpj_transportadora').focusout(function () {
 
 $('#num_pedido').focusout(function () {
     let num_pedido = $('#num_pedido').val();
-    $.getJSON('../../api/pedido/' + num_pedido, function (data) {
-        if(JSON.stringify(data) === '{}'){
-            $('#num_pedido').val('');
-            $('#produto').val('');
-        } else {
-            $('#cod_produto').val(data.COD_PRODUTO);
-            $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
+    if(num_pedido != '') {
+        $.getJSON('../../api/pedido/' + num_pedido, function (data) {
+            if(JSON.stringify(data) === '{}'){
+                $('#num_pedido').val(null);
+                $('#produto').val(null);
+                $('#data_agendamento').val(null);
+                $('#quantidade').val(null)
+            } else {
+                $('#cod_cliente').val(data.COD_CLIENTE);
+                $('#cod_produto').val(data.COD_PRODUTO);
+                $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
 
-            $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
-                $('#produto').val(data.DESCRICAO);
-            });
-        }
-    });
+                $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
+                    $('#produto').val(data.DESCRICAO);
+                });
+            }
+        });
+    } else {
+        $('#num_pedido').val(null);
+        $('#produto').val(null);
+        $('#data_agendamento').val(null);
+        $('#quantidade').val(null)
+    }
 });
 
 
@@ -187,32 +197,6 @@ $('#formAgendamento').submit(function (event) {
     }
 });
 
-function verificarTipoVeiculo(valor) {
-    let carga = parseFloat(valor);
-    let quantidade = $('#quantidade').val();
-
-    if (quantidade.length > 0) {
-        quantidade = parseFloat(quantidade);
-
-        if(quantidade > carga){
-            $('#invalid-carga').css('display', 'block');
-            $('#tipo_veiculo').addClass('invalido');
-
-            invalida_carga = true;
-        } else {
-            $('#invalid-carga').css('display', 'none');
-            $('#tipo_veiculo').removeClass('invalido');
-
-            invalida_carga = false;
-        }
-    } else {
-        $('#invalid-carga').css('display', 'none');
-        $('#tipo_veiculo').removeClass('invalido');
-
-        invalida_carga = false;
-    }
-}
-
 function verificarCota() {
 
     if(!invalida_quantidade && !invalida_data) {
@@ -241,6 +225,32 @@ function verificarCota() {
 
         $('#invalid-cota').css('display', 'none');
         $(this).removeClass('invalido');
+    }
+}
+
+function verificarTipoVeiculo(valor) {
+    let carga = parseFloat(valor);
+    let quantidade = $('#quantidade').val();
+
+    if (quantidade.length > 0) {
+        quantidade = parseFloat(quantidade);
+
+        if(quantidade > carga){
+            $('#invalid-carga').css('display', 'block');
+            $('#tipo_veiculo').addClass('invalido');
+
+            invalida_carga = true;
+        } else {
+            $('#invalid-carga').css('display', 'none');
+            $('#tipo_veiculo').removeClass('invalido');
+
+            invalida_carga = false;
+        }
+    } else {
+        $('#invalid-carga').css('display', 'none');
+        $('#tipo_veiculo').removeClass('invalido');
+
+        invalida_carga = false;
     }
 }
 

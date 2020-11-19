@@ -1,7 +1,7 @@
 $(document).ready(function () {
     preencherData();
     setTable();
-    filtrar();
+    filtrar_transportadora();
 
     $('#filtrar').click(function () {
         filtrar();
@@ -73,8 +73,8 @@ function limparCampos() {
     preencherData();
 }
 
-function filtrar() {
-    $('#filtrar').html(`
+function filtrar_transportadora() {
+    $('#filtrar_transportadora').html(`
         <i class="fas fa-spinner fa-pulse mr-3"></i>
         Filtrar
     `);
@@ -91,14 +91,14 @@ function filtrar() {
         data_final: data_final
     };
 
-    $.getJSON('cliente/filter', filtro, function (data) {
+    $.getJSON('transportadora/filter', filtro, function (data) {
         let resultado = '';
 
         Array.prototype.forEach.call(data, function (item) {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                   <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                   <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                         <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
                                    </a>
                               </td>`;
@@ -114,7 +114,7 @@ function filtrar() {
         $('#table tbody').html(resultado);
         setTable();
 
-        $('#filtrar').html(`
+        $('#filtrar_transportadora').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);
@@ -122,7 +122,7 @@ function filtrar() {
     .fail(function() {
         alert("Não foi possível filtrar os dados! Tente novamente!");
 
-        $('#filtrar').html(`
+        $('#filtrar_transportadora').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);

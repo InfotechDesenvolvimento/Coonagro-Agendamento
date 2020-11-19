@@ -1,7 +1,8 @@
 <?php
 
 
-namespace App\Http\Controllers\Cliente;
+namespace App\Http\Controllers\Transportadora;
+
 
 use App\Mail\EnviaEmail;
 use Mail;
@@ -27,21 +28,14 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class AgendamentoController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:cliente');
+        $this->middleware('auth:transportadora');
     }
 
-    public function index($num_pedido){
-        $cod_cliente = Auth::user()->getAuthIdentifier();
-
+    public function index(){
         $tipos = TipoVeiculo::orderBy('TIPO_VEICULO')->get();
         $embalagens = TipoEmbalagem::orderBy('TIPO_EMBALAGEM')->get();
 
-        $pedido = PedidoTransporte::where([
-                        'COD_CLIENTE' => $cod_cliente,
-                        'NUM_PEDIDO' => $num_pedido
-                      ])->with('produto')->first();
-
-        return view('cliente.agendamento', compact(['pedido', 'tipos', 'embalagens']));
+        return view('transportadora.agendamento', compact(['tipos', 'embalagens']));
     }
 
     public function validarDados(Request $request){
@@ -64,26 +58,13 @@ class AgendamentoController extends Controller
         $confirmacao['validade_cnh_formatado'] = date_format($date, "d/m/Y");
         session()->put('agendamento', json_encode($request->input()));
 
-        return view('cliente.confirmacao-carregamento', compact(['confirmacao']));
+        return view('transportadora.confirmacao-carregamento', compact(['confirmacao']));
     }
 
     public function finalizar(){
 
         if(session()->has('agendamento')){
             $dados = json_decode(session()->get('agendamento'));
-
-            $objTransportadora = new TransportadoraController();
-            $transportadora = $objTransportadora->getTransportadoraFormatada($dados->cnpj_transportadora);
-            $transportadora = $transportadora->getData();
-
-                if(count(get_object_vars($transportadora)) == 0){
-                    $transportadora = new Transportadora();
-
-                    $transportadora->CPF_CNPJ = $dados->cnpj_transportadora;
-                    $transportadora->NOME = strtoupper($dados->transportadora);
-
-                    $objTransportadora->insert($transportadora);
-                }
 
             $objVeiculo = new VeiculoController();
             $veiculo = $objVeiculo->getVeiculo($dados->placa_cavalo);
@@ -122,8 +103,8 @@ class AgendamentoController extends Controller
 
             $agendamento->NUM_PEDIDO = $dados->num_pedido;
             $agendamento->DATA_AGENDAMENTO = $dados->data_agendamento;
-            $agendamento->TRANSPORTADORA = strtoupper($dados->transportadora);
-            $agendamento->CNPJ_TRANSPORTADORA = $dados->cnpj_transportadora;
+            $agendamento->TRANSPORTADORA = Auth::user()->NOME;
+            $agendamento->CNPJ_TRANSPORTADORA = Auth::user()->CPF_CNPJ;
             $agendamento->PLACA_VEICULO = strtoupper($dados->placa_cavalo);
             $agendamento->PLACA_CARRETA1 = strtoupper($dados->placa_carreta);
             $agendamento->RENAVAM_VEICULO = $dados->renavam;
@@ -141,7 +122,7 @@ class AgendamentoController extends Controller
 
             return $this->insert($agendamento);
         } else {
-            return redirect()->route('cliente.carregamento');
+            return redirect()->route('transportadora.operacao');
         }
     }
 
@@ -150,16 +131,17 @@ class AgendamentoController extends Controller
         $agendamento->DATA_CADASTRO = date("Y/m/d");
         $agendamento->DATA_ALTERACAO = date("Y/m/d");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
-        $agendamento->COD_CLIENTE = Auth::user()->getAuthIdentifier();
+        $agendamento->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
 
         if($agendamento->save())
         {
             $objPedidoTransporte = new PedidoTransporteController();
             $objPedidoTransporte->update($agendamento->NUM_PEDIDO, $agendamento->QUANTIDADE);
+
+            $pedido = $objPedidoTransporte->getObjPedido($agendamento->NUM_PEDIDO);
             
-            $cod_cliente = Auth::user()->getAuthIdentifier();
             $objCotaCliente = new CotaClienteController();
-            $objCotaCliente->update($cod_cliente, $agendamento->DATA_AGENDAMENTO, $agendamento->QUANTIDADE);
+            $objCotaCliente->update($pedido->COD_CLIENTE, $agendamento->DATA_AGENDAMENTO, $agendamento->QUANTIDADE);
         }
 
         $cod_agendamento = $agendamento->CODIGO;
@@ -173,11 +155,11 @@ class AgendamentoController extends Controller
             Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
         }
 
-        return redirect()->route('carregamento.sucesso', $cod_agendamento);
+        return redirect()->route('transportadora.carregamento.sucesso', $cod_agendamento);
     }
 
     public function sucesso($cod_agendamento){
-        return view('cliente.mensagem-sucesso', compact('cod_agendamento'));
+        return view('transportadora.mensagem-sucesso', compact('cod_agendamento'));
     }
 
     public function show($codigo){
@@ -188,18 +170,17 @@ class AgendamentoController extends Controller
         $agendamento = $this->show($cod_agendamento);
 
         $qrcode = QrCode::size(150)->generate($agendamento->CODIGO);
-
+        
         set_time_limit(300);
 
-        return \PDF::loadView('cliente.imprimir', ['agendamento' => $agendamento, 'qrcode' => $qrcode])
+        return \PDF::loadView('transportadora.imprimir', ['agendamento' => $agendamento, 'qrcode' => $qrcode])
             ->stream('agendamento-coonagro.pdf');
 
-        //return view('cliente.imprimir', compact('agendamento'));
     }
 
     public function filter(Request $request){
 
-        $cod_cliente = Auth::user()->getAuthIdentifier();
+        $cod_transportadora = Auth::user()->getAuthIdentifier();
 
         $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                 $query->where('CODIGO', $request->get('num_agendamento'));
@@ -209,7 +190,7 @@ class AgendamentoController extends Controller
                                 $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                         })->when($request->get('data_final') != "", function ($query) use ($request){
                                 $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->where('COD_CLIENTE', $cod_cliente)
+                        })->where('COD_TRANSPORTADORA', $cod_transportadora)
                         ->with('status')->orderBy('CODIGO')->get();
 
         return response()->json($agendamentos);

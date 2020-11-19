@@ -18,4 +18,12 @@ class PedidoTransporteController extends Controller
             $pedido->save();
         }
     }
+
+    public function getPedido($num_pedido){
+        return response()->json(PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first());
+    }
+
+    public function getObjPedido($num_pedido) {
+        return PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
+    }
 }

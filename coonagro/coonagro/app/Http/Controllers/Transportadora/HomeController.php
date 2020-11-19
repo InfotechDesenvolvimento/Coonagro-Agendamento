@@ -18,4 +18,8 @@ class HomeController extends Controller{
        
         return view('transportadora.home', compact('status'));
     }
+
+    public function operacao(){
+        return view('transportadora.operacao');
+    }
 }
