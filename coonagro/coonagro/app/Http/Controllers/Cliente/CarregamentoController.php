@@ -18,7 +18,7 @@ class CarregamentoController extends Controller
     public function index(){
         $cod_cliente =  Auth::user()->getAuthIdentifier();
 
-        $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)
+        $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
             ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
 
         return view('cliente.carregamento', compact('pedidos'));
