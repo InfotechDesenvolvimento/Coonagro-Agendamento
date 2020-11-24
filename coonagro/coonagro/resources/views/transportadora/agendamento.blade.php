@@ -33,7 +33,7 @@
                             required>
 
                     <div class="invalid-feedback" id="invalid-pedido">
-                        Pedido não encontrado!
+                        Pedido inválido!
                     </div>
                 </div>
 

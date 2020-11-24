@@ -58,14 +58,27 @@ $('#num_pedido').focusout(function () {
                 $('#data_agendamento').val(today);
                 $('#quantidade').val(null)
             } else {
-                $('#invalid-pedido').css('display', 'none');
-                $('#cod_cliente').val(data.COD_CLIENTE);
-                $('#cod_produto').val(data.COD_PRODUTO);
-                $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
+                if(data.COD_STATUS == 1) {
+                    $('#invalid-pedido').css('display', 'none');
+                    $('#cod_cliente').val(data.COD_CLIENTE);
+                    $('#cod_produto').val(data.COD_PRODUTO);
+                    $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
 
-                $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
-                    $('#produto').val(data.DESCRICAO);
-                });
+                    $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
+                        $('#produto').val(data.DESCRICAO);
+                    });
+                } else {
+                    $('#invalid-pedido').css('display', 'block');
+                    $('#produto').val(null);
+                    var data = new Date();
+                    var data1 = new Date(data);
+                    data1.setDate(data.getDate() + 1);
+                    var day = ("0" + data1.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+                    $('#data_agendamento').val(today);
+                    $('#quantidade').val(null)
+                }
             }
         });
     } else {
