@@ -57,13 +57,13 @@ $('#num_pedido').focusout(function () {
                 var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
                 $('#data_agendamento').val(today);
                 $('#quantidade').val(null)
+                $('#saldo_disponivel').val(null);
             } else {
                 if(data.COD_STATUS == 1) {
                     $('#invalid-pedido').css('display', 'none');
                     $('#cod_cliente').val(data.COD_CLIENTE);
                     $('#cod_produto').val(data.COD_PRODUTO);
                     $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
-
                     $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
                         $('#produto').val(data.DESCRICAO);
                     });
@@ -77,7 +77,8 @@ $('#num_pedido').focusout(function () {
                     var month = ("0" + (now.getMonth() + 1)).slice(-2);
                     var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
                     $('#data_agendamento').val(today);
-                    $('#quantidade').val(null)
+                    $('#quantidade').val(null);
+                    $('#saldo_disponivel').val(null);
                 }
             }
         });
@@ -91,7 +92,8 @@ $('#num_pedido').focusout(function () {
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
         var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
         $('#data_agendamento').val(today);
-        $('#quantidade').val(null)
+        $('#quantidade').val(null);
+        $('#saldo_disponivel').val(null);
     }
 });
 
@@ -144,12 +146,10 @@ $('#quantidade').keyup(function () {
             if(quantidade > saldo_disponivel){
                 $('#invalid-quantidade').css('display', 'block');
                 $(this).addClass('invalido');
-
                 invalida_quantidade = true;
             } else {
                 $('#invalid-quantidade').css('display', 'none');
                 $(this).removeClass('invalido');
-
                 invalida_quantidade = false;
             }
 
@@ -257,11 +257,13 @@ function verificarCota() {
 function verificarTipoVeiculo(valor) {
     let carga = parseFloat(valor);
     let quantidade = $('#quantidade').val();
+    let tara = parseFloat($('#tara').val());
+    let qtd_max = parseFloat(carga - tara);
 
     if (quantidade.length > 0) {
         quantidade = parseFloat(quantidade);
 
-        if(quantidade > carga){
+        if(quantidade > qtd_max){
             $('#invalid-carga').css('display', 'block');
             $('#tipo_veiculo').addClass('invalido');
 

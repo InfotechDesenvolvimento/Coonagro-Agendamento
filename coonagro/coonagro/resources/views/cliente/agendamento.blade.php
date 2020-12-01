@@ -40,47 +40,6 @@
                 <input type="hidden" id="cod_cliente" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
 
                 <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Data</label>
-
-                        <input
-                            name="data_agendamento"
-                            id="data_agendamento"
-                            min='<?php echo date("Y-m-d"); ?>'
-                            type="date"
-                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
-                            class="form-control"
-                            required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-data">
-                            Horário limite até às 17:00 hrs
-                        </div>
-
-                        <div class="invalid-feedback" id="invalid-cota">
-                            Cota diária do cliente excedida
-                        </div>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <label class="title">Quantidade (Toneladas)</label>
-
-                        <input id="quantidade"
-                               type="text"
-                               name="quantidade"
-                               class="form-control peso"
-                               onkeypress="return somenteNumeros(event)"
-                               value="@if($old != null) {{$old->quantidade}} @endif"
-                               required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-quantidade">
-                            Quantidade não disponível
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="form-group col-sm-5">
                         <label class="title">CNPJ Transportadora</label>
 
@@ -214,6 +173,48 @@
                         </fieldset>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label class="title">Data</label>
+
+                        <input
+                            name="data_agendamento"
+                            id="data_agendamento"
+                            min='<?php echo date("Y-m-d"); ?>'
+                            type="date"
+                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
+                            class="form-control"
+                            required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-data">
+                            Horário limite até às 17:00 hrs
+                        </div>
+
+                        <div class="invalid-feedback" id="invalid-cota">
+                            Cota diária do cliente excedida
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label class="title">Quantidade (Toneladas)</label>
+
+                        <input id="quantidade"
+                               type="text"
+                               name="quantidade"
+                               class="form-control peso"
+                               onkeypress="return somenteNumeros(event)"
+                               value="@if($old != null) {{$old->quantidade}} @endif"
+                               required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-quantidade">
+                            Quantidade não disponível
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="row">
                     <div class="col-sm-12">

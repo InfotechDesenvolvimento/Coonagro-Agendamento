@@ -22,77 +22,14 @@
             <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
         
             <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-4 col-12">
-                    <h5 class="title">Nº Pedido</h5>
-                    <input type="text" 
-                            name="num_pedido" 
-                            id="num_pedido"
-                            class="form-control"
-                            value="@if($old != null) {{$old->num_pedido}} @endif"
-                            required>
-
-                    <div class="invalid-feedback" id="invalid-pedido">
-                        Pedido inválido!
-                    </div>
-                </div>
-
-                <div class="col-sm-8 col-12">
-                    <h5 class="title">Produto</h5>
-                    <input type="text" 
-                            name="produto"
-                            id="produto"
-                            class="form-control"
-                            value="@if($old != null) {{$old->produto}} @endif"
-                            required>
-                </div>
-            </div>
+            
 
             <hr>
                 <input type="hidden" id="saldo_disponivel" name="saldo_disponivel">
                 <input type="hidden" id="cod_produto" name="cod_produto">
                 <input type="hidden" name="cod_transportadora" id="cod_transportadora" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
                 <input type="hidden" name="cod_cliente" id="cod_cliente">
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Data</label>
-
-                        <input
-                            name="data_agendamento"
-                            id="data_agendamento"
-                            min='<?php echo date("Y-m-d"); ?>'
-                            type="date"
-                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
-                            class="form-control"
-                            required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-data">
-                            Horário limite até às 17:00 hrs
-                        </div>
-
-                        <div class="invalid-feedback" id="invalid-cota">
-                            Cota diária do cliente excedida
-                        </div>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <label class="title">Quantidade (Toneladas)</label>
-
-                        <input id="quantidade"
-                               type="text"
-                               name="quantidade"
-                               class="form-control peso"
-                               onkeypress="return somenteNumeros(event)"
-                               value="@if($old != null) {{$old->quantidade}} @endif"
-                               required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-quantidade">
-                            Quantidade não disponível
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="row">
                     <div class="form-group col-sm-5">
@@ -230,6 +167,74 @@
                         </fieldset>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+                        <h5 class="title">Nº Pedido</h5>
+                        <input type="text" 
+                                name="num_pedido" 
+                                id="num_pedido"
+                                class="form-control"
+                                value="@if($old != null) {{$old->num_pedido}} @endif"
+                                required>
+    
+                        <div class="invalid-feedback" id="invalid-pedido">
+                            Pedido inválido!
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-8 col-12">
+                        <h5 class="title">Produto</h5>
+                        <input type="text" 
+                                name="produto"
+                                id="produto"
+                                class="form-control"
+                                value="@if($old != null) {{$old->produto}} @endif"
+                                required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label class="title">Data</label>
+
+                        <input
+                            name="data_agendamento"
+                            id="data_agendamento"
+                            min='<?php echo date("Y-m-d"); ?>'
+                            type="date"
+                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
+                            class="form-control"
+                            required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-data">
+                            Horário limite até às 17:00 hrs
+                        </div>
+
+                        <div class="invalid-feedback" id="invalid-cota">
+                            Cota diária do cliente excedida
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label class="title">Quantidade (Toneladas)</label>
+
+                        <input id="quantidade"
+                               type="text"
+                               name="quantidade"
+                               class="form-control peso"
+                               onkeypress="return somenteNumeros(event)"
+                               value="@if($old != null) {{$old->quantidade}} @endif"
+                               required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-quantidade">
+                            Quantidade não disponível
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="row">
                     <div class="col-sm-12">

@@ -190,11 +190,13 @@ $('#formAgendamento').submit(function (event) {
 function verificarTipoVeiculo(valor) {
     let carga = parseFloat(valor);
     let quantidade = $('#quantidade').val();
+    let tara = parseFloat($('#tara').val());
+    let qtd_max = parseFloat(carga - tara);
 
     if (quantidade.length > 0) {
         quantidade = parseFloat(quantidade);
 
-        if(quantidade > carga){
+        if(quantidade > qtd_max){
             $('#invalid-carga').css('display', 'block');
             $('#tipo_veiculo').addClass('invalido');
 

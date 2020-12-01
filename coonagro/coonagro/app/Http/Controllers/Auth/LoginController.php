@@ -36,7 +36,7 @@ class LoginController extends Controller
             $user = Transportadora::where('USUARIO', $usuario)
                 ->where('SENHA', $senha)
                 ->first();
-        } else if($tipo_acesso == "administrador") {
+        } else if($tipo_acesso == "admin") {
             $user = Administrador::where('USUARIO', $usuario)
                 ->where('SENHA', $senha)
                 ->first();
@@ -50,8 +50,8 @@ class LoginController extends Controller
                     return redirect()->route('cliente.home');
                 case('transportadora'):
                     return redirect()->route('transportadora.home');
-                case('administrador'):
-                    return redirect()->route('administrador.home');
+                case('admin'):
+                    return redirect()->route('administrativo.home');
             
             endswitch;
         } else {

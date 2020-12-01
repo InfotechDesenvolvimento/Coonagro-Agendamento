@@ -13,7 +13,6 @@ Route::get('/', function (){
 
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-
 Route::get('transportadora/agendamento', 'transportadora\AgendamentoController@index')->name('transportadora.agendamento');
 Route::post('transportadora/carregamento/confirmar', 'transportadora\AgendamentoController@validarDados')->name('transportadora.carregamento.validar');
 Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
@@ -28,12 +27,14 @@ Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cli
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
 Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
 Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');
-
 Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
 Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
 Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
 
+Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
+Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');
+Route::get('/administrador/filter', 'administrador\AgendamentoController@filter')->name('administrador.filter');
 
 //Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 
