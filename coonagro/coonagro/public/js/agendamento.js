@@ -189,30 +189,51 @@ $('#formAgendamento').submit(function (event) {
 
 function verificarTipoVeiculo(valor) {
     let carga = parseFloat(valor);
-    let quantidade = $('#quantidade').val();
+    let quantidade =  parseFloat($('#quantidade').val());
     let tara = parseFloat($('#tara').val());
     let qtd_max = parseFloat(carga - tara);
+    let embalagem = $('#tipo_embalagem').val();
 
-    if (quantidade.length > 0) {
-        quantidade = parseFloat(quantidade);
+    if(embalagem == 2) {
+        let peso_por_embalagem = 0.0015;
+        let quantidade_embalagens = quantidade / 1;
+        $('#qtd_embalagens').val(quantidade_embalagens);
+        let peso_total_embalagens = parseFloat(quantidade_embalagens * peso_por_embalagem);
+        $('#peso_total_embalagens').val(peso_total_embalagens);
+        let peso_bruto_liquido = parseFloat(quantidade + peso_total_embalagens);
+        $('#peso_total_carga').val(peso_bruto_liquido);
+        quantidade = peso_bruto_liquido;
+        $('#carga_max').val(carga);
+        $('#peso_total').val(quantidade+tara);
 
+    } else if(embalagem == 3) {
+        let peso_por_embalagem = 0.000122;
+        let quantidade_embalagens = quantidade / 0.05;
+        $('#qtd_embalagens').val(quantidade_embalagens);
+        let peso_total_embalagens = parseFloat(quantidade_embalagens * peso_por_embalagem);
+        $('#peso_total_embalagens').val(peso_total_embalagens);
+        let peso_bruto_liquido = parseFloat(quantidade + peso_total_embalagens);
+        $('#peso_total_carga').val(peso_bruto_liquido);
+        quantidade = peso_bruto_liquido;
+        $('#carga_max').val(carga);
+        $('#peso_total').val(quantidade+tara);
+    }
+
+    //if (quantidade.length > 0) {
         if(quantidade > qtd_max){
             $('#invalid-carga').css('display', 'block');
             $('#tipo_veiculo').addClass('invalido');
-
             invalida_carga = true;
         } else {
             $('#invalid-carga').css('display', 'none');
             $('#tipo_veiculo').removeClass('invalido');
-
             invalida_carga = false;
         }
-    } else {
-        $('#invalid-carga').css('display', 'none');
-        $('#tipo_veiculo').removeClass('invalido');
-
-        invalida_carga = false;
-    }
+    //} else {
+    //    $('#invalid-carga').css('display', 'none');
+    //    $('#tipo_veiculo').removeClass('invalido');
+    //    invalida_carga = false;
+    //}
 }
 
 function verificarCota() {

@@ -91,21 +91,17 @@ function filtrar_administrador() {
         let resultado = '';
         let cliente = ''; 
         Array.prototype.forEach.call(data, function (item) {
-            if(item.COD_CLIENTE != null) {
-                $.getJSON('cliente/get/'+item.COD_CLIENTE, function(dados) {
-                    if(cliente != dados.NOME) {
-                        cliente = dados.NOME;
-                        resultado += `<tr style="bg-color: green">`;
-                            resultado += `<td>CLIENTE:</td>`;
-                            resultado += `<td>${dados.NOME}</td>`;
-                        resultado += `</tr>`;
-                    }
-                });
+            if(cliente != item.COD_CLIENTE && item.COD_CLIENTE != null) {
+                cliente = item.COD_CLIENTE;
+                resultado += `<tr style="background-color: #00a755; color: #fff;">`;
+                    resultado += `<td></td> <td>CÓDIGO</td> <td>CLIENTE</td>`;
+                    resultado += `<td>${item.COD_CLIENTE}</td> <td><i class="fas fa-user mr-3"></i></td>`;
+                resultado += `</tr>`;
             }
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                   <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                    <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                         <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
                                    </a>
                               </td>`;
@@ -121,7 +117,7 @@ function filtrar_administrador() {
         $('#table tbody').html(resultado);
         setTable();
 
-        $('#filtrar_transportadora').html(`
+        $('#filtrar_administrador').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);
@@ -129,7 +125,7 @@ function filtrar_administrador() {
     .fail(function() {
         alert("Não foi possível filtrar os dados! Tente novamente!");
 
-        $('#filtrar_transportadora').html(`
+        $('#filtrar_administrador').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);

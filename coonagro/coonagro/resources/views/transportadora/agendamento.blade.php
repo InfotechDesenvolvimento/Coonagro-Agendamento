@@ -196,6 +196,28 @@
 
                 <div class="row">
                     <div class="form-group col-sm-6">
+                        <label class="title">Tipo de Embalagem</label>
+
+                        <select id="tipo_embalagem"
+                                name="tipo_embalagem"
+                                class="form-control"
+                                required
+                        >
+                            @foreach($embalagens as $embalagem)
+                                <option value="{{$embalagem->CODIGO}}"
+                                    @if($old != null)
+                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
+                                            selected
+                                        @endif
+                                    @endif
+                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
                         <label class="title">Data</label>
 
                         <input
@@ -235,6 +257,50 @@
                     </div>
                 </div>
 
+                
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+                        <h5 class="title">Qtd. Embalagens</h5>
+                        <input type="text" 
+                                name="qtd_embalagens" 
+                                id="qtd_embalagens"
+                                class="form-control" readonly>
+                    </div>
+    
+                    <div class="col-sm-4 col-12">
+                        <h5 class="title">Peso Embalagens</h5>
+                        <input type="text" 
+                                name="peso_total_embalagens"
+                                id="peso_total_embalagens"
+                                class="form-control" readonly>
+                    </div>
+
+                    <div class="col-sm-4 col-12">
+                        <h5 class="title">Peso Total da Carga</h5>
+                        <input type="text" 
+                                name="peso_total_carga"
+                                id="peso_total_carga"
+                                class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-12">
+                        <h5 class="title">Limite Peso Máximo</h5>
+                        <input type="text" 
+                                name="carga_max" 
+                                id="carga_max"
+                                class="form-control" readonly>
+                    </div>
+    
+                    <div class="col-sm-6 col-12">
+                        <h5 class="title">Peso Total do Veículo</h5>
+                        <input type="text" 
+                                name="peso_total"
+                                id="peso_total"
+                                class="form-control" readonly>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -297,28 +363,6 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Tipo de Embalagem</label>
-
-                        <select id="tipo_embalagem"
-                                name="tipo_embalagem"
-                                class="form-control"
-                                required
-                        >
-                            @foreach($embalagens as $embalagem)
-                                <option value="{{$embalagem->CODIGO}}"
-                                    @if($old != null)
-                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
-                                            selected
-                                        @endif
-                                    @endif
-                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
 

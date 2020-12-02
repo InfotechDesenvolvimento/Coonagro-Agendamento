@@ -51,7 +51,7 @@ class LoginController extends Controller
                 case('transportadora'):
                     return redirect()->route('transportadora.home');
                 case('admin'):
-                    return redirect()->route('administrativo.home');
+                    return redirect()->route('administrador.home');
             
             endswitch;
         } else {
