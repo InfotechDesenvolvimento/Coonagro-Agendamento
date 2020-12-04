@@ -69,7 +69,13 @@
         @else
             <img id="imgForm" src="img/capa.png">
         @endif
+        
+    </div>
 
+    <div class="div_user">
+        <label >Logado como: </label> <label id="user">{{Auth::user()->NOME}} </label>
+        <br>
+        <label >E-mail:</label> <label id="user">{{Auth::user()->EMAIL}}</label>
     </div>
 
     @yield('conteudo')

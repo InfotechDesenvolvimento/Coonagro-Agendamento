@@ -82,6 +82,9 @@
                             <th>Status</th>
                             <th style="width: 80px !important;">Data</th>
                             <th style="width: 110px !important;">Quantidade (T)</th>
+                            <th>Responsável</th>
+                            <th>N° Pedido</th>
+                            <th>Produto</th>
                         </tr>
                     </thead>
                 </table>
@@ -91,6 +94,9 @@
                 <div class="col-sm-6">
                     <a href="{{route('logout')}}">
                         <button class="btn btn-danger">Sair</button>
+                    </a>
+                    <a href="{{route('opcoes')}}">
+                        <button class="btn btn-info">Configurações</button>
                     </a>
                 </div>
             </div>

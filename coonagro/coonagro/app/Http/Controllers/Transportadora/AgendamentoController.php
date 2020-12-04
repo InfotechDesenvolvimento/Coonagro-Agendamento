@@ -191,6 +191,8 @@ class AgendamentoController extends Controller
                                 $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                         })->when($request->get('data_final') != "", function ($query) use ($request){
                                 $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
+                        })->when($request->get('placa') != "", function ($query) use ($request) {
+                                $query->where('PLACA_VEICULO', '=', $request->get('placa'));    
                         })->where('COD_TRANSPORTADORA', $cod_transportadora)
                         ->with('status')->orderBy('CODIGO')->get();
 

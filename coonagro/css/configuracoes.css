@@ -1,0 +1,10 @@
+#valid-email {
+    display: none;
+    color: green;
+    border: 2px green solid;
+    border-radius: 5%;
+}
+
+button {
+    width: 100%;
+}

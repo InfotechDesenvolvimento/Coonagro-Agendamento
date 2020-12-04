@@ -83,12 +83,14 @@ function filtrar_transportadora() {
     const status = $('#status').val();
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
+    const placa = $('#placa').val();
 
     let filtro = {
         num_agendamento: num_agendamento,
         status: status,
         data_inicial: data_inicial,
-        data_final: data_final
+        data_final: data_final,
+        placa: placa
     };
 
     $.getJSON('transportadora/filter', filtro, function (data) {
@@ -102,6 +104,7 @@ function filtrar_transportadora() {
                                         <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
                                    </a>
                               </td>`;
+                resultado += `<td>${item.PLACA_VEICULO}</td>`;
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;

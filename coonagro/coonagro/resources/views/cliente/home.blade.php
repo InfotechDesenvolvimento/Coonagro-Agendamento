@@ -11,7 +11,7 @@
             
             <a href="{{route('cliente.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
                     <b><i class="far fa-calendar-plus"></i> Novo </b>
-                </button>
+                </button> 
             </a>
 
             <div id="formConsulta">
@@ -89,6 +89,9 @@
 
             <div class="row  justify-content-end">
                 <div class="col-sm-6">
+                    <a href="{{route('cliente.configuracoes')}}">
+                        <button class="btn btn-info">Configurações</button>
+                    </a>
                     <a href="{{route('logout')}}">
                         <button class="btn btn-danger">Sair</button>
                     </a>

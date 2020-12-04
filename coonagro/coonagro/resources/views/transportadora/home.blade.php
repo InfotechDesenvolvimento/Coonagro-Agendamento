@@ -57,6 +57,17 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="placa"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-sm-6 form-group">
                         <button class="btn btn-warning" id="filtrar_transportadora">
                             <i class="fas fa-search mr-3"></i>
@@ -79,6 +90,7 @@
                         <tr>
                             <th style="width: 10px !important;">Nº</th>
                             <th style="width: 40px !important;">Ações</th>
+                            <th style="width: 40px !important;">Placa</th>
                             <th>Status</th>
                             <th style="width: 80px !important;">Data</th>
                             <th style="width: 110px !important;">Quantidade (T)</th>
@@ -89,6 +101,9 @@
 
             <div class="row  justify-content-end">
                 <div class="col-sm-6">
+                    <a href="{{route('transportadora.configuracoes')}}">
+                        <button class="btn btn-info">Configurações</button>
+                    </a>
                     <a href="{{route('logout')}}">
                         <button class="btn btn-danger">Sair</button>
                     </a>

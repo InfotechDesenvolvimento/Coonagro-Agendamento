@@ -89,15 +89,7 @@ function filtrar_administrador() {
 
     $.getJSON('administrador/filter', filtro, function (data) {
         let resultado = '';
-        let cliente = ''; 
         Array.prototype.forEach.call(data, function (item) {
-            if(cliente != item.COD_CLIENTE && item.COD_CLIENTE != null) {
-                cliente = item.COD_CLIENTE;
-                resultado += `<tr style="background-color: #00a755; color: #fff;">`;
-                    resultado += `<td></td> <td>CÓDIGO</td> <td>CLIENTE</td>`;
-                    resultado += `<td>${item.COD_CLIENTE}</td> <td><i class="fas fa-user mr-3"></i></td>`;
-                resultado += `</tr>`;
-            }
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
@@ -108,6 +100,9 @@ function filtrar_administrador() {
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
+                resultado += `<td>${item.NOME} ${item.TRANSPORTADORA}</td>`;
+                resultado += `<td>${item.NUM_PEDIDO}</td>`;
+                resultado += `<td>${item.DESCRICAO}</td>`;
             resultado += `</tr>`;
         });
 

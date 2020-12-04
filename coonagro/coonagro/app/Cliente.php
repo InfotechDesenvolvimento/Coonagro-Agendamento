@@ -10,6 +10,9 @@ class Cliente extends Authenticatable
 {
     use Notifiable;
 
+    
+    const UPDATED_AT = null;
+
     protected $fillable = ['USUARIO', 'SENHA'];
     protected $hidden = ['SENHA', 'remember_token'];
 
@@ -24,4 +27,5 @@ class Cliente extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

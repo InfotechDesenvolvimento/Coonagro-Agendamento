@@ -21,6 +21,8 @@ Route::get('/transportadora/filter', 'transportadora\AgendamentoController@filte
 Route::get('transportadora/carregamento/imprimir/{cod_agendamento}', 'transportadora\AgendamentoController@imprimir')->name('transportadora.carregamento.imprimir');
 Route::get('transportadora/carregamento/finalizar', 'transportadora\AgendamentoController@finalizar')->name('transportadora.carregamento.finalizar');
 Route::get('/transportadora/carregamento/sucesso/{cod_agendamento}', 'transportadora\AgendamentoController@sucesso')->name('transportadora.carregamento.sucesso');
+Route::get('/transportadora/configuracoes/', 'transportadora\ConfiguracoesController@opcoes')->name('transportadora.configuracoes');
+Route::post('/transportadora/alterar_dados/', 'transportadora\ConfiguracoesController@alterarDados')->name('transportadora.alterar_dados');
 
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
@@ -31,6 +33,8 @@ Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@val
 Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
 Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
+Route::get('/cliente/configuracoes/', 'cliente\ConfiguracoesController@opcoes')->name('cliente.configuracoes');
+Route::post('/cliente/alterar_dados/', 'cliente\ConfiguracoesController@alterarDados')->name('cliente.alterar_dados');
 
 Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
 Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');

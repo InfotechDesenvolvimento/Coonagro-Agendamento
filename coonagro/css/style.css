@@ -83,6 +83,13 @@ a:hover {
     margin-right: 15px;
 }
 
+#user{
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    color: #00a755;
+}
+
 @media (max-width: 900px) {
 
     #imgForm {
