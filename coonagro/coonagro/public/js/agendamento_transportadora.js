@@ -53,11 +53,13 @@ $('#num_pedido').focusout(function () {
                 var data1 = new Date(data);
                 data1.setDate(data.getDate() + 1);
                 var day = ("0" + data1.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+                var month = ("0" + (data1.getMonth() + 1)).slice(-2);
+                var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
                 $('#data_agendamento').val(today);
                 $('#quantidade').val(null)
                 $('#saldo_disponivel').val(null);
+                $('#avancar').attr('disabled', true);
+
             } else {
                 if(data.COD_STATUS == 1) {
                     $('#invalid-pedido').css('display', 'none');
@@ -66,6 +68,7 @@ $('#num_pedido').focusout(function () {
                     $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
                     $.getJSON('../../api/produto/' + $('#cod_produto').val() , function (data) {
                         $('#produto').val(data.DESCRICAO);
+                        $('#avancar').attr('disabled', false);
                     });
                 } else {
                     $('#invalid-pedido').css('display', 'block');
@@ -74,11 +77,12 @@ $('#num_pedido').focusout(function () {
                     var data1 = new Date(data);
                     data1.setDate(data.getDate() + 1);
                     var day = ("0" + data1.getDate()).slice(-2);
-                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+                    var month = ("0" + (data1.getMonth() + 1)).slice(-2);
+                    var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
                     $('#data_agendamento').val(today);
                     $('#quantidade').val(null);
                     $('#saldo_disponivel').val(null);
+                    $('#avancar').attr('disabled', true);
                 }
             }
         });
@@ -89,11 +93,12 @@ $('#num_pedido').focusout(function () {
         var data1 = new Date(data);
         data1.setDate(data.getDate() + 1);
         var day = ("0" + data1.getDate()).slice(-2);
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        var month = ("0" + (data1.getMonth() + 1)).slice(-2);
+        var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
         $('#data_agendamento').val(today);
         $('#quantidade').val(null);
         $('#saldo_disponivel').val(null);
+        $('#avancar').attr('disabled', true);
     }
 });
 
@@ -231,7 +236,7 @@ function verificarCota() {
         let quantidade = formatarValor($('#quantidade').val());
 
         if(quantidade > 0){
-            $.getJSON('../../api/cota/' + cliente + '/' + data, function (data) {
+            $.getJSON('../api/cota/' + cliente + '/' + data, function (data) {
 
                 if((data.SALDO_LIVRE - data.TOTAL_AGENDADO) >= quantidade){
                     invalida_cota = false;

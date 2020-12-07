@@ -175,7 +175,7 @@
                                 name="num_pedido" 
                                 id="num_pedido"
                                 class="form-control"
-                                value="@if($old != null) {{$old->num_pedido}} @endif"
+                                value=""
                                 required>
     
                         <div class="invalid-feedback" id="invalid-pedido">
@@ -190,7 +190,8 @@
                                 id="produto"
                                 class="form-control"
                                 value="@if($old != null) {{$old->produto}} @endif"
-                                required>
+                                required
+                                readonly>
                     </div>
                 </div>
 
@@ -382,7 +383,7 @@
 
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 0">
+                        <button type="submit" class="btn btn-success btn-lg btn-block" id="avancar" style="margin-bottom: 0" disabled>
                             <i class="fas fa-arrow-right"></i> Avançar
                         </button>
                     </div>
