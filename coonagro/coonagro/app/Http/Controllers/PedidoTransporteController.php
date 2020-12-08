@@ -23,16 +23,21 @@ class PedidoTransporteController extends Controller
 
     public function getPedido($num_pedido, $cod_transportadora){
         $pedido = PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
-        $cod_cliente = $pedido->COD_CLIENTE;
 
-        $pedido_vinculado = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
-        ->where('COD_TRANSPORTADORA', $cod_transportadora)
-        ->where('NUM_PEDIDO', $num_pedido)->get();
+        if($pedido != null) {
+            $cod_cliente = $pedido->COD_CLIENTE;
 
-        if($pedido_vinculado->isNotEmpty()) {
-            return response()->json(PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first());
-        }
-        else {
+            $pedido_vinculado = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+            ->where('COD_TRANSPORTADORA', $cod_transportadora)
+            ->where('NUM_PEDIDO', $num_pedido)->get();
+
+            if($pedido_vinculado->isNotEmpty()) {
+                return response()->json(PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first());
+            }
+            else {
+                return response()->json(null);
+            }
+        } else {
             return response()->json(null);
         }
     }
