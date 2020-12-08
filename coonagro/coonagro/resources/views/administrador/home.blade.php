@@ -79,7 +79,6 @@
                         <tr>
                             <th style="width: 10px !important;">Nº</th>
                             <th style="width: 40px !important;">Ações</th>
-                            <th>Status</th>
                             <th style="width: 80px !important;">Data</th>
                             <th style="width: 110px !important;">Quantidade (T)</th>
                             <th>Responsável</th>
@@ -90,12 +89,12 @@
                 </table>
             </div>
 
-            <div class="row  justify-content-end">
+            <div class="row justify-content-end">
                 <div class="col-sm-6">
                     <a href="{{route('logout')}}">
                         <button class="btn btn-danger">Sair</button>
                     </a>
-                    <a href="{{route('opcoes')}}">
+                    <a href="#">
                         <button class="btn btn-info">Configurações</button>
                     </a>
                 </div>

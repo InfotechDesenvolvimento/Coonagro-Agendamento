@@ -56,18 +56,6 @@
     margin-bottom: 5px;
 }
 
-.div_user{
-    text-align: center;
-    padding-top: 20px;
-    margin-top: 20px;
-    color: #00a755;
-}
-
-#user {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-}
-
 a:hover {
     text-decoration: none;
 }
@@ -93,6 +81,10 @@ a:hover {
 
 .btn i{
     margin-right: 15px;
+}
+
+.nav-item {
+    color: #fff;
 }
 
 @media (max-width: 900px) {

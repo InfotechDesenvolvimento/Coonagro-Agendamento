@@ -97,10 +97,9 @@ function filtrar_administrador() {
                                         <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
                                    </a>
                               </td>`;
-                resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
-                resultado += `<td>${item.NOME} ${item.TRANSPORTADORA}</td>`;
+                resultado += `<td>${item.TRANSPORTADORA}</td>`;
                 resultado += `<td>${item.NUM_PEDIDO}</td>`;
                 resultado += `<td>${item.DESCRICAO}</td>`;
             resultado += `</tr>`;

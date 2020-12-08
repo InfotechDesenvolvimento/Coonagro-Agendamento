@@ -14,6 +14,12 @@
                 </button> 
             </a>
 
+            <a href="{{route('cliente.vincular_pedidos')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-boxes"></i> Vincular Pedidos em Transportadoras </b>
+                </button>
+            </a>
+
             <div id="formConsulta">
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">

@@ -35,6 +35,11 @@ Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\Agendamen
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
 Route::get('/cliente/configuracoes/', 'cliente\ConfiguracoesController@opcoes')->name('cliente.configuracoes');
 Route::post('/cliente/alterar_dados/', 'cliente\ConfiguracoesController@alterarDados')->name('cliente.alterar_dados');
+Route::get('cliente/vincular_pedidos/', 'cliente\VincularPedidosController@index')->name('cliente.vincular_pedidos');
+Route::get('cliente/vincular_pedido/{pedido}', 'cliente\VincularPedidosController@vincularPedido')->name('cliente.vincular_pedido_transportadora');
+Route::post('cliente/vincular/', 'cliente\VincularPedidosController@vincular')->name('cliente.vincular');
+Route::get('cliente/pedidos_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculados')->name('cliente.pedidos_vinculados');
+
 
 Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
 Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');

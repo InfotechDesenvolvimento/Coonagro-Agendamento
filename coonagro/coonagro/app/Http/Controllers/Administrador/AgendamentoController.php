@@ -62,10 +62,8 @@ class AgendamentoController extends Controller
     public function filter(Request $request) {
 
         $agendamentos = DB::table('agendamentos')
-                        ->select('agendamentos.*', 'clientes.*', 'produtos.*', 'pedido_transporte.*')
-                        ->leftJoin('clientes', 'clientes.CODIGO', '=', 'agendamentos.COD_CLIENTE')
+                        ->select('agendamentos.*', 'produtos.DESCRICAO')
                         ->leftJoin('produtos', 'produtos.CODIGO', '=', 'agendamentos.COD_PRODUTO')
-                        ->leftJoin('pedido_transporte', 'pedido_transporte.NUM_PEDIDO', '=', 'agendamentos.NUM_PEDIDO')
                         ->when($request->get('num_agendamento') != "", function ($query) use ($request) {
                             $query->where('CODIGO', $request->get('num_agendamento'));
                         })->when($request->get('status') != "0", function ($query) use ($request){
@@ -74,7 +72,7 @@ class AgendamentoController extends Controller
                             $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                         })->when($request->get('data_final') != "", function ($query) use ($request){
                                 $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->get();
+                        })->groupBy('agendamentos.CODIGO')->get();
 
         //$agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                 //$query->where('CODIGO', $request->get('num_agendamento'));

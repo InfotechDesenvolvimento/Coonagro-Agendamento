@@ -23,11 +23,11 @@ let options = {
 };
 
 $('#data_agendamento').focusout(function () {
-    verificarCota();
+    //verificarCota();
 });
 
 $('#quantidade').focusout(function () {
-    verificarCota();
+    //verificarCota();
 });
 
 $('#cnpj_transportadora').focusout(function () {
@@ -44,8 +44,9 @@ $('#cnpj_transportadora').focusout(function () {
 
 $('#num_pedido').focusout(function () {
     let num_pedido = $('#num_pedido').val();
+    let cod_transportadora = $('#cod_transportadora').val();
     if(num_pedido != '') {
-        $.getJSON('../../api/pedido/' + num_pedido, function (data) {
+        $.getJSON('../../api/pedido/' + num_pedido + '/' + cod_transportadora, function (data) {
             if(JSON.stringify(data) === '{}'){
                 $('#invalid-pedido').css('display', 'block');
                 $('#produto').val(null);

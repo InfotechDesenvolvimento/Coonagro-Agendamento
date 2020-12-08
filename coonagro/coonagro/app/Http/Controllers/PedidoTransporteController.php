@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\PedidoTransporte;
+use App\PedidosVinculadosTransportadora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoTransporteController extends Controller
 {
@@ -19,8 +21,20 @@ class PedidoTransporteController extends Controller
         }
     }
 
-    public function getPedido($num_pedido){
-        return response()->json(PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first());
+    public function getPedido($num_pedido, $cod_transportadora){
+        $pedido = PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
+        $cod_cliente = $pedido->COD_CLIENTE;
+
+        $pedido_vinculado = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+        ->where('COD_TRANSPORTADORA', $cod_transportadora)
+        ->where('NUM_PEDIDO', $num_pedido)->get();
+
+        if($pedido_vinculado->isNotEmpty()) {
+            return response()->json(PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first());
+        }
+        else {
+            return response()->json(null);
+        }
     }
 
     public function getObjPedido($num_pedido) {

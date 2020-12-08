@@ -54,6 +54,12 @@
 
 </head>
 <body style="-webkit-font-smoothing: antialiased;">
+
+    <nav class="navbar navbar-dark bg-success">
+        <div class="nav-item" > <i class="fas fa-user"></i> {{Auth::user()->NOME}} </div>
+        <div class="nav-item" > <i class="fas fa-envelope"></i> {{Auth::user()->EMAIL}}</div>
+    </nav>
+
     <div style="text-align:center">
 
         @if(isset($tag))
@@ -70,12 +76,6 @@
             <img id="imgForm" src="img/capa.png">
         @endif
         
-    </div>
-
-    <div class="div_user">
-        <label >Logado como: </label> <label id="user">{{Auth::user()->NOME}} </label>
-        <br>
-        <label >E-mail:</label> <label id="user">{{Auth::user()->EMAIL}}</label>
     </div>
 
     @yield('conteudo')
