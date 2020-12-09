@@ -68,10 +68,16 @@
             </tr>
 
             <tr>
-                <td colspan="2">
+                <td>
                     <b style="color: darkgray">Tipo do Veículo</b>
                     <p>{{$agendamento->tipoVeiculo->TIPO_VEICULO}}</p>
                 </td>
+                @if(isset($agendamento->cliente->NOME))
+                    <td style="padding-left: 50px">
+                        <b style="color: darkgray">Cliente</b>
+                        <p>{{$agendamento->cliente->NOME}}</p>
+                    </td>
+                @endif
             </tr>
 
             <tr>

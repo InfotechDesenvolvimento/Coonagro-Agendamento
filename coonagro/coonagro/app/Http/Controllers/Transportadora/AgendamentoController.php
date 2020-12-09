@@ -121,6 +121,10 @@ class AgendamentoController extends Controller
             $agendamento->COD_EMBALAGEM = $dados->tipo_embalagem;
             $agendamento->OBS = $dados->observacao;
 
+            $objPedidoTransporte = new PedidoTransporteController();
+            $pedido = $objPedidoTransporte->getObjPedido($dados->num_pedido);
+            $agendamento->COD_CLIENTE = $pedido->COD_CLIENTE;
+
             return $this->insert($agendamento);
         } else {
             return redirect()->route('transportadora.operacao');
@@ -164,7 +168,7 @@ class AgendamentoController extends Controller
     }
 
     public function show($codigo){
-        return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo'])->first();
+        return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo', 'cliente'])->first();
     }
 
     public function imprimir($cod_agendamento){

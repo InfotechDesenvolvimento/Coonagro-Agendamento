@@ -44,11 +44,47 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Nº Pedido</label>
+                        <input type="text"
+                               class="form-control"
+                               id="num_pedido"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Transportadora</label>
+                        <input type="text"
+                               class="form-control"
+                               id="transportadora"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa veículo</label>
+                        <input type="text"
+                               class="form-control"
+                               id="placa_veiculo"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa carreta 1</label>
+                        <input type="text"
+                               class="form-control"
+                               id="placa_carreta"
+                        >
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
                         <label>(De)</label>
                         <input
                             type="date"
                             class="form-control"
                             id="data_inicial"
+                            max="{{date('Y-m-d')}}"
                         >
                     </div>
 
@@ -58,6 +94,18 @@
                             type="date"
                             class="form-control"
                             id="data_final"
+                            min="{{date('Y-m-d')}}"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Data específica</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="data_especifica"
                         >
                     </div>
                 </div>
@@ -91,7 +139,6 @@
                             <th>Nº Pedido</th>
                             <th>Placa Veículo</th>
                             <th>Placa Carreta 1</th>
-                            <th>Placa Carreta 2</th>
                             <th>Transportadora</th>
                         </tr>
                     </thead>

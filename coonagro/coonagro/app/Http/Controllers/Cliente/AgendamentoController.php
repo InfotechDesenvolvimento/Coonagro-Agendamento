@@ -181,7 +181,7 @@ class AgendamentoController extends Controller
     }
 
     public function show($codigo){
-        return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo'])->first();
+        return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo', 'cliente'])->first();
     }
 
     public function imprimir($cod_agendamento){
@@ -201,7 +201,9 @@ class AgendamentoController extends Controller
 
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
-        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+        if($request->get('data_especifica') == '') {
+
+            $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                             $query->where('CODIGO', $request->get('num_agendamento'));
                                     })->when($request->get('status') != "0", function ($query) use ($request){
                                             $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
@@ -209,8 +211,32 @@ class AgendamentoController extends Controller
                                             $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                                     })->when($request->get('data_final') != "", function ($query) use ($request){
                                             $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                                    })->where('COD_CLIENTE', $cod_cliente)
-                                    ->with('status')->orderBy('CODIGO')->get();
+                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                            $query->where('TRANSPORTADORA', $request->get('transportadora'));
+                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                            $query->where('PLACA_VEICULO', $request->get('placa_veiculo'));
+                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                            $query->where('PLACA_CARRETA1', $request->get('placa_carreta'));
+                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
+        } else {
+            $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                            $query->where('CODIGO', $request->get('num_agendamento'));
+                                    })->when($request->get('status') != "0", function ($query) use ($request){
+                                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('data_especifica') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', $request->get('data_especifica'));
+                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                            $query->where('TRANSPORTADORA', $request->get('transportadora'));
+                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                            $query->where('PLACA_VEICULO', $request->get('placa_veiculo'));
+                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                            $query->where('PLACA_CARRETA1', $request->get('placa_carreta'));
+                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
+        }
 
         return response()->json($agendamentos);
     }

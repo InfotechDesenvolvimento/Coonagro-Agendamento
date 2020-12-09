@@ -23,11 +23,11 @@ let options = {
 };
 
 $('#data_agendamento').focusout(function () {
-    //verificarCota();
+    verificarCota();
 });
 
 $('#quantidade').focusout(function () {
-    //verificarCota();
+    verificarCota();
 });
 
 $('#cnpj_transportadora').focusout(function () {

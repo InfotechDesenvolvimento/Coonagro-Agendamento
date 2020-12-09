@@ -25,4 +25,8 @@ class Agendamento extends Model {
   public function status(){
       return $this->hasOne(StatusAgendamento::class, 'CODIGO', 'COD_STATUS_AGENDAMENTO');
   }
+
+  public function cliente(){
+      return $this->hasOne(Cliente::class, 'CODIGO', 'COD_CLIENTE');
+  }
 }
