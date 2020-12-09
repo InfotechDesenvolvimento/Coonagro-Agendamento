@@ -70,6 +70,11 @@ function setTable() {
 function limparCampos() {
     $('#num_agendamento').val(null);
     $('#status').val(0);
+    $('#transportadora').val(null);
+    $('#num_pedido').val(null);
+    $('#placa_veiculo').val(null);
+    $('#placa_carreta').val(null);
+    $('#data_especifica').val(null);
     preencherData();
 }
 
