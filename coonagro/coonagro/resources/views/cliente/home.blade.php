@@ -6,7 +6,7 @@
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
 
     <div class="col-12">
-        <div class="container panel-form panel-reduzido">
+        <div class="container panel-form">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
             
             <a href="{{route('cliente.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
@@ -88,6 +88,11 @@
                             <th>Status</th>
                             <th style="width: 80px !important;">Data</th>
                             <th style="width: 110px !important;">Quantidade (T)</th>
+                            <th>Nº Pedido</th>
+                            <th>Placa Veículo</th>
+                            <th>Placa Carreta 1</th>
+                            <th>Placa Carreta 2</th>
+                            <th>Transportadora</th>
                         </tr>
                     </thead>
                 </table>

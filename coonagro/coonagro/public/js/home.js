@@ -98,13 +98,22 @@ function filtrar() {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                   <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
-                                        <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                   </a>
+                                <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                    <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
+                                </a>
                               </td>`;
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
+                resultado += `<td>${item.NUM_PEDIDO}</td>`;
+                resultado += `<td>${item.PLACA_VEICULO}</td>`;
+                resultado += `<td>${item.PLACA_CARRETA1}</td>`;
+                if(item.PLACA_CARRETA2 != null) {
+                    resultado += `<td>${item.PLACA_CARRETA2}</td>`;
+                } else {
+                    resultado += `<td></td>`;
+                }
+                resultado += `<td>${item.TRANSPORTADORA}</td>`;
             resultado += `</tr>`;
         });
 
@@ -132,3 +141,11 @@ function filtrar() {
 function formatarData(data) {
     return data.substring(8,10) + '/' + data.substring(5,7) + '/' + data.substring(0, 4);
 }
+
+function mostrarDetalhes(codigo) {
+    if($(`#detalhes_${codigo}`).attr('hidden')) {
+        $(`#detalhes_${codigo}`).attr('hidden', false)
+    }else {
+        $(`#detalhes_${codigo}`).attr('hidden', true)
+    }
+ }

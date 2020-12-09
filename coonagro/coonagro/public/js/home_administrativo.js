@@ -93,15 +93,25 @@ function filtrar_administrador() {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                    <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
-                                        <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                   </a>
+                                <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                    <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
+                                </a>
+                                <a onclick="mostrarDetalhes(${item.CODIGO})">
+                                    <i class="fas fa-chevron-down mr-3" title="Alterar dados" style="cursor: pointer; color: #545b62"></i>
+                                </a>
                               </td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
                 resultado += `<td>${item.TRANSPORTADORA}</td>`;
                 resultado += `<td>${item.NUM_PEDIDO}</td>`;
                 resultado += `<td>${item.DESCRICAO}</td>`;
+            resultado += `</tr>`;
+            resultado += `<tr id="detalhes_${item.CODIGO}" hidden>`;
+                resultado += `<td> </td>`;
+                resultado += `<td>Ajustar data: </td> <td> <input class="form-control" type="text" inputmode="numeric" name="data_agendamento_${item.CODIGO}" id="data_agendamento_${item.CODIGO}"> </td>`;
+                resultado += `<td> <button class="btn btn-success" id="ajustarData"> Confirmar </button> </td>`;
+                resultado += `<td> </td>`;
+                resultado += `<td> </td>`;
             resultado += `</tr>`;
         });
 
@@ -129,3 +139,11 @@ function filtrar_administrador() {
 function formatarData(data) {
     return data.substring(8,10) + '/' + data.substring(5,7) + '/' + data.substring(0, 4);
 }
+
+function mostrarDetalhes(codigo) {
+    if($(`#detalhes_${codigo}`).attr('hidden')) {
+        $(`#detalhes_${codigo}`).attr('hidden', false)
+    }else {
+        $(`#detalhes_${codigo}`).attr('hidden', true)
+    }
+ }
