@@ -32,7 +32,7 @@
             <hr>
 
             <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
-                <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                 <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO}}">
                 <input type="hidden" name="num_pedido" value="{{$pedido->NUM_PEDIDO}}">
                 <input type="hidden" name="produto" value="{{$pedido->produto->DESCRICAO}}">
@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Placa da Carreta</label>
+                                    <label class="title">Placa da Carreta 1</label>
 
                                     <input id="placa_carreta"
                                            type="text"
@@ -104,6 +104,38 @@
                                            minlength="7"
                                            onkeypress="return semEspeciais(event)"
                                            required
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="title">Placa da Carreta 2</label>
+
+                                    <input id="placa_carreta2"
+                                           type="text"
+                                           name="placa_carreta2"
+                                           value="@if($old != null) {{$old->placa_carreta2}} @endif"
+                                           class="form-control"
+                                           style="text-transform: uppercase"
+                                           maxlength="7"
+                                           minlength="7"
+                                           onkeypress="return semEspeciais(event)"
+                                    >
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="title">Placa da Carreta 3</label>
+
+                                    <input id="placa_carreta3"
+                                           type="text"
+                                           name="placa_carreta3"
+                                           value="@if($old != null) {{$old->placa_carreta3}} @endif"
+                                           class="form-control"
+                                           style="text-transform: uppercase"
+                                           maxlength="7"
+                                           minlength="7"
+                                           onkeypress="return semEspeciais(event)"
                                     >
                                 </div>
                             </div>
@@ -157,9 +189,10 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Renavam</label>
+                                    <!-- <label class="title">Renavam</label> -->
 
-                                    <input id="renavam"
+                                    <input hidden
+                                            id="renavam"
                                            type="text"
                                            name="renavam"
                                            value="@if($old != null) {{$old->renavam}} @endif"
@@ -315,9 +348,10 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label class="title">CNH</label>
+                                    <!-- <label class="title">CNH</label> -->
 
-                                    <input id="cnh"
+                                    <input hidden
+                                            id="cnh"
                                            type="text"
                                            name="cnh"
                                            value="@if($old != null) {{$old->cnh}} @endif"
@@ -325,20 +359,19 @@
                                            minlength="11"
                                            maxlength="11"
                                            onkeypress="return somenteNumeros(event)"
-                                           required
                                     >
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Validade da CNH</label>
+                                   <!-- <label class="title">Validade da CNH</label> -->
 
                                     <input
+                                        hidden
                                         id="validade_cnh"
                                         name="validade_cnh"
                                         value="<?php if($old != null) echo $old->validade_cnh ?>"
                                         type="date"
                                         class="form-control"
-                                        required
                                     >
                                 </div>
                             </div>

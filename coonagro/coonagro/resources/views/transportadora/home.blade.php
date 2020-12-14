@@ -6,13 +6,18 @@
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
 
     <div class="col-12">
-        <div class="container panel-form panel-reduzido">
+        <div class="container panel-form">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
             
-        <a href="{{route('transportadora.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
+            <a href="{{route('transportadora.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
                     <b><i class="far fa-calendar-plus"></i> Novo </b>
                 </button>
             </a>
+
+            <a href="{{route('transportadora.pedidos_vinculados')}}"><button class="btn btn-primary btn-lg btn-block">
+                <b><i class="fas fa-clipboard-list"></i> Visualizar Pedidos Vinculados </b>
+            </button>
+        </a>
 
             <div id="formConsulta">
                 <div class="row">
@@ -38,6 +43,40 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Nº Pedido</label>
+                        <input type="text"
+                               class="form-control"
+                               id="num_pedido"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Transportadora</label>
+                        <input type="text"
+                               class="form-control"
+                               id="transportadora"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa veículo</label>
+                        <input type="text"
+                               class="form-control"
+                               id="placa_veiculo"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa carreta 1</label>
+                        <input type="text"
+                               class="form-control"
+                               id="placa_carreta"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
                         <label>(De)</label>
                         <input
                             type="date"
@@ -58,11 +97,11 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
-                        <label>Placa</label>
+                        <label>Data específica</label>
                         <input
-                            type="text"
+                            type="date"
                             class="form-control"
-                            id="placa"
+                            id="data_especifica"
                         >
                     </div>
                 </div>
@@ -84,6 +123,12 @@
                 </div>
             </div>
 
+            <a href="{{route('transportadora.total_agendado')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-cubes"></i> Total Agendado </b>
+                </button>
+            </a>
+
             <div class="tabela">
                 <table id="table" class="table table-striped dataTable">
                     <thead>
@@ -94,6 +139,10 @@
                             <th>Status</th>
                             <th style="width: 80px !important;">Data</th>
                             <th style="width: 110px !important;">Quantidade (T)</th>
+                            <th>Nº Pedido</th>
+                            <th>Placa Veículo</th>
+                            <th>Placa Carreta 1</th>
+                            <th>Transportadora</th>
                         </tr>
                     </thead>
                 </table>

@@ -12,4 +12,5 @@ Route::get('/veiculo/{placa}', 'VeiculoController@getVeiculo');
 Route::get('/motorista/{identificacao}', 'MotoristaController@show');
 Route::get('/cota/{cliente}/{data}', 'CotaClienteController@show');
 Route::get('/pedido/{num_pedido}/{cod_transportadora}', 'PedidoTransporteController@getPedido');
+Route::get('/limite/{num_pedido}/{cod_transportadora}/{data}', 'PedidoTransporteController@getLimite');
 Route::get('/produto/{codigo}', 'ProdutoController@getProduto');

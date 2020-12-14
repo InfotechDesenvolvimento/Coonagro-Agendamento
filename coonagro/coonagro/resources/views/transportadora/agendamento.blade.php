@@ -86,7 +86,7 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Placa da Carreta</label>
+                                    <label class="title">Placa da Carreta 1</label>
 
                                     <input id="placa_carreta"
                                            type="text"
@@ -98,6 +98,38 @@
                                            minlength="7"
                                            onkeypress="return semEspeciais(event)"
                                            required
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="title">Placa da Carreta 2</label>
+
+                                    <input id="placa_carreta2"
+                                           type="text"
+                                           name="placa_carreta2"
+                                           value="@if($old != null) {{$old->placa_carreta2}} @endif"
+                                           class="form-control"
+                                           style="text-transform: uppercase"
+                                           maxlength="7"
+                                           minlength="7"
+                                           onkeypress="return semEspeciais(event)"
+                                    >
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="title">Placa da Carreta 3</label>
+
+                                    <input id="placa_carreta3"
+                                           type="text"
+                                           name="placa_carreta3"
+                                           value="@if($old != null) {{$old->placa_carreta3}} @endif"
+                                           class="form-control"
+                                           style="text-transform: uppercase"
+                                           maxlength="7"
+                                           minlength="7"
+                                           onkeypress="return semEspeciais(event)"
                                     >
                                 </div>
                             </div>
@@ -151,9 +183,10 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Renavam</label>
+                                    <!-- <label class="title">Renavam</label> -->
 
-                                    <input id="renavam"
+                                    <input hidden
+                                            id="renavam"
                                            type="text"
                                            name="renavam"
                                            value="@if($old != null) {{$old->renavam}} @endif"
@@ -165,6 +198,42 @@
                                 </div>
                             </div>
                         </fieldset>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label class="title">Tipo de Embalagem</label>
+
+                        <select id="tipo_embalagem"
+                                name="tipo_embalagem"
+                                class="form-control"
+                                required
+                        >
+                            @foreach($embalagens as $embalagem)
+                                <option value="{{$embalagem->CODIGO}}"
+                                    @if($old != null)
+                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
+                                            selected
+                                        @endif
+                                    @endif
+                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="title">Cota estabelecida pelo cliente</label>
+                        <div class="form-group col-sm-6">
+                            <input name="limite_cliente"
+                                    id="limite_cliente"
+                                    type="text"
+                                    class="form-control"
+                                    readonly>
+                        </div>
+                        <div class="invalid-feedback" id="invalid-limite">
+                            Quantidade ultrapassa limite do cliente!
+                        </div>  
                     </div>
                 </div>
 
@@ -192,28 +261,6 @@
                                 value="@if($old != null) {{$old->produto}} @endif"
                                 required
                                 readonly>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Tipo de Embalagem</label>
-
-                        <select id="tipo_embalagem"
-                                name="tipo_embalagem"
-                                class="form-control"
-                                required
-                        >
-                            @foreach($embalagens as $embalagem)
-                                <option value="{{$embalagem->CODIGO}}"
-                                    @if($old != null)
-                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
-                                            selected
-                                        @endif
-                                    @endif
-                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
 
@@ -336,9 +383,10 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label class="title">CNH</label>
+                                    <!-- <label class="title">CNH</label> -->
 
-                                    <input id="cnh"
+                                    <input hidden
+                                            id="cnh"
                                            type="text"
                                            name="cnh"
                                            value="@if($old != null) {{$old->cnh}} @endif"
@@ -346,20 +394,19 @@
                                            minlength="11"
                                            maxlength="11"
                                            onkeypress="return somenteNumeros(event)"
-                                           required
                                     >
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Validade da CNH</label>
+                                    <!-- <label class="title">Validade da CNH</label>-->
 
                                     <input
+                                        hidden
                                         id="validade_cnh"
                                         name="validade_cnh"
                                         value="<?php if($old != null) echo $old->validade_cnh ?>"
                                         type="date"
                                         class="form-control"
-                                        required
                                     >
                                 </div>
                             </div>

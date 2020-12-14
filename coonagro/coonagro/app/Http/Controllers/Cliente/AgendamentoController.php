@@ -96,9 +96,17 @@ class AgendamentoController extends Controller
 
                     $veiculo->PLACA = strtoupper($dados->placa_cavalo);
                     $veiculo->PLACA_CARRETA = strtoupper($dados->placa_carreta);
+                    if($dados->placa_carreta2 != null) {
+                        $veiculo->PLACA_CARRETA2 = strtoupper($dados->placa_carreta2);
+                    }
+                    if($dados->placa_carreta3 != null) {
+                        $veiculo->PLACA_CARRETA3 = strtoupper($dados->placa_carreta3);
+                    }
                     $veiculo->COD_TIPO_VEICULO = $tipo_veiculo->id;
                     $veiculo->TARA = $this->formataValor($dados->tara);
-                    $veiculo->RENAVAM = $dados->renavam;
+                    if($dados->renavam != null) {
+                        $veiculo->RENAVAM = $dados->renavam;
+                    }
 
                     $objVeiculo->insert($veiculo);
                 }
@@ -112,9 +120,13 @@ class AgendamentoController extends Controller
 
                     $motorista->CPF_CNPJ = $dados->cpf_motorista;
                     $motorista->NOME = strtoupper($dados->nome_motorista);
-                    $motorista->CNH = $dados->cnh;
-                    $motorista->DATA_VALIDADE_CNH = $dados->validade_cnh;
-
+                    if($dados->cnh != null) {
+                        $motorista->CNH = $dados->cnh;
+                    }
+                    if($dados->validade_cnh != null) {
+                        $motorista->DATA_VALIDADE_CNH = $dados->validade_cnh;
+                    }
+                    
                     $objMotorista->insert($motorista);
                 }
 
@@ -126,6 +138,12 @@ class AgendamentoController extends Controller
             $agendamento->CNPJ_TRANSPORTADORA = $dados->cnpj_transportadora;
             $agendamento->PLACA_VEICULO = strtoupper($dados->placa_cavalo);
             $agendamento->PLACA_CARRETA1 = strtoupper($dados->placa_carreta);
+            if($dados->placa_carreta2 != null) {
+                $agendamento->PLACA_CARRETA2 = strtoupper($dados->placa_carreta2);
+            }
+            if($dados->placa_carreta3 != null) {
+                $agendamento->PLACA_CARRETA3 = strtoupper($dados->placa_carreta3);
+            }
             $agendamento->RENAVAM_VEICULO = $dados->renavam;
 
             $tipo_veiculo = json_decode($dados->tipo_veiculo[0]);
@@ -214,11 +232,11 @@ class AgendamentoController extends Controller
                                     })->when($request->get('num_pedido') != "", function ($query) use ($request){
                                             $query->where('NUM_PEDIDO', $request->get('num_pedido'));
                                     })->when($request->get('transportadora') != "", function ($query) use ($request){
-                                            $query->where('TRANSPORTADORA', $request->get('transportadora'));
+                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
                                     })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
-                                            $query->where('PLACA_VEICULO', $request->get('placa_veiculo'));
+                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                     })->when($request->get('placa_carreta') != "", function ($query) use ($request){
-                                            $query->where('PLACA_CARRETA1', $request->get('placa_carreta'));
+                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
                                     })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
         } else {
             $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
@@ -230,15 +248,28 @@ class AgendamentoController extends Controller
                                     })->when($request->get('num_pedido') != "", function ($query) use ($request){
                                             $query->where('NUM_PEDIDO', $request->get('num_pedido'));
                                     })->when($request->get('transportadora') != "", function ($query) use ($request){
-                                            $query->where('TRANSPORTADORA', $request->get('transportadora'));
+                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
                                     })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
-                                            $query->where('PLACA_VEICULO', $request->get('placa_veiculo'));
+                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                     })->when($request->get('placa_carreta') != "", function ($query) use ($request){
-                                            $query->where('PLACA_CARRETA1', $request->get('placa_carreta'));
+                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
                                     })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
         }
 
         return response()->json($agendamentos);
+    }
+
+    public function totalAgendado() {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
+        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_CLIENTE = $cod_cliente group by TRANSPORTADORA");
+        $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->sum('QUANTIDADE');
+        
+        //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
+
+        //return json_encode($agendamentos);
+        return view('cliente.total_agendado', compact('agendamentos', 'total_agendado'));
     }
 
     public function formataValor($valor){

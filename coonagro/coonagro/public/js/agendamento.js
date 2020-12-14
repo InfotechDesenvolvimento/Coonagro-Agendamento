@@ -67,6 +67,8 @@ $('#placa_cavalo').focusout(function () {
         $.getJSON('../../api/veiculo/' + placa, function (data) {
             $('#renavam').val(data.RENAVAM);
             $('#placa_carreta').val(data.PLACA_CARRETA);
+            $('#placa_carreta2').val(data.PLACA_CARRETA2);
+            $('#placa_carreta3').val(data.PLACA_CARRETA3);
 
             let tara = data.TARA;
             tara = parseFloat(tara);

@@ -126,6 +126,12 @@
                     </div>
                 </div>
             </div>
+            
+            <a href="{{route('cliente.total_agendado')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-cubes"></i> Total Agendado </b>
+                </button>
+            </a>
 
             <div class="tabela">
                 <table id="table" class="table table-striped dataTable">

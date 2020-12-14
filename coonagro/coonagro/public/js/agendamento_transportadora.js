@@ -45,17 +45,18 @@ $('#cnpj_transportadora').focusout(function () {
 $('#num_pedido').focusout(function () {
     let num_pedido = $('#num_pedido').val();
     let cod_transportadora = $('#cod_transportadora').val();
+    let data_agendamento = $('#data_agendamento').val();
     if(num_pedido != '') {
         $.getJSON('../../api/pedido/' + num_pedido + '/' + cod_transportadora, function (data) {
             if(JSON.stringify(data) === '{}'){
                 $('#invalid-pedido').css('display', 'block');
                 $('#produto').val(null);
-                var data = new Date();
-                var data1 = new Date(data);
-                data1.setDate(data.getDate() + 1);
+                var data2 = new Date();
+                var data1 = new Date(data2);
+                data1.setDate(data2.getDate() + 1);
                 var day = ("0" + data1.getDate()).slice(-2);
                 var month = ("0" + (data1.getMonth() + 1)).slice(-2);
-                var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
+                var today = data1.getFullYear()+"-"+(month)+"-"+(day);
                 $('#data_agendamento').val(today);
                 $('#quantidade').val(null)
                 $('#saldo_disponivel').val(null);
@@ -71,15 +72,18 @@ $('#num_pedido').focusout(function () {
                         $('#produto').val(data.DESCRICAO);
                         $('#avancar').attr('disabled', false);
                     });
+                    $.getJSON('../../api/limite/' + num_pedido + '/' + cod_transportadora + '/' + data_agendamento, function (data) {
+                        $('#limite_cliente').val(data.COTA);
+                    });
                 } else {
                     $('#invalid-pedido').css('display', 'block');
                     $('#produto').val(null);
-                    var data = new Date();
-                    var data1 = new Date(data);
-                    data1.setDate(data.getDate() + 1);
+                    var data2 = new Date();
+                    var data1 = new Date(data2);
+                    data1.setDate(data2.getDate() + 1);
                     var day = ("0" + data1.getDate()).slice(-2);
                     var month = ("0" + (data1.getMonth() + 1)).slice(-2);
-                    var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
+                    var today = data1.getFullYear()+"-"+(month)+"-"+(day);
                     $('#data_agendamento').val(today);
                     $('#quantidade').val(null);
                     $('#saldo_disponivel').val(null);
@@ -90,9 +94,9 @@ $('#num_pedido').focusout(function () {
     } else {
         $('#invalid-pedido').css('display', 'block');
         $('#produto').val(null);
-        var data = new Date();
-        var data1 = new Date(data);
-        data1.setDate(data.getDate() + 1);
+        var data2 = new Date();
+        var data1 = new Date(data2);
+        data1.setDate(data2.getDate() + 1);
         var day = ("0" + data1.getDate()).slice(-2);
         var month = ("0" + (data1.getMonth() + 1)).slice(-2);
         var today = data1.getFullYear()+"-"+(month)+"-"+(day) ;
@@ -111,6 +115,8 @@ $('#placa_cavalo').focusout(function () {
         $.getJSON('../../api/veiculo/' + placa, function (data) {
             $('#renavam').val(data.RENAVAM);
             $('#placa_carreta').val(data.PLACA_CARRETA);
+            $('#placa_carreta2').val(data.PLACA_CARRETA2);
+            $('#placa_carreta3').val(data.PLACA_CARRETA3);
 
             let tara = data.TARA;
             tara = parseFloat(tara);
@@ -142,6 +148,7 @@ $('#cpf_motorista').focusout(function () {
 $('#quantidade').keyup(function () {
     let quantidade = $(this).val();
     let saldo_disponivel = $('#saldo_disponivel').val();
+    let limite_cliente = $('#limite_cliente').val();
 
         if(quantidade.length > 0){
             quantidade = formatarValor(quantidade);
@@ -153,8 +160,13 @@ $('#quantidade').keyup(function () {
                 $('#invalid-quantidade').css('display', 'block');
                 $(this).addClass('invalido');
                 invalida_quantidade = true;
-            } else {
+            } else if(quantidade > limite_cliente) {
+                $('#invalid-limite').css('display', 'block');
+                $(this).addClass('invalido');
+            }
+            else {
                 $('#invalid-quantidade').css('display', 'none');
+                $('#invalid-limite').css('display', 'none');
                 $(this).removeClass('invalido');
                 invalida_quantidade = false;
             }
@@ -169,7 +181,6 @@ $('#quantidade').keyup(function () {
         } else {
             $('#invalid-quantidade').css('display', 'none');
             $(this).removeClass('invalido');
-
             invalida_quantidade = false;
         }
 });
@@ -214,6 +225,8 @@ $('#data_agendamento').change(function () {
 
         invalida_data = false;
     }
+
+
 });
 
 $('#formAgendamento').submit(function (event) {
@@ -238,15 +251,13 @@ function verificarCota() {
 
         if(quantidade > 0){
             $.getJSON('../api/cota/' + cliente + '/' + data, function (data) {
-
+                console.log(data);
                 if((data.SALDO_LIVRE - data.TOTAL_AGENDADO) >= quantidade){
                     invalida_cota = false;
-
                     $('#invalid-cota').css('display', 'none');
                     $('#data_agendamento').removeClass('invalido');
                 } else {
                     invalida_cota = true;
-
                     $('#invalid-cota').css('display', 'block');
                     $('#data_agendamento').addClass('invalido');
                 }
@@ -254,7 +265,6 @@ function verificarCota() {
         }
     } else {
         invalida_cota = false;
-
         $('#invalid-cota').css('display', 'none');
         $(this).removeClass('invalido');
     }

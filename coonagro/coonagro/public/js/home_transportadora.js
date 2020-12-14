@@ -83,14 +83,22 @@ function filtrar_transportadora() {
     const status = $('#status').val();
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
-    const placa = $('#placa').val();
+    const transportadora = $('#transportadora').val();
+    const num_pedido = $('#num_pedido').val();
+    const placa_veiculo = $('#placa_veiculo').val();
+    const placa_carreta = $('#placa_carreta').val();
+    const data_especifica = $('#data_especifica').val();
 
     let filtro = {
         num_agendamento: num_agendamento,
         status: status,
         data_inicial: data_inicial,
         data_final: data_final,
-        placa: placa
+        transportadora: transportadora,
+        num_pedido: num_pedido,
+        placa_veiculo: placa_veiculo,
+        placa_carreta: placa_carreta,
+        data_especifica: data_especifica
     };
 
     $.getJSON('transportadora/filter', filtro, function (data) {
@@ -108,6 +116,10 @@ function filtrar_transportadora() {
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
+                resultado += `<td>${item.NUM_PEDIDO}</td>`;
+                resultado += `<td>${item.PLACA_VEICULO}</td>`;
+                resultado += `<td>${item.PLACA_CARRETA1}</td>`;
+                resultado += `<td>${item.TRANSPORTADORA}</td>`;
             resultado += `</tr>`;
         });
 

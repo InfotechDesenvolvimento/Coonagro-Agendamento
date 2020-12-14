@@ -13,17 +13,16 @@
             </div>
         @endif
 
-        <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS VINCULADOS À TRANSPORTADORAS</b> </h4>
+        <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS LIBERADOS PARA AGENDAMENTO</b> </h4>
 
         <div class="table-responsive">
             <table id="table" class="table table-striped" style="width: 100%">
                 <thead>
                     <th>Nº Pedido</th>
                     <th>Produto</th>
-                    <th>Transportadora</th>
+                    <th>Cliente</th>
+                    <th>Limite Quantidade</th>
                     <th>Data</th>
-                    <th>Quantidade Limite</th>
-                    <th>Desvincular</th>
                 </thead>
                 <tbody>
                     @if(count($pedidos) == 0)
@@ -34,26 +33,21 @@
                         @foreach($pedidos as $pedido)
                             <tr>
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
-                                <td>{{$pedido->PRODUTO->DESCRICAO}}</td>
-                                <td>{{$pedido->TRANSPORTADORA->NOME}}</td>
+                                <td>{{$pedido->produto->DESCRICAO}}</td>
+                                <td>{{$pedido->cliente->NOME}}</td>
+                                <td>{{$pedido->COTA}}</td>
                                 @if($pedido->DATA != null)
                                     <td>{{date_format(date_create($pedido->DATA), 'd/m/Y')}}</td>
                                 @else
                                     <td></td>
                                 @endif
-                                <td>{{$pedido->COTA}}</td>
-                                <td class="agendamento">
-                                    <a href="#" title="Desvincular pedido">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </a>
-                                </td>
                             </tr>
                         @endforeach
                     @endif
                 </tbody>
             </table>
         </div>
-        <a href="{{route('cliente.vincular_pedidos')}}">
+        <a href="{{route('transportadora.home')}}">
             <button class="btn btn-success btn-lg btn-block back">
                 <i class="fas fa-arrow-left"></i> Voltar
             </button>

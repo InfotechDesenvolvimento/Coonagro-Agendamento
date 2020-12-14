@@ -39,21 +39,31 @@ class VincularPedidosController extends Controller{
 
     public function vincular() {
         $cod_cliente = Auth::user()->getAuthIdentifier();
-        
-        $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
-                    ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
+
+        $num_cotas = $_POST['numCota'];
 
         $pedido_vinculado = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
-                    ->where('COD_TRANSPORTADORA', $_POST['cod_transportadora'])
-                    ->where('NUM_PEDIDO', $_POST['num_pedido'])->get();
+                                ->where('COD_TRANSPORTADORA', $_POST['cod_transportadora'])
+                                ->where('NUM_PEDIDO', $_POST['num_pedido'])->get();
 
         if($pedido_vinculado->isEmpty()) {
-            $pedido_vinculado = new PedidosVinculadosTransportadora();
-            $pedido_vinculado->COD_CLIENTE = $cod_cliente;
-            $pedido_vinculado->COD_TRANSPORTADORA = $_POST['cod_transportadora'];
-            $pedido_vinculado->NUM_PEDIDO = $_POST['num_pedido'];
-            $pedido_vinculado->COD_PRODUTO = $_POST['cod_produto'];
-            $pedido_vinculado->save();
+            if($num_cotas > 0) {
+                for($i = 0; $i<$num_cotas; $i++) {
+                    $pedido_vinculado = new PedidosVinculadosTransportadora();
+                    $pedido_vinculado->COD_CLIENTE = $cod_cliente;
+                    $pedido_vinculado->COD_TRANSPORTADORA = $_POST['cod_transportadora'];
+                    $pedido_vinculado->NUM_PEDIDO = $_POST['num_pedido'];
+                    $pedido_vinculado->COD_PRODUTO = $_POST['cod_produto'];
+                    $pedido_vinculado->DATA = $_POST['data_'.$i];
+                    $pedido_vinculado->COTA = $_POST['quantidade_'.$i];
+                    $pedido_vinculado->save();
+                }
+            }
+            
+            $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
+                    ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
+
+
             $msg = "A transportadora foi vinculada ao pedido com sucesso.";
             return view('cliente.vincular_pedidos', compact(['msg', 'pedidos']));
         } else {
@@ -65,12 +75,16 @@ class VincularPedidosController extends Controller{
     public function visualizarPedidosVinculados() {
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
-        $pedidos = DB::table('pedidos_vinculados_transportadora')
-                        ->select('transportadoras.NOME as TRANSPORTADORA', 'produtos.DESCRICAO as PRODUTO', 'pedidos_vinculados_transportadora.NUM_PEDIDO')
+        $pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+                                ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
+
+        
+        /*$pedidos = DB::table('pedidos_vinculados_transportadora')
+                        ->select('transportadoras.NOME as TRANSPORTADORA', 'produtos.DESCRICAO as PRODUTO', 'pedidos_vinculados_transportadora.*')
                         ->leftJoin('produtos', 'produtos.CODIGO', '=', 'pedidos_vinculados_transportadora.COD_PRODUTO')
                         ->leftJoin('transportadoras', 'transportadoras.CODIGO', '=', 'pedidos_vinculados_transportadora.COD_TRANSPORTADORA')
                         ->where('pedidos_vinculados_transportadora.COD_CLIENTE', $cod_cliente)->groupBy('pedidos_vinculados_transportadora.CODIGO')->get();
-
+        */
 
         return view('cliente.visualizar_vinculados', compact('pedidos'));
         //return json_encode($pedidos);

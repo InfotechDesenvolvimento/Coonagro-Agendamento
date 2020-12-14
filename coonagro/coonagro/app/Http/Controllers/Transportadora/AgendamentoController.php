@@ -20,6 +20,7 @@ use App\TipoEmbalagem;
 use App\TipoVeiculo;
 use App\Transportadora;
 use App\Veiculo;
+use App\PedidosVinculadosTransportadora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,9 +79,17 @@ class AgendamentoController extends Controller
 
                     $veiculo->PLACA = strtoupper($dados->placa_cavalo);
                     $veiculo->PLACA_CARRETA = strtoupper($dados->placa_carreta);
+                    if($dados->placa_carreta2) {
+                        $veiculo->PLACA_CARRETA2 = $dados->placa_carreta2;
+                    }
+                    if($dados->placa_carreta3) {
+                        $veiculo->PLACA_CARRETA3 = $dados->placa_carreta3;
+                    }
                     $veiculo->COD_TIPO_VEICULO = $tipo_veiculo->id;
                     $veiculo->TARA = $this->formataValor($dados->tara);
-                    $veiculo->RENAVAM = $dados->renavam;
+                    if($dados->renavam != null) {
+                        $veiculo->RENAVAM = $dados->renavam;
+                    }
 
                     $objVeiculo->insert($veiculo);
                 }
@@ -94,8 +103,12 @@ class AgendamentoController extends Controller
 
                     $motorista->CPF_CNPJ = $dados->cpf_motorista;
                     $motorista->NOME = strtoupper($dados->nome_motorista);
-                    $motorista->CNH = $dados->cnh;
-                    $motorista->DATA_VALIDADE_CNH = $dados->validade_cnh;
+                    if($dados->cnh != null) {
+                        $motorista->CNH = $dados->cnh;
+                    }
+                    if($dados->validade_cnh != null) {
+                        $motorista->DATA_VALIDADE_CNH = $dados->validade_cnh;
+                    }
 
                     $objMotorista->insert($motorista);
                 }
@@ -108,7 +121,9 @@ class AgendamentoController extends Controller
             $agendamento->CNPJ_TRANSPORTADORA = Auth::user()->CPF_CNPJ;
             $agendamento->PLACA_VEICULO = strtoupper($dados->placa_cavalo);
             $agendamento->PLACA_CARRETA1 = strtoupper($dados->placa_carreta);
-            $agendamento->RENAVAM_VEICULO = $dados->renavam;
+            if($dados->renavam != null) {
+                $agendamento->RENAVAM_VEICULO = $dados->renavam;
+            }
 
             $tipo_veiculo = json_decode($dados->tipo_veiculo[0]);
 
@@ -125,6 +140,7 @@ class AgendamentoController extends Controller
             $pedido = $objPedidoTransporte->getObjPedido($dados->num_pedido);
             $agendamento->COD_CLIENTE = $pedido->COD_CLIENTE;
 
+            //return json_encode($agendamento);
             return $this->insert($agendamento);
         } else {
             return redirect()->route('transportadora.operacao');
@@ -147,6 +163,11 @@ class AgendamentoController extends Controller
             
             $objCotaCliente = new CotaClienteController();
             $objCotaCliente->update($pedido->COD_CLIENTE, $agendamento->DATA_AGENDAMENTO, $agendamento->QUANTIDADE);
+
+            $objCotaTransp = PedidosVinculadosTransportadora::where('COD_CLIENTE', $pedido->COD_CLIENTE)->where('COD_TRANSPORTADORA', $agendamento->COD_TRANSPORTADORA)->where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->where('COD_PRODUTO', $agendamento->COD_PRODUTO)->where('DATA', $agendamento->DATA_AGENDAMENTO)->first();
+            $cota = $objCotaTransp->COTA - $agendamento->QUANTIDADE;
+            $objCotaTransp->COTA = $cota;
+            $objCotaTransp->save();
         }
 
         $cod_agendamento = $agendamento->CODIGO;
@@ -187,7 +208,44 @@ class AgendamentoController extends Controller
 
         $cod_transportadora = Auth::user()->getAuthIdentifier();
 
-        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+        if($request->get('data_especifica') == '') {
+
+            $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                            $query->where('CODIGO', $request->get('num_agendamento'));
+                                    })->when($request->get('status') != "0", function ($query) use ($request){
+                                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('data_inicial') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
+                                    })->when($request->get('data_final') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
+                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
+                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
+                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
+                                    })->where('COD_TRANSPORTADORA', $cod_transportadora)->with('status')->orderBy('CODIGO')->get();
+        } else {
+            $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                            $query->where('CODIGO', $request->get('num_agendamento'));
+                                    })->when($request->get('status') != "0", function ($query) use ($request){
+                                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('data_especifica') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', $request->get('data_especifica'));
+                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
+                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
+                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
+                                    })->where('COD_TRANSPORTADORA', $cod_transportadora)->with('status')->orderBy('CODIGO')->get();
+        }
+
+        /* $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                 $query->where('CODIGO', $request->get('num_agendamento'));
                         })->when($request->get('status') != "0", function ($query) use ($request){
                                 $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
@@ -199,8 +257,24 @@ class AgendamentoController extends Controller
                                 $query->where('PLACA_VEICULO', '=', $request->get('placa'));    
                         })->where('COD_TRANSPORTADORA', $cod_transportadora)
                         ->with('status')->orderBy('CODIGO')->get();
-
+        */
         return response()->json($agendamentos);
+    }
+
+    public function totalAgendado() {
+        $cod_transportadora = Auth::user()->getAuthIdentifier();
+
+        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
+        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, clientes.NOME AS CLIENTE FROM agendamentos
+                                    LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE)
+                                    WHERE agendamentos.COD_TRANSPORTADORA = $cod_transportadora
+                                    GROUP BY clientes.NOME");
+        $total_agendado = Agendamento::where('COD_TRANSPORTADORA', $cod_transportadora)->sum('QUANTIDADE');
+        
+        //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
+
+        //return json_encode($agendamentos);
+        return view('transportadora.total_agendado', compact('agendamentos', 'total_agendado'));
     }
 
     public function formataValor($valor){
@@ -208,4 +282,14 @@ class AgendamentoController extends Controller
         $valor = str_replace(',', '.', $valor);
         return $valor;
     }
+
+    public function visualizarPedidosVinculados(){
+        $cod_transportadora = Auth::user()->getAuthIdentifier();
+
+        $pedidos = PedidosVinculadosTransportadora::where('COD_TRANSPORTADORA', $cod_transportadora)
+        ->with('pedido_transporte')->with('produto')->with('cliente')->get();
+
+        return view('transportadora.pedidos_vinculados', compact('pedidos'));
+    }
+
 }
