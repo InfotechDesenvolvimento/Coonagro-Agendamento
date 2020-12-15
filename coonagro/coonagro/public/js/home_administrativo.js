@@ -100,11 +100,18 @@ function filtrar_administrador() {
                                     <i class="fas fa-chevron-down mr-3" title="Alterar dados" style="cursor: pointer; color: #545b62"></i>
                                 </a>
                               </td>`;
+                resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
-                resultado += `<td>${item.TRANSPORTADORA}</td>`;
+                if(item.produto != null) {
+                    resultado += `<td>${item.produto.DESCRICAO}</td>`;
+                } else {
+                    resultado += `<td></td>`;
+                }
                 resultado += `<td>${item.NUM_PEDIDO}</td>`;
-                resultado += `<td>${item.DESCRICAO}</td>`;
+                resultado += `<td>${item.PLACA_VEICULO}</td>`;
+                resultado += `<td>${item.PLACA_CARRETA1}</td>`;
+                resultado += `<td>${item.TRANSPORTADORA}</td>`;
             resultado += `</tr>`;
             resultado += `<tr id="detalhes_${item.CODIGO}" hidden>`;
                 resultado += `<td> </td>`;

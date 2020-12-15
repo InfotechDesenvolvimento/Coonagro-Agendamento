@@ -220,11 +220,12 @@ class AgendamentoController extends Controller
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
         if($request->get('data_especifica') == '') {
-
             $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                             $query->where('CODIGO', $request->get('num_agendamento'));
                                     })->when($request->get('status') != "0", function ($query) use ($request){
                                             $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('produto') != "0", function ($query) use ($request){
+                                            $query->where('COD_PRODUTO', $request->get('produto'));
                                     })->when($request->get('data_inicial') != "", function ($query) use ($request){
                                             $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                                     })->when($request->get('data_final') != "", function ($query) use ($request){
@@ -237,12 +238,14 @@ class AgendamentoController extends Controller
                                             $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                     })->when($request->get('placa_carreta') != "", function ($query) use ($request){
                                             $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
-                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
+                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->with('produto')->orderBy('CODIGO')->get();
         } else {
             $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                             $query->where('CODIGO', $request->get('num_agendamento'));
                                     })->when($request->get('status') != "0", function ($query) use ($request){
                                             $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('produto') != "0", function ($query) use ($request){
+                                            $query->where('COD_PRODUTO', $request->get('produto'));
                                     })->when($request->get('data_especifica') != "", function ($query) use ($request){
                                             $query->where('DATA_AGENDAMENTO', $request->get('data_especifica'));
                                     })->when($request->get('num_pedido') != "", function ($query) use ($request){
@@ -253,7 +256,7 @@ class AgendamentoController extends Controller
                                             $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                     })->when($request->get('placa_carreta') != "", function ($query) use ($request){
                                             $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
-                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->orderBy('CODIGO')->get();
+                                    })->where('COD_CLIENTE', $cod_cliente)->with('status')->with('produto')->orderBy('CODIGO')->get();
         }
 
         return response()->json($agendamentos);

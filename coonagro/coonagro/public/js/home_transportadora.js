@@ -70,6 +70,12 @@ function setTable() {
 function limparCampos() {
     $('#num_agendamento').val(null);
     $('#status').val(0);
+    $('#produto').val(0);
+    $('#transportadora').val(null);
+    $('#num_pedido').val(null);
+    $('#placa_veiculo').val(null);
+    $('#placa_carreta').val(null);
+    $('#data_especifica').val(null);
     preencherData();
 }
 
@@ -84,6 +90,7 @@ function filtrar_transportadora() {
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
     const transportadora = $('#transportadora').val();
+    const produto = $('#produto').val();
     const num_pedido = $('#num_pedido').val();
     const placa_veiculo = $('#placa_veiculo').val();
     const placa_carreta = $('#placa_carreta').val();
@@ -92,6 +99,7 @@ function filtrar_transportadora() {
     let filtro = {
         num_agendamento: num_agendamento,
         status: status,
+        produto: produto,
         data_inicial: data_inicial,
         data_final: data_final,
         transportadora: transportadora,
@@ -108,18 +116,22 @@ function filtrar_transportadora() {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                   <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
-                                        <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                   </a>
-                              </td>`;
-                resultado += `<td>${item.PLACA_VEICULO}</td>`;
-                resultado += `<td>${item.status.STATUS}</td>`;
-                resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
-                resultado += `<td>${item.QUANTIDADE}</td>`;
-                resultado += `<td>${item.NUM_PEDIDO}</td>`;
-                resultado += `<td>${item.PLACA_VEICULO}</td>`;
-                resultado += `<td>${item.PLACA_CARRETA1}</td>`;
-                resultado += `<td>${item.TRANSPORTADORA}</td>`;
+                                <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                    <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
+                                </a>
+                            </td>`;
+                            resultado += `<td>${item.status.STATUS}</td>`;
+                            resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
+                            resultado += `<td>${item.QUANTIDADE}</td>`;
+                            if(item.produto != null) {
+                                resultado += `<td>${item.produto.DESCRICAO}</td>`;
+                            } else {
+                                resultado += `<td></td>`;
+                            }
+                            resultado += `<td>${item.NUM_PEDIDO}</td>`;
+                            resultado += `<td>${item.PLACA_VEICULO}</td>`;
+                            resultado += `<td>${item.PLACA_CARRETA1}</td>`;
+                            resultado += `<td>${item.TRANSPORTADORA}</td>`;
             resultado += `</tr>`;
         });
 

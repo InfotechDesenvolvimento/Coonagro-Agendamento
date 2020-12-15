@@ -104,6 +104,17 @@
                             id="data_especifica"
                         >
                     </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Produto</label>
+                        <select id="produto"
+                                class="form-control"
+                        >
+                            <option value="0">TODOS</option>
+                            @foreach($produtos as $p)
+                                <option value="{{$p->CODIGO}}">{{$p->DESCRICAO}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -133,12 +144,12 @@
                 <table id="table" class="table table-striped dataTable">
                     <thead>
                         <tr>
-                            <th style="width: 10px !important;">Nº</th>
-                            <th style="width: 40px !important;">Ações</th>
-                            <th style="width: 40px !important;">Placa</th>
+                            <th>Nº</th>
+                            <th>Ações</th>
                             <th>Status</th>
-                            <th style="width: 80px !important;">Data</th>
-                            <th style="width: 110px !important;">Quantidade (T)</th>
+                            <th>Data</th>
+                            <th>Quantidade (T)</th>
+                            <th>Produto</th>
                             <th>Nº Pedido</th>
                             <th>Placa Veículo</th>
                             <th>Placa Carreta 1</th>

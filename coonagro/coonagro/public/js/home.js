@@ -70,6 +70,7 @@ function setTable() {
 function limparCampos() {
     $('#num_agendamento').val(null);
     $('#status').val(0);
+    $('#produto').val(0);
     $('#transportadora').val(null);
     $('#num_pedido').val(null);
     $('#placa_veiculo').val(null);
@@ -86,6 +87,7 @@ function filtrar() {
 
     const num_agendamento = $('#num_agendamento').val();
     const status = $('#status').val();
+    const produto = $('#produto').val();
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
     const transportadora = $('#transportadora').val();
@@ -97,6 +99,7 @@ function filtrar() {
     let filtro = {
         num_agendamento: num_agendamento,
         status: status,
+        produto: produto,
         data_inicial: data_inicial,
         data_final: data_final,
         transportadora: transportadora,
@@ -120,6 +123,11 @@ function filtrar() {
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;
+                if(item.produto != null) {
+                    resultado += `<td>${item.produto.DESCRICAO}</td>`;
+                } else {
+                    resultado += `<td></td>`;
+                }
                 resultado += `<td>${item.NUM_PEDIDO}</td>`;
                 resultado += `<td>${item.PLACA_VEICULO}</td>`;
                 resultado += `<td>${item.PLACA_CARRETA1}</td>`;

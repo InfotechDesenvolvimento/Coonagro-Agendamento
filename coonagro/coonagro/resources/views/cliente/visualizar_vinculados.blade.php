@@ -6,10 +6,10 @@
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
     
     <div class="container panel-form">
-        @if(isset($msg))
+        @if(isset($_GET['msg']))
             <br>
             <div class="alert alert-warning" role="alert">
-                {{$msg}}
+                {{$_GET['msg']}}
             </div>
         @endif
 

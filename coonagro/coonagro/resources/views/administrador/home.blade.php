@@ -6,7 +6,7 @@
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
 
     <div class="col-12">
-        <div class="container panel-form panel-reduzido">
+        <div class="container panel-form">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
             
         <a href="#"><button class="btn btn-primary btn-lg btn-block">
@@ -77,13 +77,16 @@
                 <table id="table" class="table table-striped dataTable">
                     <thead>
                         <tr>
-                            <th style="width: 10px !important;">Nº</th>
-                            <th style="width: 40px !important;">Ações</th>
-                            <th style="width: 80px !important;">Data</th>
-                            <th style="width: 110px !important;">Quantidade (T)</th>
-                            <th>Responsável</th>
-                            <th>N° Pedido</th>
+                            <th>Nº</th>
+                            <th>Ações</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                            <th>Quantidade (T)</th>
                             <th>Produto</th>
+                            <th>Nº Pedido</th>
+                            <th>Placa Veículo</th>
+                            <th>Placa Carreta 1</th>
+                            <th>Transportadora</th>
                         </tr>
                     </thead>
                 </table>

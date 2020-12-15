@@ -60,8 +60,26 @@ class AgendamentoController extends Controller
     }
 
     public function filter(Request $request) {
+        
+        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                            $query->where('CODIGO', $request->get('num_agendamento'));
+                                    })->when($request->get('status') != "0", function ($query) use ($request){
+                                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                    })->when($request->get('data_inicial') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
+                                    })->when($request->get('data_final') != "", function ($query) use ($request){
+                                            $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
+                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
+                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
+                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
+                                    })->with('status')->with('produto')->orderBy('CODIGO')->get();
 
-        $agendamentos = DB::table('agendamentos')
+        /*$agendamentos = DB::table('agendamentos')
                         ->select('agendamentos.*', 'produtos.DESCRICAO')
                         ->leftJoin('produtos', 'produtos.CODIGO', '=', 'agendamentos.COD_PRODUTO')
                         ->when($request->get('num_agendamento') != "", function ($query) use ($request) {
@@ -72,17 +90,18 @@ class AgendamentoController extends Controller
                             $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
                         })->when($request->get('data_final') != "", function ($query) use ($request){
                                 $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->groupBy('agendamentos.CODIGO')->get();
+                        })->with('status')->groupBy('agendamentos.CODIGO')->get();
 
-        //$agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                 //$query->where('CODIGO', $request->get('num_agendamento'));
-                        //})->when($request->get('status') != "0", function ($query) use ($request){
+                        })->when($request->get('status') != "0", function ($query) use ($request){
                                 //$query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
-                        //})->when($request->get('data_inicial') != "", function ($query) use ($request){
+                        })->when($request->get('data_inicial') != "", function ($query) use ($request){
                                 //$query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
-                        //})->when($request->get('data_final') != "", function ($query) use ($request){
+                        })->when($request->get('data_final') != "", function ($query) use ($request){
                                 //$query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        //})->with('status')->orderBy('COD_CLIENTE')->get();
+                        })->with('status')->orderBy('COD_CLIENTE')->get();
+        */
 
         return response()->json($agendamentos);
     }

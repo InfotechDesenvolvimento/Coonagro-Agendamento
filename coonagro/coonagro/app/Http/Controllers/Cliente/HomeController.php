@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
 use App\StatusAgendamento;
+use App\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +16,9 @@ class HomeController extends Controller{
 
     public function index(){
         $status = StatusAgendamento::orderBy('STATUS')->get();
+        $produtos =  Produto::get();
 
-        return view('cliente.home', compact('status'));
+        return view('cliente.home', compact('status', 'produtos'));
     }
 
     public function operacao(){

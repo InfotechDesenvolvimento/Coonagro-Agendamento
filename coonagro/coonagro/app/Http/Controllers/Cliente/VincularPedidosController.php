@@ -102,7 +102,7 @@ class VincularPedidosController extends Controller{
                                 ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
         $msg = "Vínculo removido!";
-        return view('cliente.visualizar_vinculados', compact('pedidos', 'msg'));
+        return redirect()->route('cliente.pedidos_vinculados', compact('pedidos', 'msg'));
     }
 
 }
