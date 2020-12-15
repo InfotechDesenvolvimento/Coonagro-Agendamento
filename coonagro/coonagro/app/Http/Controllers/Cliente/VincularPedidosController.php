@@ -46,6 +46,10 @@ class VincularPedidosController extends Controller{
                                 ->where('COD_TRANSPORTADORA', $_POST['cod_transportadora'])
                                 ->where('NUM_PEDIDO', $_POST['num_pedido'])->get();
 
+        
+        $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
+                            ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
+
         if($pedido_vinculado->isEmpty()) {
             if($num_cotas > 0) {
                 for($i = 0; $i<$num_cotas; $i++) {
@@ -60,8 +64,6 @@ class VincularPedidosController extends Controller{
                 }
             }
             
-            $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
-                    ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
 
 
             $msg = "A transportadora foi vinculada ao pedido com sucesso.";
@@ -88,6 +90,19 @@ class VincularPedidosController extends Controller{
 
         return view('cliente.visualizar_vinculados', compact('pedidos'));
         //return json_encode($pedidos);
+    }
+
+    public function desvincular($cod_pedido) {
+        $vinculo = PedidosVinculadosTransportadora::find($cod_pedido);
+        $vinculo->delete();
+
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        $pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+                                ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
+
+        $msg = "Vínculo removido!";
+        return view('cliente.visualizar_vinculados', compact('pedidos', 'msg'));
     }
 
 }

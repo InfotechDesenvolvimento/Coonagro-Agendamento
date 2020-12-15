@@ -43,8 +43,8 @@
                                 @endif
                                 <td>{{$pedido->COTA}}</td>
                                 <td class="agendamento">
-                                    <a href="#" title="Desvincular pedido">
-                                        <i class="fas fa-arrow-right"></i>
+                                    <a onclick="desvincular({{$pedido->CODIGO}})" target="_blank">
+                                        <i class="fas fa-minus-circle" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -53,11 +53,12 @@
                 </tbody>
             </table>
         </div>
-        <a href="{{route('cliente.vincular_pedidos')}}">
+        <a id="voltar" href="{{route('cliente.vincular_pedidos')}}">
             <button class="btn btn-success btn-lg btn-block back">
                 <i class="fas fa-arrow-left"></i> Voltar
             </button>
         </a>
     </div>
+    @section('js')../../js/visualizar_vinculados.js @endsection
 @stop
 
