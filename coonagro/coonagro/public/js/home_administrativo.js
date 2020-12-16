@@ -66,6 +66,12 @@ function setTable() {
 function limparCampos() {
     $('#num_agendamento').val(null);
     $('#status').val(0);
+    $('#produto').val(0);
+    $('#transportadora').val(null);
+    $('#num_pedido').val(null);
+    $('#placa_veiculo').val(null);
+    $('#placa_carreta').val(null);
+    $('#data_especifica').val(null);
     preencherData();
 }
 
@@ -79,12 +85,24 @@ function filtrar_administrador() {
     const status = $('#status').val();
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
+    const transportadora = $('#transportadora').val();
+    const produto = $('#produto').val();
+    const num_pedido = $('#num_pedido').val();
+    const placa_veiculo = $('#placa_veiculo').val();
+    const placa_carreta = $('#placa_carreta').val();
+    const data_especifica = $('#data_especifica').val();
 
     let filtro = {
         num_agendamento: num_agendamento,
         status: status,
+        produto: produto,
         data_inicial: data_inicial,
-        data_final: data_final
+        data_final: data_final,
+        transportadora: transportadora,
+        num_pedido: num_pedido,
+        placa_veiculo: placa_veiculo,
+        placa_carreta: placa_carreta,
+        data_especifica: data_especifica
     };
 
     $.getJSON('administrador/filter', filtro, function (data) {
@@ -95,9 +113,6 @@ function filtrar_administrador() {
                 resultado += `<td>
                                 <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                     <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                </a>
-                                <a onclick="mostrarDetalhes(${item.CODIGO})">
-                                    <i class="fas fa-chevron-down mr-3" title="Alterar dados" style="cursor: pointer; color: #545b62"></i>
                                 </a>
                               </td>`;
                 resultado += `<td>${item.status.STATUS}</td>`;
@@ -112,13 +127,6 @@ function filtrar_administrador() {
                 resultado += `<td>${item.PLACA_VEICULO}</td>`;
                 resultado += `<td>${item.PLACA_CARRETA1}</td>`;
                 resultado += `<td>${item.TRANSPORTADORA}</td>`;
-            resultado += `</tr>`;
-            resultado += `<tr id="detalhes_${item.CODIGO}" hidden>`;
-                resultado += `<td> </td>`;
-                resultado += `<td>Ajustar data: </td> <td> <input class="form-control" type="text" inputmode="numeric" name="data_agendamento_${item.CODIGO}" id="data_agendamento_${item.CODIGO}"> </td>`;
-                resultado += `<td> <button class="btn btn-success" id="ajustarData"> Confirmar </button> </td>`;
-                resultado += `<td> </td>`;
-                resultado += `<td> </td>`;
             resultado += `</tr>`;
         });
 
@@ -146,11 +154,3 @@ function filtrar_administrador() {
 function formatarData(data) {
     return data.substring(8,10) + '/' + data.substring(5,7) + '/' + data.substring(0, 4);
 }
-
-function mostrarDetalhes(codigo) {
-    if($(`#detalhes_${codigo}`).attr('hidden')) {
-        $(`#detalhes_${codigo}`).attr('hidden', false)
-    }else {
-        $(`#detalhes_${codigo}`).attr('hidden', true)
-    }
- }

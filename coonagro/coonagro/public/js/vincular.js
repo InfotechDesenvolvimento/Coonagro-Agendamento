@@ -1,7 +1,7 @@
 let invalida_quantidade = false;
 let invalida_cota = false;
 let numCota = 0;
-let dias = 0;
+let dias = 1;
 const saldo_disponivel_bk = $('#pedido_saldo_disponivel').val();
 
 
@@ -234,15 +234,15 @@ function adicionarCota() {
                                         if(quantidade > p_saldo_disponivel){
                                             $('#linha_${numCota}').remove();
                                             $('#sublinha_${numCota}').remove();
-                                            numCota = numCota - 1;
+                                            dias = dias - 1;
                                         } else if(quantidade > cota_cliente) {
                                             $('#linha_${numCota}').remove();
                                             $('#sublinha_${numCota}').remove();
-                                            numCota = numCota - 1;
+                                            dias = dias - 1;
                                         } else if(quantidade > cota_cliente && quantidade > p_saldo_disponivel) {
                                             $('#linha_${numCota}').remove();
                                             $('#sublinha_${numCota}').remove();
-                                            numCota = numCota - 1;
+                                            dias = dias - 1;
                                         } else {
                                             $('#invalid-quantidade_${numCota}').css('display', 'none');
                                             invalida_quantidade = false;
@@ -250,16 +250,23 @@ function adicionarCota() {
                                             invalida_cota = false;
                                             $(this).removeClass('invalido');
                                             $('#pedido_saldo_disponivel').val(saldo-quantidade);
-                                            $(this).attr('readonly', true);
                                         }
                                     } else {
                                         $('#linha_${numCota}').remove();
                                         $('#sublinha_${numCota}').remove();
-                                        numCota = numCota - 1;
+                                        dias = dias - 1;
                                     }
                                 });
-                                $('#quantidade_${numCota}').focusout(function () {
-                                    
+
+
+                                $('#quantidade_${numCota}').focusin(function () {
+                                    if(parseInt($(this).val()) > 0) {
+                                        console.log('teste');
+                                        let qtd = parseInt($(this).val());
+                                        let saldo = parseInt($('#pedido_saldo_disponivel').val());
+                                        $('#pedido_saldo_disponivel').val(saldo+qtd);
+                                        $(this).val(0);
+                                    }
                                 });
                             </script>
                         `;

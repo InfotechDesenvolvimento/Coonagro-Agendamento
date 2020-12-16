@@ -15,8 +15,7 @@ class PedidoTransporteController extends Controller
         $pedido = PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
 
         if($pedido != null){
-            $pedido->TOTAL_AGENDADO = $pedido->TOTAL_AGENDADO + $quantidade;
-
+            $pedido->TOTAL_AGENDADO += $quantidade;
             $pedido->save();
         }
     }

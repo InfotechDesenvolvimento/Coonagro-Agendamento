@@ -59,49 +59,72 @@ class AgendamentoController extends Controller
         return $cliente->NOME;
     }
 
-    public function filter(Request $request) {
+    public function totalAgendadoClientes() {
+
+        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
+        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, clientes.NOME AS CLIENTE FROM agendamentos
+                                    LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE)
+                                    GROUP BY clientes.NOME");
+        $total_agendado = Agendamento::sum('QUANTIDADE');
         
-        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
-                                            $query->where('CODIGO', $request->get('num_agendamento'));
-                                    })->when($request->get('status') != "0", function ($query) use ($request){
-                                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
-                                    })->when($request->get('data_inicial') != "", function ($query) use ($request){
-                                            $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
-                                    })->when($request->get('data_final') != "", function ($query) use ($request){
-                                            $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                                    })->when($request->get('num_pedido') != "", function ($query) use ($request){
-                                            $query->where('NUM_PEDIDO', $request->get('num_pedido'));
-                                    })->when($request->get('transportadora') != "", function ($query) use ($request){
-                                            $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
-                                    })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
-                                            $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
-                                    })->when($request->get('placa_carreta') != "", function ($query) use ($request){
-                                            $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
-                                    })->with('status')->with('produto')->orderBy('CODIGO')->get();
+        //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
 
-        /*$agendamentos = DB::table('agendamentos')
-                        ->select('agendamentos.*', 'produtos.DESCRICAO')
-                        ->leftJoin('produtos', 'produtos.CODIGO', '=', 'agendamentos.COD_PRODUTO')
-                        ->when($request->get('num_agendamento') != "", function ($query) use ($request) {
-                            $query->where('CODIGO', $request->get('num_agendamento'));
-                        })->when($request->get('status') != "0", function ($query) use ($request){
-                            $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
-                        })->when($request->get('data_inicial') != "", function ($query) use ($request){
-                            $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
-                        })->when($request->get('data_final') != "", function ($query) use ($request){
-                                $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->with('status')->groupBy('agendamentos.CODIGO')->get();
+        //return json_encode($agendamentos);
+        return view('administrador.total_agendado_clientes', compact('agendamentos', 'total_agendado'));
+    }
 
-        $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
-                                //$query->where('CODIGO', $request->get('num_agendamento'));
-                        })->when($request->get('status') != "0", function ($query) use ($request){
-                                //$query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
-                        })->when($request->get('data_inicial') != "", function ($query) use ($request){
-                                //$query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
-                        })->when($request->get('data_final') != "", function ($query) use ($request){
-                                //$query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
-                        })->with('status')->orderBy('COD_CLIENTE')->get();
-        */
+    public function totalAgendadoTransportadoras() {
+
+        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
+        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos group by TRANSPORTADORA");
+        $total_agendado = Agendamento::sum('QUANTIDADE');
+        
+        //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
+
+        //return json_encode($agendamentos);
+        return view('administrador.total_agendado_transportadoras', compact('agendamentos', 'total_agendado'));
+    }
+
+    public function filter(Request $request) {
+        if($request->get('data_especifica') == '') {
+                $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                                $query->where('CODIGO', $request->get('num_agendamento'));
+                                        })->when($request->get('status') != "0", function ($query) use ($request){
+                                                $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                        })->when($request->get('produto') != "0", function ($query) use ($request){
+                                                $query->where('COD_PRODUTO', $request->get('produto'));
+                                        })->when($request->get('data_inicial') != "", function ($query) use ($request){
+                                                $query->where('DATA_AGENDAMENTO', '>=', $request->get('data_inicial'));
+                                        })->when($request->get('data_final') != "", function ($query) use ($request){
+                                                $query->where('DATA_AGENDAMENTO', '<=', $request->get('data_final'));
+                                        })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                                $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                        })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                                $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
+                                        })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                                $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
+                                        })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                                $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
+                                        })->with('status')->with('produto')->orderBy('CODIGO')->get();
+        } else {
+                $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
+                                                $query->where('CODIGO', $request->get('num_agendamento'));
+                                        })->when($request->get('status') != "0", function ($query) use ($request){
+                                                $query->where('COD_STATUS_AGENDAMENTO', $request->get('status'));
+                                        })->when($request->get('produto') != "0", function ($query) use ($request){
+                                                $query->where('COD_PRODUTO', $request->get('produto'));
+                                        })->when($request->get('data_especifica') != "", function ($query) use ($request){
+                                                $query->where('DATA_AGENDAMENTO', $request->get('data_especifica'));
+                                        })->when($request->get('num_pedido') != "", function ($query) use ($request){
+                                                $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                        })->when($request->get('transportadora') != "", function ($query) use ($request){
+                                                $query->where('TRANSPORTADORA', 'LIKE', '%' . $request->get('transportadora') .'%');
+                                        })->when($request->get('placa_veiculo') != "", function ($query) use ($request){
+                                                $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
+                                        })->when($request->get('placa_carreta') != "", function ($query) use ($request){
+                                                $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
+                                        })->with('status')->with('produto')->orderBy('CODIGO')->get();
+        }
 
         return response()->json($agendamentos);
     }

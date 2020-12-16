@@ -69,6 +69,17 @@
 
             <tr>
                 <td>
+                    <b style="color: darkgray">Placa Carreta 2</b>
+                    <p>{{$agendamento->PLACA_CARRETA2}}</p>
+                </td>
+                <td style="padding-left: 50px">
+                    <b style="color: darkgray">Placa Carreta 3</b>
+                    <p>{{$agendamento->PLACA_CARRETA3}}</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
                     <b style="color: darkgray">Tipo do Veículo</b>
                     <p>{{$agendamento->tipoVeiculo->TIPO_VEICULO}}</p>
                 </td>
@@ -84,10 +95,6 @@
                 <td>
                     <b style="color: darkgray">Tara (Toneladas)</b>
                     <p>{{$agendamento->TARA_VEICULO}}</p>
-                </td>
-                <td style="padding-left: 50px">
-                    <b style="color: darkgray">Renavam</b>
-                    <p>{{$agendamento->RENAVAM_VEICULO}}</p>
                 </td>
             </tr>
 

@@ -25,6 +25,8 @@ Route::get('/transportadora/configuracoes/', 'transportadora\ConfiguracoesContro
 Route::post('/transportadora/alterar_dados/', 'transportadora\ConfiguracoesController@alterarDados')->name('transportadora.alterar_dados');
 Route::get('/transportadora/pedidos_vinculados', 'transportadora\AgendamentoController@visualizarPedidosVinculados')->name('transportadora.pedidos_vinculados');
 Route::get('transportadora/total_agendado', 'transportadora\AgendamentoController@totalAgendado')->name('transportadora.total_agendado');
+Route::get('transportadora/pedidos_vinculados/filtrar', 'transportadora\AgendamentoController@visualizarPedidosVinculadosFiltrar')->name('transportadora.pedidos_vinculados_filtrar');
+
 
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
 Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
@@ -41,13 +43,15 @@ Route::get('cliente/vincular_pedidos/', 'cliente\VincularPedidosController@index
 Route::get('cliente/vincular_pedido/{pedido}', 'cliente\VincularPedidosController@vincularPedido')->name('cliente.vincular_pedido_transportadora');
 Route::post('cliente/vincular/', 'cliente\VincularPedidosController@vincular')->name('cliente.vincular');
 Route::get('cliente/pedidos_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculados')->name('cliente.pedidos_vinculados');
+Route::get('cliente/pedidos_vinculados/filtrar', 'cliente\VincularPedidosController@visualizarPedidosVinculadosFiltrar')->name('cliente.pedidos_vinculados_filtrar');
 Route::get('cliente/total_agendado', 'cliente\AgendamentoController@totalAgendado')->name('cliente.total_agendado');
 Route::get('cliente/desvincular/{pedido}', 'cliente\VincularPedidosController@desvincular')->name('cliente.desvincular');
-
 
 Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
 Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');
 Route::get('/administrador/filter', 'administrador\AgendamentoController@filter')->name('administrador.filter');
+Route::get('administrador/total_agendado/transportadora', 'administrador\AgendamentoController@totalAgendadoTransportadoras')->name('administrador.total_agendado_transportadoras');
+Route::get('administrador/total_agendado/cliente', 'administrador\AgendamentoController@totalAgendadoClientes')->name('administrador.total_agendado_clientes');
 
 //Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 

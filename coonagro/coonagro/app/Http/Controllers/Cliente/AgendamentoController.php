@@ -156,6 +156,7 @@ class AgendamentoController extends Controller
             $agendamento->QUANTIDADE = $this->formataValor($dados->quantidade);
             $agendamento->COD_EMBALAGEM = $dados->tipo_embalagem;
             $agendamento->OBS = $dados->observacao;
+            $agendamento->COD_TRANSPORTADORA = $transportadora->CODIGO;
 
             return $this->insert($agendamento);
         } else {
@@ -187,8 +188,13 @@ class AgendamentoController extends Controller
         $data = $agendamento->ToJson();
         $data = json_decode($data);
 
+        $transportadora = Transportadora::find($agendamento->COD_TRANSPORTADORA);
+
         if(Auth::user()->EMAIL != null) {
             Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
+        }
+        if($transportadora->EMAIL != null) {
+            Mail::to($transportadora->EMAIL)->send(new EnviaEmail($data));
         }
 
         return redirect()->route('carregamento.sucesso', $cod_agendamento);
@@ -266,8 +272,8 @@ class AgendamentoController extends Controller
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
         //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
-        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_CLIENTE = $cod_cliente group by TRANSPORTADORA");
-        $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->sum('QUANTIDADE');
+        $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_CLIENTE = $cod_cliente and COD_STATUS_AGENDAMENTO<= 3 group by TRANSPORTADORA");
+        $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS_AGENDAMENTO', '<=', '3')->sum('QUANTIDADE');
         
         //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
 

@@ -14,7 +14,53 @@
         @endif
 
         <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS VINCULADOS À TRANSPORTADORAS</b> </h4>
+        
+        <form action="{{route('cliente.pedidos_vinculados_filtrar')}}">
+            <div class="row">
+                <div class="col-4">
+                    <label>Transportadora:</label>
+                    <select id="transportadora"
+                            name="transportadora"
+                            class="form-control"
+                        >
+                        <option value="0">TODOS</option>
+                        @foreach($transportadoras as $t)
+                            <option value="{{$t->CODIGO}}">{{$t->NOME}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="col-4">
+                    <label>Nº Pedido:</label>
+                    <input type="text" name="num_pedido" class="form-control">
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-4">
+                    <label>Data:</label>
+                    <input type="date" name="data" class="form-control">
+                </div>
+                
+                <div class="col-4">
+                    <label>Produto:</label>
+                    <select id="produto"
+                            name="produto"
+                            class="form-control"
+                        >
+                        <option value="0">TODOS</option>
+                        @foreach($produtos as $p)
+                            <option value="{{$p->CODIGO}}">{{$p->DESCRICAO}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-4">
+                    <button class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <br>
         <div class="table-responsive">
             <table id="table" class="table table-striped" style="width: 100%">
                 <thead>

@@ -19,8 +19,8 @@
                     <div class="col-sm-6 col-xs-12 form-group">
                         <label>Nº Agendamento</label>
                         <input type="text"
-                               class="form-control"
-                               id="num_agendamento"
+                            class="form-control"
+                            id="num_agendamento"
                         >
                     </div>
                     <div class="col-sm-6 col-xs-12 form-group">
@@ -38,11 +38,47 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Nº Pedido</label>
+                        <input type="text"
+                            class="form-control"
+                            id="num_pedido"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Transportadora</label>
+                        <input type="text"
+                            class="form-control"
+                            id="transportadora"
+                        >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa veículo</label>
+                        <input type="text"
+                            class="form-control"
+                            id="placa_veiculo"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Placa carreta 1</label>
+                        <input type="text"
+                            class="form-control"
+                            id="placa_carreta"
+                        >
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
                         <label>(De)</label>
                         <input
                             type="date"
                             class="form-control"
                             id="data_inicial"
+                            max="{{date('Y-m-d')}}"
                         >
                     </div>
 
@@ -52,9 +88,33 @@
                             type="date"
                             class="form-control"
                             id="data_final"
+                            min="{{date('Y-m-d')}}"
                         >
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Data específica</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="data_especifica"
+                        >
+                    </div>
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Produto</label>
+                        <select id="produto"
+                                class="form-control"
+                        >
+                            <option value="0">TODOS</option>
+                            @foreach($produtos as $p)
+                                <option value="{{$p->CODIGO}}">{{$p->DESCRICAO}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
 
                 <div class="row">
                     <div class="col-sm-6 form-group">
@@ -63,7 +123,6 @@
                             Filtrar
                         </button>
                     </div>
-
                     <div class="col-sm-6 form-group">
                         <button class="btn btn-info" id="limpar">
                             <i class="fas fa-eraser mr-3"></i>
@@ -71,8 +130,18 @@
                         </button>
                     </div>
                 </div>
-            </div>
-
+            
+            <a href="{{route('administrador.total_agendado_transportadoras')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-cubes"></i> Total Agendado por Transportadoras </b>
+                </button>
+            </a>
+            <br>
+            <a href="{{route('administrador.total_agendado_clientes')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-cubes"></i> Total Agendado por Cliente </b>
+                </button>
+            </a>
             <div class="tabela">
                 <table id="table" class="table table-striped dataTable">
                     <thead>

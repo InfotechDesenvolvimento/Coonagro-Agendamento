@@ -7,6 +7,8 @@ use App\PedidosVinculadosTransportadora;
 use App\PedidoTransporte;
 use App\StatusAgendamento;
 use App\Pedidos;
+use App\Produto;
+use App\Transportadora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -53,14 +55,16 @@ class VincularPedidosController extends Controller{
         if($pedido_vinculado->isEmpty()) {
             if($num_cotas > 0) {
                 for($i = 0; $i<$num_cotas; $i++) {
-                    $pedido_vinculado = new PedidosVinculadosTransportadora();
-                    $pedido_vinculado->COD_CLIENTE = $cod_cliente;
-                    $pedido_vinculado->COD_TRANSPORTADORA = $_POST['cod_transportadora'];
-                    $pedido_vinculado->NUM_PEDIDO = $_POST['num_pedido'];
-                    $pedido_vinculado->COD_PRODUTO = $_POST['cod_produto'];
-                    $pedido_vinculado->DATA = $_POST['data_'.$i];
-                    $pedido_vinculado->COTA = $_POST['quantidade_'.$i];
-                    $pedido_vinculado->save();
+                    if(isset($_POST['data_'.$i]) && isset($_POST['quantidade_'.$i])) {
+                        $pedido_vinculado = new PedidosVinculadosTransportadora();
+                        $pedido_vinculado->DATA = $_POST['data_'.$i];
+                        $pedido_vinculado->COTA = $_POST['quantidade_'.$i];
+                        $pedido_vinculado->COD_CLIENTE = $cod_cliente;
+                        $pedido_vinculado->COD_TRANSPORTADORA = $_POST['cod_transportadora'];
+                        $pedido_vinculado->NUM_PEDIDO = $_POST['num_pedido'];
+                        $pedido_vinculado->COD_PRODUTO = $_POST['cod_produto'];
+                        $pedido_vinculado->save();
+                    }
                 }
             }
             
@@ -80,28 +84,49 @@ class VincularPedidosController extends Controller{
         $pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
                                 ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
-        
-        /*$pedidos = DB::table('pedidos_vinculados_transportadora')
-                        ->select('transportadoras.NOME as TRANSPORTADORA', 'produtos.DESCRICAO as PRODUTO', 'pedidos_vinculados_transportadora.*')
-                        ->leftJoin('produtos', 'produtos.CODIGO', '=', 'pedidos_vinculados_transportadora.COD_PRODUTO')
-                        ->leftJoin('transportadoras', 'transportadoras.CODIGO', '=', 'pedidos_vinculados_transportadora.COD_TRANSPORTADORA')
-                        ->where('pedidos_vinculados_transportadora.COD_CLIENTE', $cod_cliente)->groupBy('pedidos_vinculados_transportadora.CODIGO')->get();
-        */
+        $produtos = Produto::get();
+        $transportadoras = Transportadora::get();
 
-        return view('cliente.visualizar_vinculados', compact('pedidos'));
-        //return json_encode($pedidos);
+        return view('cliente.visualizar_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
+    }
+
+    public function visualizarPedidosVinculadosFiltrar(Request $request) {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        $pedidos = PedidosVinculadosTransportadora::when($request->get('num_pedido') != "", function ($query) use ($request) {
+                                                $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                        })->when($request->get('produto') != "0", function ($query) use ($request){
+                                                $query->where('COD_PRODUTO', $request->get('produto'));
+                                        })->when($request->get('data') != "", function ($query) use ($request){
+                                                $query->where('DATA', $request->get('data'));
+                                        })->when($request->get('transportadora') != "0", function ($query) use ($request){
+                                                $query->where('COD_TRANSPORTADORA', $request->get('transportadora'));
+                                        })->where('COD_CLIENTE', $cod_cliente)->with('transportadora')->with('produto')->orderBy('CODIGO')->get();
+        
+        //$pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+                                //->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
+
+        $produtos = Produto::get();
+        $transportadoras = Transportadora::get();
+
+        return view('cliente.visualizar_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
     }
 
     public function desvincular($cod_pedido) {
         $vinculo = PedidosVinculadosTransportadora::find($cod_pedido);
-        $vinculo->delete();
+
+        if($vinculo != null) {
+            $vinculo->delete();
+            $msg = "Vínculo removido!";
+        } else {
+            $msg = "Vínculo não encontrado!";
+        }
 
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
         $pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
                                 ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
-        $msg = "Vínculo removido!";
         return redirect()->route('cliente.pedidos_vinculados', compact('pedidos', 'msg'));
     }
 
