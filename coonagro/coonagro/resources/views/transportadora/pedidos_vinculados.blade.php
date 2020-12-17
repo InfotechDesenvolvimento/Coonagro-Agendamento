@@ -16,16 +16,17 @@
         <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS LIBERADOS PARA AGENDAMENTO</b> </h4>
         
         <form action="{{route('transportadora.pedidos_vinculados_filtrar')}}">
+            <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
             <div class="row">
                 <div class="col-4">
-                    <label>Transportadora:</label>
-                    <select id="transportadora"
-                            name="transportadora"
+                    <label>Cliente:</label>
+                    <select id="cliente"
+                            name="cliente"
                             class="form-control"
                         >
                         <option value="0">TODOS</option>
-                        @foreach($transportadoras as $t)
-                            <option value="{{$t->CODIGO}}">{{$t->NOME}}</option>
+                        @foreach($clientes as $c)
+                            <option value="{{$c->CODIGO}}">{{$c->NOME}}</option>
                         @endforeach
                     </select>
                 </div>

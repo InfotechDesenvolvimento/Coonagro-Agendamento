@@ -9,8 +9,9 @@
         <div class="container panel-form">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
             
-        <a href="#"><button class="btn btn-primary btn-lg btn-block">
-                    <b><i class="far fa-calendar-plus"></i> Novo </b>
+            <a href="{{route('administrador.vinculos')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-boxes"></i> Vínculos Transportadora/Pedido </b>
                 </button>
             </a>
 

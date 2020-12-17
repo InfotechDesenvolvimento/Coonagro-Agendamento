@@ -285,9 +285,9 @@ class AgendamentoController extends Controller
         ->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
         $produtos = Produto::get();
-        $transportadoras = Transportadora::get();
+        $clientes = Cliente::get();
 
-        return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
+        return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'clientes'));
     }
 
     public function visualizarPedidosVinculadosFiltrar(Request $request) {
@@ -299,14 +299,14 @@ class AgendamentoController extends Controller
                                                 $query->where('COD_PRODUTO', $request->get('produto'));
                                         })->when($request->get('data') != "", function ($query) use ($request){
                                                 $query->where('DATA', $request->get('data'));
-                                        })->when($request->get('transportadora') != "0", function ($query) use ($request){
-                                                $query->where('COD_TRANSPORTADORA', $request->get('transportadora'));
-                                        })->where('COD_TRANSPORTADORA', $cod_transportadora)->with('transportadora')->with('produto')->orderBy('CODIGO')->get();
-
+                                        })->when($request->get('cliente') != "0", function ($query) use ($request){
+                                                $query->where('COD_CLIENTE', $request->get('cliente'));
+                                        })->where('COD_TRANSPORTADORA', $cod_transportadora)->with('cliente')->with('produto')->orderBy('CODIGO')->get();
+        
         $produtos = Produto::get();
-        $transportadoras = Transportadora::get();
-
-        return view('cliente.visualizar_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
+        $clientes = Cliente::get();
+        
+        return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'clientes'));
     }
 
 }

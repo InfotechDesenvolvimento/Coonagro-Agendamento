@@ -271,13 +271,9 @@ class AgendamentoController extends Controller
     public function totalAgendado() {
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
-        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
         $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_CLIENTE = $cod_cliente and COD_STATUS_AGENDAMENTO<= 3 group by TRANSPORTADORA");
         $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS_AGENDAMENTO', '<=', '3')->sum('QUANTIDADE');
         
-        //DB::table('agendamentos')->select('SELECT SUM(QUANTIDADE) AS TOTAL FROM agendamentos')->where('COD_CLIENTE', $cod_cliente);
-
-        //return json_encode($agendamentos);
         return view('cliente.total_agendado', compact('agendamentos', 'total_agendado'));
     }
 

@@ -15,7 +15,7 @@
 
         <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS VINCULADOS À TRANSPORTADORAS</b> </h4>
         
-        <form action="{{route('cliente.pedidos_vinculados_filtrar')}}">
+        <form action="{{route('administrador.filtrar_vinculos')}}">
             <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
             <div class="row">
                 <div class="col-4">
@@ -30,10 +30,21 @@
                         @endforeach
                     </select>
                 </div>
-                
                 <div class="col-4">
                     <label>Nº Pedido:</label>
                     <input type="text" name="num_pedido" class="form-control">
+                </div>
+                <div class="col-4">
+                    <label>Cliente</label>
+                    <select id="cliente"
+                            name="cliente"
+                            class="form-control"
+                        >
+                        <option value="0">TODOS</option>
+                        @foreach($clientes as $c)
+                            <option value="{{$c->CODIGO}}">{{$c->NOME}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -57,6 +68,7 @@
                 </div>
 
                 <div class="col-4">
+                    <br>
                     <button class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
                 </div>
             </div>
@@ -68,6 +80,7 @@
                     <th>Nº Pedido</th>
                     <th>Produto</th>
                     <th>Transportadora</th>
+                    <th>Cliente</th>
                     <th>Data</th>
                     <th>Quantidade Limite</th>
                     <th>Desvincular</th>
@@ -83,6 +96,7 @@
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->PRODUTO->DESCRICAO}}</td>
                                 <td>{{$pedido->TRANSPORTADORA->NOME}}</td>
+                                <td>{{$pedido->cliente->NOME}}</td>
                                 @if($pedido->DATA != null)
                                     <td>{{date_format(date_create($pedido->DATA), 'd/m/Y')}}</td>
                                 @else
@@ -100,12 +114,12 @@
                 </tbody>
             </table>
         </div>
-        <a id="voltar" href="{{route('cliente.vincular_pedidos')}}">
+        <a id="voltar" href="{{route('administrador.home')}}">
             <button class="btn btn-success btn-lg btn-block back">
                 <i class="fas fa-arrow-left"></i> Voltar
             </button>
         </a>
     </div>
-    @section('js')../../js/visualizar_vinculados.js @endsection
+    @section('js')../../js/visualizar_vinculados_adm.js @endsection
 @stop
 

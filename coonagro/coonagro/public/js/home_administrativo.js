@@ -111,8 +111,11 @@ function filtrar_administrador() {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                <a href="administrador/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                     <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
+                                </a>
+                                <a href="administrador/detalhes/${item.CODIGO}" >
+                                    <i class="fas fa-search" title="Detalhes do pedido" style="cursosr: pointer; color: #545b62"></i>
                                 </a>
                               </td>`;
                 resultado += `<td>${item.status.STATUS}</td>`;
