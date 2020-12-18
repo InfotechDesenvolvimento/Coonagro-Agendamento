@@ -48,6 +48,8 @@ class AgendamentoController extends Controller
         $confirmacao["data_agendamento_formatado"] = date_format($date,"d/m/Y");
         $confirmacao['placa_carreta'] = strtoupper($confirmacao['placa_carreta']);
         $confirmacao['placa_cavalo'] = strtoupper($confirmacao['placa_cavalo']);
+        $confirmacao['placa_carreta2'] = strtoupper($confirmacao['placa_carreta2']);
+        $confirmacao['placa_carreta3'] = strtoupper($confirmacao['placa_carreta3']);
 
         $tipo_veiculo = json_decode($confirmacao['tipo_veiculo'][0]);
 
@@ -69,7 +71,7 @@ class AgendamentoController extends Controller
 
         if(session()->has('agendamento')){
             $dados = json_decode(session()->get('agendamento'));
-
+            
             $objVeiculo = new VeiculoController();
             $veiculo = $objVeiculo->getVeiculo($dados->placa_cavalo);
             $veiculo = $veiculo->getData();
@@ -81,10 +83,10 @@ class AgendamentoController extends Controller
 
                     $veiculo->PLACA = strtoupper($dados->placa_cavalo);
                     $veiculo->PLACA_CARRETA = strtoupper($dados->placa_carreta);
-                    if($dados->placa_carreta2) {
+                    if($dados->placa_carreta2 != null) {
                         $veiculo->PLACA_CARRETA2 = $dados->placa_carreta2;
                     }
-                    if($dados->placa_carreta3) {
+                    if($dados->placa_carreta3 != null) {
                         $veiculo->PLACA_CARRETA3 = $dados->placa_carreta3;
                     }
                     $veiculo->COD_TIPO_VEICULO = $tipo_veiculo->id;
@@ -123,6 +125,12 @@ class AgendamentoController extends Controller
             $agendamento->CNPJ_TRANSPORTADORA = Auth::user()->CPF_CNPJ;
             $agendamento->PLACA_VEICULO = strtoupper($dados->placa_cavalo);
             $agendamento->PLACA_CARRETA1 = strtoupper($dados->placa_carreta);
+            if($dados->placa_carreta2 != null) {
+                $agendamento->PLACA_CARRETA2 = strtoupper($dados->placa_carreta2);
+            }
+            if($dados->placa_carreta3 != null) {
+                $agendamento->PLACA_CARRETA3 = strtoupper($dados->placa_carreta3);
+            }
             if($dados->renavam != null) {
                 $agendamento->RENAVAM_VEICULO = $dados->renavam;
             }
@@ -284,8 +292,9 @@ class AgendamentoController extends Controller
         $pedidos = PedidosVinculadosTransportadora::where('COD_TRANSPORTADORA', $cod_transportadora)
         ->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
-        $produtos = Produto::get();
-        $clientes = Cliente::get();
+
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos, produtos WHERE agendamentos.COD_PRODUTO = produtos.CODIGO AND agendamentos.COD_TRANSPORTADORA = '.$cod_transportadora.' GROUP BY produtos.DESCRICAO');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos, clientes WHERE agendamentos.COD_CLIENTE = clientes.CODIGO AND agendamentos.COD_TRANSPORTADORA = '.$cod_transportadora.' GROUP BY clientes.NOME');
 
         return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'clientes'));
     }
@@ -302,9 +311,9 @@ class AgendamentoController extends Controller
                                         })->when($request->get('cliente') != "0", function ($query) use ($request){
                                                 $query->where('COD_CLIENTE', $request->get('cliente'));
                                         })->where('COD_TRANSPORTADORA', $cod_transportadora)->with('cliente')->with('produto')->orderBy('CODIGO')->get();
-        
-        $produtos = Produto::get();
-        $clientes = Cliente::get();
+
+                                        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos, produtos WHERE agendamentos.COD_PRODUTO = produtos.CODIGO AND agendamentos.COD_TRANSPORTADORA = '.$cod_transportadora.' GROUP BY produtos.DESCRICAO');
+                                        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos, clientes WHERE agendamentos.COD_CLIENTE = clientes.CODIGO AND agendamentos.COD_TRANSPORTADORA = '.$cod_transportadora.' GROUP BY clientes.NOME');
         
         return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'clientes'));
     }

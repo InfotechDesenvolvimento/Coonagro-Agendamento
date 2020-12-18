@@ -79,9 +79,9 @@ class AgendamentoController extends Controller
 
     public function visualizarVinculos() {
         $pedidos = PedidosVinculadosTransportadora::with('pedido_transporte')->with('produto')->with('cliente')->with('transportadora')->get();
-        $transportadoras = Transportadora::get();
-        $produtos = Produto::get();
-        $clientes = Cliente::get();
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM pedidos_vinculados_transportadora, produtos WHERE pedidos_vinculados_transportadora.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM pedidos_vinculados_transportadora, transportadoras WHERE pedidos_vinculados_transportadora.COD_TRANSPORTADORA = transportadoras.CODIGO GROUP BY transportadoras.NOME');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedidos_vinculados_transportadora, clientes WHERE pedidos_vinculados_transportadora.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
         return view('administrador.visualizar_vinculos', compact('pedidos', 'transportadoras', 'produtos', 'clientes'));
     }
 
@@ -99,9 +99,9 @@ class AgendamentoController extends Controller
                                                 $query->where('COD_CLIENTE', $request->get('cliente'));
                                         })->with('transportadora')->with('produto')->with('cliente')->orderBy('CODIGO')->get();
 
-        $produtos = Produto::get();
-        $transportadoras = Transportadora::get();
-        $clientes = Cliente::get();
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM pedidos_vinculados_transportadora, produtos WHERE pedidos_vinculados_transportadora.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM pedidos_vinculados_transportadora, transportadoras WHERE pedidos_vinculados_transportadora.COD_TRANSPORTADORA = transportadoras.CODIGO GROUP BY transportadoras.NOME');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedidos_vinculados_transportadora, clientes WHERE pedidos_vinculados_transportadora.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
 
         return view('administrador.visualizar_vinculos', compact('pedidos', 'produtos', 'transportadoras', 'clientes'));
     }
@@ -260,8 +260,8 @@ class AgendamentoController extends Controller
     public function visualizarPedidos() {
         $pedidos = PedidoTransporte::with('cliente')->with('produto')->get();
         //return json_encode($pedidos);
-        $clientes = Cliente::get();
-        $produtos = Produto::get();
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM pedido_transporte, produtos WHERE pedido_transporte.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedido_transporte, clientes WHERE pedido_transporte.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
 
         return view('administrador.pedidos', compact('pedidos', 'clientes', 'produtos'));
     }
@@ -274,9 +274,9 @@ class AgendamentoController extends Controller
                                 })->when($request->get('cliente') != "0", function ($query) use ($request) {
                                         $query->where('COD_CLIENTE', $request->get('cliente'));
                                 })->with('produto')->with('cliente')->orderBy('CODIGO')->get();
-
-        $clientes = Cliente::get();
-        $produtos = Produto::get();
+        
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM pedido_transporte, produtos WHERE pedido_transporte.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedido_transporte, clientes WHERE pedido_transporte.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
 
         return view('administrador.pedidos', compact('pedidos', 'clientes', 'produtos'));
     }

@@ -84,8 +84,8 @@ class VincularPedidosController extends Controller{
         $pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
                                 ->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
-        $produtos = Produto::get();
-        $transportadoras = Transportadora::get();
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos, produtos WHERE agendamentos.COD_PRODUTO = produtos.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY produtos.DESCRICAO');
+        $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM agendamentos, transportadoras WHERE agendamentos.COD_TRANSPORTADORA = transportadoras.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY transportadoras.NOME');
 
         return view('cliente.visualizar_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
     }
@@ -102,12 +102,9 @@ class VincularPedidosController extends Controller{
                                         })->when($request->get('transportadora') != "0", function ($query) use ($request){
                                                 $query->where('COD_TRANSPORTADORA', $request->get('transportadora'));
                                         })->where('COD_CLIENTE', $cod_cliente)->with('transportadora')->with('produto')->orderBy('CODIGO')->get();
-        
-        //$pedidos = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
-                                //->with('transportadora')->with('pedido_transporte')->with('produto')->with('cliente')->get();
 
-        $produtos = Produto::get();
-        $transportadoras = Transportadora::get();
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos, produtos WHERE agendamentos.COD_PRODUTO = produtos.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY produtos.DESCRICAO');
+        $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM agendamentos, transportadoras WHERE agendamentos.COD_TRANSPORTADORA = transportadoras.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY transportadoras.NOME');
 
         return view('cliente.visualizar_vinculados', compact('pedidos', 'produtos', 'transportadoras'));
     }

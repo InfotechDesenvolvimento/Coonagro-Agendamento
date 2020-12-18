@@ -62,6 +62,19 @@
                 <h4 class="dado">{{$confirmacao['placa_carreta']}}</h4>
             </div>
 
+            <div class="col-sm-6">
+                <h5 class="title">Placa Carreta 2</h5>
+                <h4 class="dado">{{$confirmacao['placa_carreta2']}}</h4>
+            </div>
+
+            <div class="col-sm-6">
+                <h5 class="title">Placa Carreta 3</h5>
+                <h4 class="dado">{{$confirmacao['placa_carreta3']}}</h4>
+            </div>
+
+        </div>
+
+        <div class="row">
             <div class="col-sm-12">
                 <h5 class="title">Tipo do Veículo</h5>
                 <h4 class="dado">{{$confirmacao['tipo_veiculo_nome']}}</h4>
@@ -71,7 +84,6 @@
                 <h5 class="title">Tara (Toneladas)</h5>
                 <h4 class="dado">{{$confirmacao['tara']}}</h4>
             </div>
-
         </div>
 
         <hr>
