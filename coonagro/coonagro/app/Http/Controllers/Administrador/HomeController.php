@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrador;
 use App\Http\Controllers\Controller;
 use App\StatusAgendamento;
 use App\Produto;
+use App\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,10 @@ class HomeController extends Controller{
 
     public function index(){
         $status = StatusAgendamento::orderBy('STATUS')->get();
-        $produtos =  Produto::get();
+        $produtos = Produto::get();
+        $clientes = Cliente::get();
 
-        return view('administrador.home', compact('status', 'produtos'));
+        return view('administrador.home', compact('status', 'produtos', 'clientes'));
     }
 
     public function operacao(){

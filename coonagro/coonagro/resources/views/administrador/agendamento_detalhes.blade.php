@@ -129,6 +129,16 @@
                     </a>
                 </div>
             </div>
+        @elseif($agendamento->COD_STATUS_AGENDAMENTO == 2)
+        <div class="row">
+            <div class="form-group col-sm">
+                <a href="{{route('administrador.cancelar_agendamento', $agendamento->CODIGO)}}">
+                    <button class="btn btn-danger btn-lg btn-block" style="margin-bottom: 0">
+                        <i class="fas fa-ban"></i> Cancelar
+                    </button>
+                </a>
+            </div>
+        </div>
         @endif
 
         <div class="row justify-content-center">

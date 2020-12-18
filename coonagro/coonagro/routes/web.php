@@ -25,7 +25,7 @@ Route::get('/transportadora/configuracoes/', 'transportadora\ConfiguracoesContro
 Route::post('/transportadora/alterar_dados/', 'transportadora\ConfiguracoesController@alterarDados')->name('transportadora.alterar_dados');
 Route::get('/transportadora/pedidos_vinculados', 'transportadora\AgendamentoController@visualizarPedidosVinculados')->name('transportadora.pedidos_vinculados');
 Route::get('transportadora/total_agendado', 'transportadora\AgendamentoController@totalAgendado')->name('transportadora.total_agendado');
-Route::get('/transportadora/pedidos_vinculados/filtrar', 'transportadora\AgendamentoController@visualizarPedidosVinculadosFiltrar')->name('transportadora.pedidos_vinculados_filtrar');
+Route::get('/transportadora/filtrar_vinculados', 'transportadora\AgendamentoController@visualizarPedidosVinculadosFiltrar')->name('transportadora.pedidos_vinculados_filtrar');
 
 
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
@@ -43,7 +43,7 @@ Route::get('cliente/vincular_pedidos/', 'cliente\VincularPedidosController@index
 Route::get('cliente/vincular_pedido/{pedido}', 'cliente\VincularPedidosController@vincularPedido')->name('cliente.vincular_pedido_transportadora');
 Route::post('cliente/vincular/', 'cliente\VincularPedidosController@vincular')->name('cliente.vincular');
 Route::get('cliente/pedidos_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculados')->name('cliente.pedidos_vinculados');
-Route::get('cliente/pedidos_vinculados/filtrar', 'cliente\VincularPedidosController@visualizarPedidosVinculadosFiltrar')->name('cliente.pedidos_vinculados_filtrar');
+Route::get('cliente/filtrar_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculadosFiltrar')->name('cliente.pedidos_vinculados_filtrar');
 Route::get('cliente/total_agendado', 'cliente\AgendamentoController@totalAgendado')->name('cliente.total_agendado');
 Route::get('cliente/desvincular/{pedido}', 'cliente\VincularPedidosController@desvincular')->name('cliente.desvincular');
 
@@ -58,7 +58,13 @@ Route::get('administrador/desvincular/{pedido}', 'administrador\AgendamentoContr
 Route::get('administrador/detalhes/{pedido}', 'administrador\AgendamentoController@verDetalhe')->name('administrador.detalhes');
 Route::get('administrador/aprovar/{pedido}', 'administrador\AgendamentoController@aprovarAgendamento')->name('administrador.aprovar_agendamento');
 Route::get('administrador/recusar/{pedido}', 'administrador\AgendamentoController@recusarAgendamento')->name('administrador.recusar_agendamento');
+Route::get('administrador/cancelar/{pedido}', 'administrador\AgendamentoController@cancelarAgendamento')->name('administrador.cancelar_agendamento');
 Route::get('administrador/cotas', 'administrador\AgendamentoController@visualizarCotas')->name('administrador.visualizar_cotas');
+Route::get('/administrador/configuracoes/', 'administrador\ConfiguracoesController@opcoes')->name('administrador.configuracoes');
+Route::post('/administrador/alterar_dados/', 'administrador\ConfiguracoesController@alterarDados')->name('administrador.alterar_dados');
+Route::get('/administrador/carregamento/imprimir/{cod_agendamento}', 'administrador\AgendamentoController@imprimir')->name('administrador.imprimir');
+Route::get('/administrador/pedidos', 'administrador\AgendamentoController@visualizarPedidos')->name('administrador.pedidos');
+Route::get('/administrador/filtrar_pedidos','administrador\AgendamentoController@filtrarPedidos')->name('administrador.filtrar_pedidos');
 
 //Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 

@@ -126,7 +126,9 @@ class AgendamentoController extends Controller
                                                 $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                         })->when($request->get('placa_carreta') != "", function ($query) use ($request){
                                                 $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
-                                        })->with('status')->with('produto')->orderBy('CODIGO')->get();
+                                        })->when($request->get('cliente') != "0", function ($query) use ($request) {
+                                                $query->where('COD_CLIENTE', $request->get('cliente'));
+                                        })->with('status')->with('produto')->with('cliente')->orderBy('CODIGO')->get();
         } else {
                 $agendamentos = Agendamento::when($request->get('num_agendamento') != "", function ($query) use ($request) {
                                                 $query->where('CODIGO', $request->get('num_agendamento'));
@@ -144,7 +146,9 @@ class AgendamentoController extends Controller
                                                 $query->where('PLACA_VEICULO', 'LIKE', '%' . $request->get('placa_veiculo') . '%');
                                         })->when($request->get('placa_carreta') != "", function ($query) use ($request){
                                                 $query->where('PLACA_CARRETA1', 'LIKE', '%' . $request->get('placa_carreta') . '%');
-                                        })->with('status')->with('produto')->orderBy('CODIGO')->get();
+                                        })->when($request->get('cliente') != "0", function ($query) use ($request) {
+                                                $query->where('COD_CLIENTE', $request->get('cliente'));
+                                        })->with('status')->with('produto')->with('cliente')->orderBy('CODIGO')->get();
         }
 
         return response()->json($agendamentos);
@@ -238,6 +242,43 @@ class AgendamentoController extends Controller
 
         $msg = 'Agendamento não aprovado!';
         return view('administrador.agendamento_detalhes', compact('agendamento', 'msg'));
+    }
+
+    public function cancelarAgendamento($cod_agendamento) {
+        $agendamento = Agendamento::where('CODIGO', $cod_agendamento)->first();
+        $agendamento->COD_STATUS_AGENDAMENTO = 5;
+        $agendamento->save();
+
+        $pedido_transporte = PedidoTransporte::where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->first();
+        $pedido_transporte->SALDO_RESTANTE = $pedido_transporte->SALDO_RESTANTE + $agendamento->QUANTIDADE;
+        $pedido_transporte->save();
+
+        $msg = 'Agendamento cancelado!';
+        return view('administrador.agendamento_detalhes', compact('agendamento', 'msg'));
+    }
+
+    public function visualizarPedidos() {
+        $pedidos = PedidoTransporte::with('cliente')->with('produto')->get();
+        //return json_encode($pedidos);
+        $clientes = Cliente::get();
+        $produtos = Produto::get();
+
+        return view('administrador.pedidos', compact('pedidos', 'clientes', 'produtos'));
+    }
+
+    public function filtrarPedidos(Request $request) {
+        $pedidos = PedidoTransporte::when($request->get('num_pedido') != "", function ($query) use ($request) {
+                                        $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                })->when($request->get('produto') != "0", function ($query) use ($request){
+                                        $query->where('COD_PRODUTO', $request->get('produto'));
+                                })->when($request->get('cliente') != "0", function ($query) use ($request) {
+                                        $query->where('COD_CLIENTE', $request->get('cliente'));
+                                })->with('produto')->with('cliente')->orderBy('CODIGO')->get();
+
+        $clientes = Cliente::get();
+        $produtos = Produto::get();
+
+        return view('administrador.pedidos', compact('pedidos', 'clientes', 'produtos'));
     }
 
     public function visualizarCotas() {

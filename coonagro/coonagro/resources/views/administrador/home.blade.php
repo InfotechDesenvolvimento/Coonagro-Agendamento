@@ -15,6 +15,11 @@
                 </button>
             </a>
 
+            <a href="{{route('administrador.pedidos')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-box"></i> Pedidos </b>
+                </button>
+            </a>
             <div id="formConsulta">
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
@@ -115,6 +120,20 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label>Cliente</label>
+                        <select id="cliente"
+                                class="form-control"
+                        >
+                            <option value="0">TODOS</option>
+                            @foreach($clientes as $c)
+                                <option value="{{$c->CODIGO}}">{{$c->NOME}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
 
                 <div class="row">
@@ -157,6 +176,7 @@
                             <th>Placa Veículo</th>
                             <th>Placa Carreta 1</th>
                             <th>Transportadora</th>
+                            <th>Cliente</th>
                         </tr>
                     </thead>
                 </table>
@@ -167,7 +187,7 @@
                     <a href="{{route('logout')}}">
                         <button class="btn btn-danger">Sair</button>
                     </a>
-                    <a href="#">
+                    <a href="{{route('administrador.configuracoes')}}">
                         <button class="btn btn-info">Configurações</button>
                     </a>
                 </div>

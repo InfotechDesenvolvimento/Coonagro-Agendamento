@@ -91,6 +91,7 @@ function filtrar_administrador() {
     const placa_veiculo = $('#placa_veiculo').val();
     const placa_carreta = $('#placa_carreta').val();
     const data_especifica = $('#data_especifica').val();
+    const cliente = $('#cliente').val();
 
     let filtro = {
         num_agendamento: num_agendamento,
@@ -102,7 +103,8 @@ function filtrar_administrador() {
         num_pedido: num_pedido,
         placa_veiculo: placa_veiculo,
         placa_carreta: placa_carreta,
-        data_especifica: data_especifica
+        data_especifica: data_especifica,
+        cliente: cliente
     };
 
     $.getJSON('administrador/filter', filtro, function (data) {
@@ -130,6 +132,11 @@ function filtrar_administrador() {
                 resultado += `<td>${item.PLACA_VEICULO}</td>`;
                 resultado += `<td>${item.PLACA_CARRETA1}</td>`;
                 resultado += `<td>${item.TRANSPORTADORA}</td>`;
+                if(item.cliente != null) {
+                    resultado += `<td>${item.cliente.NOME}</td>`;
+                } else {
+                    resultado += `<td></td>`;
+                }
             resultado += `</tr>`;
         });
 

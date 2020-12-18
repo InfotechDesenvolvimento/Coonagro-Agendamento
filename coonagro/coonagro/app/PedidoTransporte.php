@@ -17,4 +17,8 @@ class PedidoTransporte extends Model{
     public function vinculado() {
         return $this->hasOne(PedidosVinculadosTransportadora::class, 'NUM_PEDIDO', 'NUM_PEDIDO');
     }
+
+    public function cliente() {
+        return $this->hasOne(Cliente::class, 'CODIGO', 'COD_CLIENTE');
+    }
 }
