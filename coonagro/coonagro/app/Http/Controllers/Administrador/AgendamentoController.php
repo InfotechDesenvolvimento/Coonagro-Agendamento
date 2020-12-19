@@ -185,11 +185,11 @@ class AgendamentoController extends Controller
         $agendamento->save();
         
         $cliente = Cliente::where('CODIGO', $agendamento->COD_CLIENTE)->first();
-        $cota_cliente = CotaCliente::where('COD_CLIENTE', $cliente->CODIGO)->where('DATA', $agendamento->DATA_AGENDADO)->first();
+        $cota_cliente = CotaCliente::where('COD_CLIENTE', $cliente->CODIGO)->where('DATA', $agendamento->DATA_AGENDAMENTO)->first();
         if($cota_cliente == null) {
                 $cota_cliente = new CotaCliente();
                 $cota_cliente->COD_CLIENTE = $cliente->CODIGO;
-                $cota_cliente->DATA = $agendamento->DATA_AGENDADO;
+                $cota_cliente->DATA = $agendamento->DATA_AGENDAMENTO;
                 $cota_cliente->COTA_DIARIA = $cliente->COTA_MAXIMA_DIARIA;
                 $cota_cliente->TOTAL_AGENDADO = 0;
                 $cota_cliente->TOTAL_MOVIMENTADO = 0;
@@ -198,7 +198,6 @@ class AgendamentoController extends Controller
                 $cota_cliente->PERCENTUAL_MOVIMENTADO = 0;
                 $cota_cliente->save();
         }
-        $cota_cliente->TOTAL_AGENDADO = $cota_cliente->TOTAL_AGENDADO + $agendamento->QUANTIDADE;
         $cota_cliente->SALDO_LIVRE = $cota_cliente->SALDO_LIVRE - $agendamento->QUANTIDADE;
         $calc = $cota_cliente->SALDO_LIVRE - $agendamento->QUANTIDADE;
         $cota_cliente->PERCENTUAL_LIVRE = (100 * $calc) / $cota_cliente->COTA_DIARIA;
@@ -206,7 +205,6 @@ class AgendamentoController extends Controller
 
         $pedido_transporte = PedidoTransporte::where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->first();
         $pedido_transporte->SALDO_RESTANTE = $pedido_transporte->SALDO_RESTANTE - $agendamento->QUANTIDADE;
-        $pedido_transporte->TOTAL_AGENDADO = $pedido_transporte->TOTAL_AGENDADO + $agendamento->QUANTIDADE;
         $pedido_transporte->save();
         
         $nota_fiscal = new NotaFiscal;
@@ -251,7 +249,12 @@ class AgendamentoController extends Controller
 
         $pedido_transporte = PedidoTransporte::where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->first();
         $pedido_transporte->SALDO_RESTANTE = $pedido_transporte->SALDO_RESTANTE + $agendamento->QUANTIDADE;
+        $pedido_transporte->TOTAL_AGENDADO = $pedido_transporte->TOTAL_AGENDADO - $agendamento->QUANTIDADE;
         $pedido_transporte->save();
+
+        $cota_cliente = CotaCliente::where('COD_CLIENTE', $agendamento->COD_CLIENTE)->where('DATA', $agendamento->DATA_AGENDAMENTO)->first();
+        $cota_cliente->TOTAL_AGENDADO = $cota_cliente->TOTAL_AGENDADO - $agendamento->QUANTIDADE;
+        $cota_cliente->save();
 
         $msg = 'Agendamento cancelado!';
         return view('administrador.agendamento_detalhes', compact('agendamento', 'msg'));

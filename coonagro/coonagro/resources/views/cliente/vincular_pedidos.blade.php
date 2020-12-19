@@ -39,7 +39,7 @@
                             <tr>
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->produto->DESCRICAO}}</td>
-                                <td>{{number_format($pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO, 3, ',', '.')}}</td>
+                                <td>{{number_format($pedido->TOTAL - $pedido->TOTAL_AGENDADO, 3, ',', '.')}}</td>
                                 <td class="agendamento">
                                     <a href="{{route('cliente.vincular_pedido_transportadora', $pedido->NUM_PEDIDO)}}" title="Vincular pedido">
                                         <i class="fas fa-arrow-right"></i>

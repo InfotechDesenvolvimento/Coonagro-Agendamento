@@ -26,9 +26,9 @@
                 
                 <div class="col-sm-4 col-12">
                     <h5 class="title">Saldo disponível</h5>
-                    <h4 class="dado">{{$pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO}}</h4>
+                    <h4 class="dado">{{$pedido->TOTAL - $pedido->TOTAL_AGENDADO}}</h4>
                     <h5 class="title">Saldo restante</h5>
-                    <input readonly class="form-control" type="text" id="pedido_saldo_disponivel" value="{{ $pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO }}">
+                    <input readonly class="form-control" type="text" id="pedido_saldo_disponivel" value="{{ $pedido->TOTAL - $pedido->TOTAL_AGENDADO }}">
                 </div>
             </div>
             <div class="row">
