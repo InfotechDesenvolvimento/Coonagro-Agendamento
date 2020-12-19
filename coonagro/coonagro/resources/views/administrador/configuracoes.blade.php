@@ -11,9 +11,6 @@
 
             <form method="POST" action="{{ route('administrador.alterar_dados') }}">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                <label>Alterar E-mail</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
-                <br>
                 <label>Alterar Senha</label>
                 <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
                 <br>

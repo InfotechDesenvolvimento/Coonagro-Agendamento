@@ -37,21 +37,27 @@ class LoginController extends Controller
                 ->where('SENHA', $senha)
                 ->first();
         } else if($tipo_acesso == "admin") {
-            $user = Administrador::where('USUARIO', $usuario)
+            $user = Administrador::where('NOME', $usuario)
                 ->where('SENHA', $senha)
                 ->first();
         }
 
         if($user != null){
-            Auth::guard($tipo_acesso)->login($user);
             
             switch($tipo_acesso):
                 case('cliente'):
+                    Auth::guard($tipo_acesso)->login($user);
                     return redirect()->route('cliente.home');
                 case('transportadora'):
+                    Auth::guard($tipo_acesso)->login($user);
                     return redirect()->route('transportadora.home');
                 case('admin'):
-                    return redirect()->route('administrador.home');
+                    if($user->GESTOR_WEB == 'S') {
+                        Auth::guard($tipo_acesso)->login($user);
+                        return redirect()->route('administrador.home');
+                    } else {
+                        return redirect()->back()->withInput()->with('error', 'Usuário não permitido!');
+                    }
             
             endswitch;
         } else {

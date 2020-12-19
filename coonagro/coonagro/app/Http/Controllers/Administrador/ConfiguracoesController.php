@@ -25,11 +25,6 @@ class ConfiguracoesController extends Controller
         $alteracoes = $request->all();
         $admin = Auth::user();
 
-        if(isset($alteracoes['email'])) {
-            $admin->EMAIL = $alteracoes['email'];
-            $admin->save();
-        }
-
         if(isset($alteracoes['senha'])) {
             $admin->SENHA = $alteracoes['senha'];
             $admin->save();
