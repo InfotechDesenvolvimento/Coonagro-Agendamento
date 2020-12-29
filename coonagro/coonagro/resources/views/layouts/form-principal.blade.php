@@ -56,6 +56,19 @@
 <body style="-webkit-font-smoothing: antialiased;">
 
     <nav class="navbar navbar-dark bg-success">
+        @if(isset($tag))
+            @if($tag == '1')
+                <div class="nav-item"> <img src="../img/logo_logo.png" style="height: 30px; width: 30px">  </div>
+            @elseif($tag == '2')
+                <div class="nav-item"> <img src="../../img/logo_logo.png" style="height: 30px; width: 30px">  </div>
+            @elseif($tag == '3')
+                <div class="nav-item"> <img src="../../../img/logo_logo.png" style="height: 30px; width: 30px">  </div>
+            @else
+                <div class="nav-item"> <img src="img/logo_logo.png" style="height: 30px; width: 30px">  </div>
+            @endif
+        @else
+            <div class="nav-item"> <img src="img/logo_logo.png" style="height: 30px; width: 30px">  </div>
+        @endif
         <div class="nav-item" > <i class="fas fa-user"></i> {{Auth::user()->NOME}} </div>
         <div class="nav-item" > <i class="fas fa-envelope"></i> {{Auth::user()->EMAIL}}</div>
     </nav>

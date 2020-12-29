@@ -94,14 +94,14 @@ class VincularPedidosController extends Controller{
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
         $pedidos = PedidosVinculadosTransportadora::when($request->get('num_pedido') != "", function ($query) use ($request) {
-                                                $query->where('NUM_PEDIDO', $request->get('num_pedido'));
-                                        })->when($request->get('produto') != "0", function ($query) use ($request){
-                                                $query->where('COD_PRODUTO', $request->get('produto'));
-                                        })->when($request->get('data') != "", function ($query) use ($request){
-                                                $query->where('DATA', $request->get('data'));
-                                        })->when($request->get('transportadora') != "0", function ($query) use ($request){
-                                                $query->where('COD_TRANSPORTADORA', $request->get('transportadora'));
-                                        })->where('COD_CLIENTE', $cod_cliente)->with('transportadora')->with('produto')->orderBy('CODIGO')->get();
+                                                        $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                                })->when($request->get('produto') != "0", function ($query) use ($request){
+                                                        $query->where('COD_PRODUTO', $request->get('produto'));
+                                                })->when($request->get('data') != "", function ($query) use ($request){
+                                                        $query->where('DATA', $request->get('data'));
+                                                })->when($request->get('transportadora') != "0", function ($query) use ($request){
+                                                        $query->where('COD_TRANSPORTADORA', $request->get('transportadora'));
+                                                })->where('COD_CLIENTE', $cod_cliente)->with('transportadora')->with('produto')->orderBy('CODIGO')->get();
 
         $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos, produtos WHERE agendamentos.COD_PRODUTO = produtos.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY produtos.DESCRICAO');
         $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM agendamentos, transportadoras WHERE agendamentos.COD_TRANSPORTADORA = transportadoras.CODIGO AND agendamentos.COD_CLIENTE = '.$cod_cliente.' GROUP BY transportadoras.NOME');
@@ -127,4 +127,36 @@ class VincularPedidosController extends Controller{
         return redirect()->route('cliente.pedidos_vinculados', compact('pedidos', 'msg'));
     }
 
+    public function editar($cod_pedido) {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+        $vinculo = PedidosVinculadosTransportadora::find($cod_pedido);
+        $transportadora = Transportadora::find($vinculo->COD_TRANSPORTADORA);
+
+        $pedido = PedidoTransporte::where([
+            'COD_CLIENTE' => $cod_cliente,
+            'NUM_PEDIDO' => $vinculo->NUM_PEDIDO
+          ])->with('produto')->first();
+
+        return view('cliente.editar_vinculo', compact('pedido', 'vinculo', 'transportadora'));
+    }
+
+    public function salvarVinculo($cod_pedido) {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        $pedido_vinculado = PedidosVinculadosTransportadora::find($cod_pedido);
+        $pedido_vinculado->COTA = $_POST['quantidade'];
+        $pedido_vinculado->save();
+
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+        $vinculo = PedidosVinculadosTransportadora::find($cod_pedido);
+        $transportadora = Transportadora::find($vinculo->COD_TRANSPORTADORA);
+
+        $pedido = PedidoTransporte::where([
+            'COD_CLIENTE' => $cod_cliente,
+            'NUM_PEDIDO' => $vinculo->NUM_PEDIDO
+          ])->with('produto')->first();
+        
+        $msg = 'Vinculo atualizado!';
+        return view('cliente.editar_vinculo', compact('pedido', 'vinculo', 'transportadora', 'msg'));
+    }
 }

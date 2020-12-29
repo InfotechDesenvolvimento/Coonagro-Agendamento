@@ -46,6 +46,8 @@ Route::get('cliente/pedidos_vinculados', 'cliente\VincularPedidosController@visu
 Route::get('cliente/filtrar_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculadosFiltrar')->name('cliente.pedidos_vinculados_filtrar');
 Route::get('cliente/total_agendado', 'cliente\AgendamentoController@totalAgendado')->name('cliente.total_agendado');
 Route::get('cliente/desvincular/{pedido}', 'cliente\VincularPedidosController@desvincular')->name('cliente.desvincular');
+Route::get('cliente/editar/{pedido}', 'cliente\VincularPedidosController@editar')->name('cliente.editar');
+Route::post('cliente/salvar_vinculo/{pedido}', 'cliente\VincularPedidosController@salvarVinculo')->name('cliente.salvar_vinculo');
 
 Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
 Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');

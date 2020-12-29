@@ -71,6 +71,7 @@
                     <th>Data</th>
                     <th>Quantidade Limite</th>
                     <th>Desvincular</th>
+                    <th>Editar</th>
                 </thead>
                 <tbody>
                     @if(count($pedidos) == 0)
@@ -92,6 +93,11 @@
                                 <td class="agendamento">
                                     <a onclick="desvincular({{$pedido->CODIGO}})" target="_blank">
                                         <i class="fas fa-minus-circle" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{route('cliente.editar', ['pedido' => $pedido->CODIGO])}}">
+                                        <i class="fas fa-edit" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
                                     </a>
                                 </td>
                             </tr>
