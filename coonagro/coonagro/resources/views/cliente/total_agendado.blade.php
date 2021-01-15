@@ -1,4 +1,4 @@
-@extends('layouts.form-principal',  ['tag' => '2'])
+@extends('layouts.form-principal',  ['tag' => '1'])
 
 @section('css') ../css/carregamento.css @endsection
 

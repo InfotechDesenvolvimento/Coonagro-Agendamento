@@ -83,10 +83,6 @@ a:hover {
     margin-right: 15px;
 }
 
-.nav-item {
-    color: #fff;
-}
-
 @media (max-width: 900px) {
 
     #imgForm {

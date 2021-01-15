@@ -1,4 +1,4 @@
-@extends('layouts.form-principal',  ['tag' => '2'])
+@extends('layouts.form-principal',  ['tag' => '1'])
 
 @section('css') ../css/carregamento.css @endsection
 
@@ -112,6 +112,6 @@
             </button>
         </a>
     </div>
-    @section('js')../../js/visualizar_vinculados.js @endsection
+    @section('js')../js/visualizar_vinculados.js @endsection
 @stop
 

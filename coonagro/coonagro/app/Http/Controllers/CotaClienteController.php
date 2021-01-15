@@ -20,7 +20,6 @@ class CotaClienteController extends Controller
 
         if($cota == null){
             $cliente = Cliente::find($cod_cliente);
-
             if($cliente){
                 $cota = new CotaCliente();
 

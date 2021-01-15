@@ -1,6 +1,6 @@
 @extends('layouts.form-principal',  ['tag' => '2'])
 
-@section('css') ../css/carregamento.css @endsection
+@section('css') ../../css/carregamento.css @endsection
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>

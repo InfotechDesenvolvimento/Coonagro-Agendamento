@@ -1,11 +1,11 @@
-@extends('layouts.form-principal',  ['tag' => '2'])
+@extends('layouts.form-principal',  ['tag' => '1'])
 
 @section('css') ../css/carregamento.css @endsection
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
     
-    <div class="container panel-form panel-reduzido">
+    <div class="container panel-form">
         @if(isset($msg))
             <br>
             <div class="alert alert-warning" role="alert">
@@ -59,5 +59,5 @@
     </div>
 @stop
 
-@section('js')../../js/agendamento.js @endsection
+@section('js')../js/agendamento.js @endsection
 

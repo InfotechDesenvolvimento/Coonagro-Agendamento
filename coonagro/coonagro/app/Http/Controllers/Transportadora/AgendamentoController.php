@@ -159,8 +159,8 @@ class AgendamentoController extends Controller
 
     public function insert(Agendamento $agendamento){
 
-        $agendamento->DATA_CADASTRO = date("Y/m/d");
-        $agendamento->DATA_ALTERACAO = date("Y/m/d");
+        $agendamento->DATA_CADASTRO = date("Y/m/d H:i:s");
+        $agendamento->DATA_ALTERACAO = date("Y/m/d H:i:s");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
         $agendamento->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
 

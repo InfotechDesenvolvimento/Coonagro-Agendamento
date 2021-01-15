@@ -47,6 +47,7 @@ $('#num_pedido').focusout(function () {
     $.getJSON('../../api/pedido/' + num_pedido, function (data) {
         if(JSON.stringify(data) === '{}'){
             $('#num_pedido').val('');
+            $('#produto').val('');
         } else {
             $('#cod_produto').val(data.COD_PRODUTO);
             $('#saldo_disponivel').val(data.SALDO_RESTANTE - data.TOTAL_AGENDADO);
@@ -66,6 +67,8 @@ $('#placa_cavalo').focusout(function () {
         $.getJSON('../../api/veiculo/' + placa, function (data) {
             $('#renavam').val(data.RENAVAM);
             $('#placa_carreta').val(data.PLACA_CARRETA);
+            $('#placa_carreta2').val(data.PLACA_CARRETA2);
+            $('#placa_carreta3').val(data.PLACA_CARRETA3);
 
             let tara = data.TARA;
             tara = parseFloat(tara);
@@ -188,28 +191,51 @@ $('#formAgendamento').submit(function (event) {
 
 function verificarTipoVeiculo(valor) {
     let carga = parseFloat(valor);
-    let quantidade = $('#quantidade').val();
+    let quantidade =  parseFloat($('#quantidade').val());
+    let tara = parseFloat($('#tara').val());
+    let qtd_max = parseFloat(carga - tara);
+    let embalagem = $('#tipo_embalagem').val();
 
-    if (quantidade.length > 0) {
-        quantidade = parseFloat(quantidade);
+    if(embalagem == 2) {
+        let peso_por_embalagem = 0.0015;
+        let quantidade_embalagens = quantidade / 1;
+        $('#qtd_embalagens').val(quantidade_embalagens);
+        let peso_total_embalagens = parseFloat(quantidade_embalagens * peso_por_embalagem);
+        $('#peso_total_embalagens').val(peso_total_embalagens);
+        let peso_bruto_liquido = parseFloat(quantidade + peso_total_embalagens);
+        $('#peso_total_carga').val(peso_bruto_liquido);
+        quantidade = peso_bruto_liquido;
+        $('#carga_max').val(carga);
+        $('#peso_total').val(quantidade+tara);
 
-        if(quantidade > carga){
+    } else if(embalagem == 3) {
+        let peso_por_embalagem = 0.000122;
+        let quantidade_embalagens = quantidade / 0.05;
+        $('#qtd_embalagens').val(quantidade_embalagens);
+        let peso_total_embalagens = parseFloat(quantidade_embalagens * peso_por_embalagem);
+        $('#peso_total_embalagens').val(peso_total_embalagens);
+        let peso_bruto_liquido = parseFloat(quantidade + peso_total_embalagens);
+        $('#peso_total_carga').val(peso_bruto_liquido);
+        quantidade = peso_bruto_liquido;
+        $('#carga_max').val(carga);
+        $('#peso_total').val(quantidade+tara);
+    }
+
+    //if (quantidade.length > 0) {
+        if(quantidade > qtd_max){
             $('#invalid-carga').css('display', 'block');
             $('#tipo_veiculo').addClass('invalido');
-
             invalida_carga = true;
         } else {
             $('#invalid-carga').css('display', 'none');
             $('#tipo_veiculo').removeClass('invalido');
-
             invalida_carga = false;
         }
-    } else {
-        $('#invalid-carga').css('display', 'none');
-        $('#tipo_veiculo').removeClass('invalido');
-
-        invalida_carga = false;
-    }
+    //} else {
+    //    $('#invalid-carga').css('display', 'none');
+    //    $('#tipo_veiculo').removeClass('invalido');
+    //    invalida_carga = false;
+    //}
 }
 
 function verificarCota() {

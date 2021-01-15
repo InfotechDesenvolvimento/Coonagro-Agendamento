@@ -1,6 +1,6 @@
-@extends('layouts.form-principal',  ['tag' => '1'])
+@extends('layouts.form-principal',  ['tag' => '2'])
 
-@section('css')../css/agendamento.css @endsection
+@section('css')../../css/agendamento.css @endsection
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
@@ -16,20 +16,69 @@
                 $old = json_decode(session()->get('agendamento'));
         ?>
 
-        
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-4 col-12">
+                    <h5 class="title">Nº Pedido</h5>
+                    <h4 class="dado">{{$pedido->NUM_PEDIDO}}</h4>
+                </div>
 
-        <form action="{{ route('transportadora.carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
-            <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-        
-            <div class="modal-body">
-            
+                <div class="col-sm-8 col-12">
+                    <h5 class="title">Produto</h5>
+                    <h4 class="dado">{{$pedido->produto->DESCRICAO}}</h4>
+                </div>
+            </div>
 
             <hr>
-                <input type="hidden" id="saldo_disponivel" name="saldo_disponivel">
-                <input type="hidden" id="cod_produto" name="cod_produto">
-                <input type="hidden" name="cod_transportadora" id="cod_transportadora" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
-                <input type="hidden" name="cod_cliente" id="cod_cliente">
-                
+
+            <form action="{{ route('carregamento.validar')}}" enctype="multipart/form-data" method="post" id="formAgendamento">
+                <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+                <input type="hidden" id="saldo_disponivel" value="{{$pedido->SALDO_RESTANTE - $pedido->TOTAL_AGENDADO}}">
+                <input type="hidden" name="num_pedido" value="{{$pedido->NUM_PEDIDO}}">
+                <input type="hidden" name="produto" value="{{$pedido->produto->DESCRICAO}}">
+                <input type="hidden" name="cod_produto" value="{{$pedido->produto->CODIGO}}">
+                <input type="hidden" id="cod_cliente" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label class="title">Data</label>
+
+                        <input
+                            name="data_agendamento"
+                            id="data_agendamento"
+                            min='<?php echo date("Y-m-d"); ?>'
+                            type="date"
+                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
+                            class="form-control"
+                            required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-data">
+                            Horário limite até às 17:00 hrs
+                        </div>
+
+                        <div class="invalid-feedback" id="invalid-cota">
+                            Cota diária do cliente excedida
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label class="title">Quantidade (Toneladas)</label>
+
+                        <input id="quantidade"
+                               type="text"
+                               name="quantidade"
+                               class="form-control peso"
+                               onkeypress="return somenteNumeros(event)"
+                               value="@if($old != null) {{$old->quantidade}} @endif"
+                               required
+                        >
+
+                        <div class="invalid-feedback" id="invalid-quantidade">
+                            Quantidade não disponível
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="form-group col-sm-5">
@@ -39,13 +88,12 @@
                                inputmode="numeric"
                                type="text"
                                name="cnpj_transportadora"
-                               value="{{Auth::user()->CPF_CNPJ}}"
+                               value="@if($old != null) {{$old->cnpj_transportadora}} @endif"
                                class="form-control"
                                maxlength="18"
                                minlength="14"
                                onkeypress="return somenteNumeros(event)"
                                required
-                               readonly
                         >
                     </div>
 
@@ -55,10 +103,9 @@
                         <input id="transportadora"
                                type="text"
                                name="transportadora"
-                               value="{{Auth::user()->NOME}}"
+                               value="@if($old != null) {{$old->transportadora}} @endif"
                                class="form-control"
                                required
-                               readonly
                         >
                     </div>
                 </div>
@@ -86,7 +133,7 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label class="title">Placa da Carreta 1</label>
+                                    <label class="title">Placa da Carreta</label>
 
                                     <input id="placa_carreta"
                                            type="text"
@@ -98,38 +145,6 @@
                                            minlength="7"
                                            onkeypress="return semEspeciais(event)"
                                            required
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label class="title">Placa da Carreta 2</label>
-
-                                    <input id="placa_carreta2"
-                                           type="text"
-                                           name="placa_carreta2"
-                                           value="@if($old != null) {{$old->placa_carreta2}} @endif"
-                                           class="form-control"
-                                           style="text-transform: uppercase"
-                                           maxlength="7"
-                                           minlength="7"
-                                           onkeypress="return semEspeciais(event)"
-                                    >
-                                </div>
-
-                                <div class="form-group col-sm-6">
-                                    <label class="title">Placa da Carreta 3</label>
-
-                                    <input id="placa_carreta3"
-                                           type="text"
-                                           name="placa_carreta3"
-                                           value="@if($old != null) {{$old->placa_carreta3}} @endif"
-                                           class="form-control"
-                                           style="text-transform: uppercase"
-                                           maxlength="7"
-                                           minlength="7"
-                                           onkeypress="return semEspeciais(event)"
                                     >
                                 </div>
                             </div>
@@ -183,10 +198,9 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <!-- <label class="title">Renavam</label> -->
+                                    <label class="title">Renavam</label>
 
-                                    <input hidden
-                                            id="renavam"
+                                    <input id="renavam"
                                            type="text"
                                            name="renavam"
                                            value="@if($old != null) {{$old->renavam}} @endif"
@@ -198,155 +212,6 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </div>
-                </div>
-                
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Tipo de Embalagem</label>
-
-                        <select id="tipo_embalagem"
-                                name="tipo_embalagem"
-                                class="form-control"
-                                required
-                        >
-                            @foreach($embalagens as $embalagem)
-                                <option value="{{$embalagem->CODIGO}}"
-                                    @if($old != null)
-                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
-                                            selected
-                                        @endif
-                                    @endif
-                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label class="title">Cota estabelecida pelo cliente</label>
-                        <div class="form-group col-sm-6">
-                            <input name="limite_cliente"
-                                    id="limite_cliente"
-                                    type="text"
-                                    class="form-control"
-                                    readonly>
-                        </div>
-                        <div class="invalid-feedback" id="invalid-limite">
-                            Quantidade ultrapassa limite do cliente!
-                        </div>  
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-4 col-12">
-                        <h5 class="title">Nº Pedido</h5>
-                        <input type="text" 
-                                name="num_pedido" 
-                                id="num_pedido"
-                                class="form-control"
-                                value=""
-                                required>
-    
-                        <div class="invalid-feedback" id="invalid-pedido">
-                            Pedido inválido!
-                        </div>
-                    </div>
-    
-                    <div class="col-sm-8 col-12">
-                        <h5 class="title">Produto</h5>
-                        <input type="text" 
-                                name="produto"
-                                id="produto"
-                                class="form-control"
-                                value="@if($old != null) {{$old->produto}} @endif"
-                                required
-                                readonly>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label class="title">Data</label>
-
-                        <input
-                            name="data_agendamento"
-                            id="data_agendamento"
-                            min='<?php echo date("Y-m-d"); ?>'
-                            type="date"
-                            value='<?php if($old != null){echo $old->data_agendamento;} else {echo date("Y-m-d", strtotime("+1 day"));}?>'
-                            class="form-control"
-                            required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-data">
-                            Horário limite até às 17:00 hrs
-                        </div>
-
-                        <div class="invalid-feedback" id="invalid-cota">
-                            Cota diária do cliente excedida
-                        </div>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <label class="title">Quantidade (Toneladas)</label>
-
-                        <input id="quantidade"
-                               type="text"
-                               name="quantidade"
-                               class="form-control peso"
-                               onkeypress="return somenteNumeros(event)"
-                               value="@if($old != null) {{$old->quantidade}} @endif"
-                               required
-                        >
-
-                        <div class="invalid-feedback" id="invalid-quantidade">
-                            Quantidade não disponível
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div class="row">
-                    <div class="col-sm-4 col-12">
-                        <h5 class="title">Qtd. Embalagens</h5>
-                        <input type="text" 
-                                name="qtd_embalagens" 
-                                id="qtd_embalagens"
-                                class="form-control" readonly>
-                    </div>
-    
-                    <div class="col-sm-4 col-12">
-                        <h5 class="title">Peso Embalagens</h5>
-                        <input type="text" 
-                                name="peso_total_embalagens"
-                                id="peso_total_embalagens"
-                                class="form-control" readonly>
-                    </div>
-
-                    <div class="col-sm-4 col-12">
-                        <h5 class="title">Peso Total da Carga</h5>
-                        <input type="text" 
-                                name="peso_total_carga"
-                                id="peso_total_carga"
-                                class="form-control" readonly>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 col-12">
-                        <h5 class="title">Limite Peso Máximo</h5>
-                        <input type="text" 
-                                name="carga_max" 
-                                id="carga_max"
-                                class="form-control" readonly>
-                    </div>
-    
-                    <div class="col-sm-6 col-12">
-                        <h5 class="title">Peso Total do Veículo</h5>
-                        <input type="text" 
-                                name="peso_total"
-                                id="peso_total"
-                                class="form-control" readonly>
                     </div>
                 </div>
 
@@ -383,10 +248,9 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <!-- <label class="title">CNH</label> -->
+                                    <label class="title">CNH</label>
 
-                                    <input hidden
-                                            id="cnh"
+                                    <input id="cnh"
                                            type="text"
                                            name="cnh"
                                            value="@if($old != null) {{$old->cnh}} @endif"
@@ -394,23 +258,46 @@
                                            minlength="11"
                                            maxlength="11"
                                            onkeypress="return somenteNumeros(event)"
+                                           required
                                     >
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <!-- <label class="title">Validade da CNH</label>-->
+                                    <label class="title">Validade da CNH</label>
 
                                     <input
-                                        hidden
                                         id="validade_cnh"
                                         name="validade_cnh"
                                         value="<?php if($old != null) echo $old->validade_cnh ?>"
                                         type="date"
                                         class="form-control"
+                                        required
                                     >
                                 </div>
                             </div>
                         </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label class="title">Tipo de Embalagem</label>
+
+                        <select id="tipo_embalagem"
+                                name="tipo_embalagem"
+                                class="form-control"
+                                required
+                        >
+                            @foreach($embalagens as $embalagem)
+                                <option value="{{$embalagem->CODIGO}}"
+                                    @if($old != null)
+                                        @if($old->tipo_embalagem == $embalagem->CODIGO)
+                                            selected
+                                        @endif
+                                    @endif
+                                >{{$embalagem->TIPO_EMBALAGEM}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -430,7 +317,7 @@
 
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        <button type="submit" class="btn btn-success btn-lg btn-block" id="avancar" style="margin-bottom: 0" disabled>
+                        <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 0">
                             <i class="fas fa-arrow-right"></i> Avançar
                         </button>
                     </div>
@@ -441,7 +328,7 @@
 
         <div class="row justify-content-center">
             <div class="col-sm-12">
-                <a href="{{route('transportadora.operacao')}}">
+                <a href="{{route('cliente.carregamento')}}">
                     <button class="btn btn-success btn-lg btn-block back">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </button>
@@ -452,5 +339,5 @@
     </div>
 @stop
 
-@section('js')../js/agendamento_transportadora.js @endsection
+@section('js')../../js/agendamento.js @endsection
 

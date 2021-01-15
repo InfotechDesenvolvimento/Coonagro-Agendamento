@@ -177,6 +177,7 @@
                             <th>Placa Carreta 1</th>
                             <th>Transportadora</th>
                             <th>Cliente</th>
+                            <th>Data de Cadastro</th>
                         </tr>
                     </thead>
                 </table>

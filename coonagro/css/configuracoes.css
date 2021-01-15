@@ -1,8 +1,14 @@
 #valid-email {
-    display: none;
+    visibility: hidden;
     color: green;
-    border: 2px green solid;
+    border-width: 1px;
+    border-color: green;
+    border-style: solid;
     border-radius: 5%;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    display: block;
 }
 
 button {

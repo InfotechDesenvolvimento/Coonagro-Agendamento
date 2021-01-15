@@ -1,7 +1,7 @@
 $(document).ready(function () {
     preencherData();
     setTable();
-    filtrar();
+    filtrar_transportadora();
 
     $('#filtrar').click(function () {
         filtrar();
@@ -79,18 +79,18 @@ function limparCampos() {
     preencherData();
 }
 
-function filtrar() {
-    $('#filtrar').html(`
+function filtrar_transportadora() {
+    $('#filtrar_transportadora').html(`
         <i class="fas fa-spinner fa-pulse mr-3"></i>
         Filtrar
     `);
 
     const num_agendamento = $('#num_agendamento').val();
     const status = $('#status').val();
-    const produto = $('#produto').val();
     const data_inicial = $('#data_inicial').val();
     const data_final = $('#data_final').val();
     const transportadora = $('#transportadora').val();
+    const produto = $('#produto').val();
     const num_pedido = $('#num_pedido').val();
     const placa_veiculo = $('#placa_veiculo').val();
     const placa_carreta = $('#placa_carreta').val();
@@ -109,30 +109,30 @@ function filtrar() {
         data_especifica: data_especifica
     };
 
-    $.getJSON('cliente/filter', filtro, function (data) {
+    $.getJSON('transportadora/filter', filtro, function (data) {
         let resultado = '';
 
         Array.prototype.forEach.call(data, function (item) {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
                 resultado += `<td>
-                                <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                     <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
                                 </a>
-                              </td>`;
-                resultado += `<td>${item.status.STATUS}</td>`;
-                resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
-                resultado += `<td>${item.QUANTIDADE}</td>`;
-                if(item.produto != null) {
-                    resultado += `<td>${item.produto.DESCRICAO}</td>`;
-                } else {
-                    resultado += `<td></td>`;
-                }
-                resultado += `<td>${item.NUM_PEDIDO}</td>`;
-                resultado += `<td>${item.PLACA_VEICULO}</td>`;
-                resultado += `<td>${item.PLACA_CARRETA1}</td>`;
-                resultado += `<td>${item.TRANSPORTADORA}</td>`;
-                resultado += `<td>${item.DATA_CADASTRO}</td>`;
+                            </td>`;
+                            resultado += `<td>${item.status.STATUS}</td>`;
+                            resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
+                            resultado += `<td>${item.QUANTIDADE}</td>`;
+                            if(item.produto != null) {
+                                resultado += `<td>${item.produto.DESCRICAO}</td>`;
+                            } else {
+                                resultado += `<td></td>`;
+                            }
+                            resultado += `<td>${item.NUM_PEDIDO}</td>`;
+                            resultado += `<td>${item.PLACA_VEICULO}</td>`;
+                            resultado += `<td>${item.PLACA_CARRETA1}</td>`;
+                            resultado += `<td>${item.TRANSPORTADORA}</td>`;
+                            resultado += `<td>${item.DATA_CADASTRO}</td>`;
             resultado += `</tr>`;
         });
 
@@ -142,7 +142,7 @@ function filtrar() {
         $('#table tbody').html(resultado);
         setTable();
 
-        $('#filtrar').html(`
+        $('#filtrar_transportadora').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);
@@ -150,7 +150,7 @@ function filtrar() {
     .fail(function() {
         alert("Não foi possível filtrar os dados! Tente novamente!");
 
-        $('#filtrar').html(`
+        $('#filtrar_transportadora').html(`
             <i class="fas fa-search mr-3"></i>
             Filtrar
         `);
@@ -160,11 +160,3 @@ function filtrar() {
 function formatarData(data) {
     return data.substring(8,10) + '/' + data.substring(5,7) + '/' + data.substring(0, 4);
 }
-
-function mostrarDetalhes(codigo) {
-    if($(`#detalhes_${codigo}`).attr('hidden')) {
-        $(`#detalhes_${codigo}`).attr('hidden', false)
-    }else {
-        $(`#detalhes_${codigo}`).attr('hidden', true)
-    }
- }
