@@ -1,4 +1,4 @@
-@extends('layouts.form-principal', ['tag' => '1'])
+@extends('layouts.form-principal', ['tag' => '3'])
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>
@@ -6,9 +6,14 @@
     <div class="col-12">
 
         <div class="container panel-form panel-reduzido">
-            <h4 style="padding: 30px; color: #63950A"> <b>TIPO DE OPERAÇÃO</b> </h4>
+            @if(isset($erro))
+                <div class="alert alert-danger" role="alert">
+                    {{ $erro }}
+                </div>
+            @endif
 
-            <a href="{{route('transportadora.agendamento')}}">
+            <h4 style="padding: 30px; color: #63950A"> <b>TIPO DE OPERAÇÃO</b> </h4>
+            <a href="{{route('cliente.carregamento')}}">
                 <button class="btn btn-info btn-lg btn-block">
                     <b><i class="fas fa-truck-loading"></i> Carregamento </b>
                 </button>
@@ -18,7 +23,7 @@
             </button>
 
             <hr>
-            <a href="{{route('transportadora.home')}}">
+            <a href="{{route('cliente.home')}}">
                 <button class="btn btn-success btn-lg btn-block back">
                     <b> <i class="fas fa-arrow-left"></i> Voltar </b>
                 </button>

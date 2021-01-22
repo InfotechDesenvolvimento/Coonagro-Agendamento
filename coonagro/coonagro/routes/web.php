@@ -37,6 +37,7 @@ Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index'
 Route::post('cliente/carregamento/confirmar', 'cliente\AgendamentoController@validarDados')->name('carregamento.validar');
 Route::get('/cliente/carregamento/finalizar', 'cliente\AgendamentoController@finalizar')->name('carregamento.finalizar');
 Route::get('/cliente/carregamento/sucesso/{cod_agendamento}', 'cliente\AgendamentoController@sucesso')->name('carregamento.sucesso');
+Route::get('/cliente/carregamento/falha/{erro}', 'cliente\AgendamentoController@falha')->name('carregamento.falha');
 Route::get('/cliente/carregamento/imprimir/{cod_agendamento}', 'cliente\AgendamentoController@imprimir')->name('carregamento.imprimir');
 Route::get('/cliente/configuracoes/', 'cliente\ConfiguracoesController@opcoes')->name('cliente.configuracoes');
 Route::post('/cliente/alterar_dados/', 'cliente\ConfiguracoesController@alterarDados')->name('cliente.alterar_dados');

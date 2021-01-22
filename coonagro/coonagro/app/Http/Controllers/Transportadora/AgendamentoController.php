@@ -164,24 +164,23 @@ class AgendamentoController extends Controller
         $agendamento->DATA_ALTERACAO = date("Y-m-d H:i:s");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
         $agendamento->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
-    
-        $data = $agendamento->ToJson();
-        $data = json_decode($data);
 
+        $email = 0;
         
         if($cliente->EMAIL != null && Auth::user()->EMAIL != null) {
             if(!filter_var(Auth::user()->EMAIL, FILTER_VALIDATE_EMAIL)) {
                 $erro = 'Agendamento não pôde ser concluído, e-mail da TRANSPORTADORA inválido! Favor alterar para um endereço válido!';
+                session()->forget('agendamento');
                 return redirect()->route('transportadora.carregamento.falha', $erro);
             }
 
             elseif(!filter_var($cliente->EMAIL, FILTER_VALIDATE_EMAIL)) {
                 $erro = 'Agendamento não pôde ser concluído, e-mail do CLIENTE inválido! Favor alterar para um endereço válido!';
+                session()->forget('agendamento');
                 return redirect()->route('transportadora.carregamento.falha', $erro);
             }
             else {
-                Mail::to($cliente->EMAIL)->send(new EnviaEmail($data));
-                Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
+                $email = 1;
             }
         }
 
@@ -202,10 +201,16 @@ class AgendamentoController extends Controller
                 $objCotaTransp->save();
             }
         }
-        
 
         $cod_agendamento = $agendamento->CODIGO;
         
+        if($email == 1) {
+            $data = $agendamento->ToJson();
+            $data = json_decode($data);
+            Mail::to($cliente->EMAIL)->send(new EnviaEmail($data));
+            Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
+        }
+
         session()->forget('agendamento');
         return redirect()->route('transportadora.carregamento.sucesso', $cod_agendamento);
     }
