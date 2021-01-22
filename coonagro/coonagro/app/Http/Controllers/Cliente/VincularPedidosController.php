@@ -39,6 +39,17 @@ class VincularPedidosController extends Controller{
           return view('cliente.vincular_pedido_transportadora', compact('pedido'));
     }
 
+    public function vincularPedidoComum($num_pedido) {
+        $cod_cliente = $cod_cliente =  Auth::user()->getAuthIdentifier();
+
+        $pedido = PedidoTransporte::where([
+            'COD_CLIENTE' => $cod_cliente,
+            'NUM_PEDIDO' => $num_pedido
+          ])->with('produto')->first();
+
+          return view('cliente.vincular_pedido_transportadora_comum', compact('pedido'));
+    }
+
     public function vincular() {
         $cod_cliente = Auth::user()->getAuthIdentifier();
 
@@ -67,9 +78,34 @@ class VincularPedidosController extends Controller{
                     }
                 }
             }
+
+            $msg = "A transportadora foi vinculada ao pedido com sucesso.";
+            return view('cliente.vincular_pedidos', compact(['msg', 'pedidos']));
+        } else {
+            $msg = "A transportadora já está vinculada à este pedido.";
+            return view('cliente.vincular_pedidos', compact(['msg', 'pedidos']));
+        }
+    }
+
+    public function vincularComum() {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        $pedido_vinculado = PedidosVinculadosTransportadora::where('COD_CLIENTE', $cod_cliente)
+                                ->where('COD_TRANSPORTADORA', $_POST['cod_transportadora'])
+                                ->where('NUM_PEDIDO', $_POST['num_pedido'])
+                                ->where('COTA', null)->where('DATA', null)->get();
+
+        $pedidos = PedidoTransporte::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS', 1)
+                            ->whereRaw('SALDO_RESTANTE - TOTAL_AGENDADO > 0')->orderBy('NUM_PEDIDO')->with('produto')->get();
+
+        if($pedido_vinculado->isEmpty()) {
+            $pedido_vinculado = new PedidosVinculadosTransportadora();
+            $pedido_vinculado->COD_CLIENTE = $cod_cliente;
+            $pedido_vinculado->COD_TRANSPORTADORA = $_POST['cod_transportadora'];
+            $pedido_vinculado->NUM_PEDIDO = $_POST['num_pedido'];
+            $pedido_vinculado->COD_PRODUTO = $_POST['cod_produto'];
+            $pedido_vinculado->save();
             
-
-
             $msg = "A transportadora foi vinculada ao pedido com sucesso.";
             return view('cliente.vincular_pedidos', compact(['msg', 'pedidos']));
         } else {

@@ -115,11 +115,18 @@ function filtrar() {
         Array.prototype.forEach.call(data, function (item) {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
-                resultado += `<td>
+                if(item.status.STATUS != 'CANCELADO') {
+                    resultado += `<td>
                                 <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                     <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                </a>
-                              </td>`;
+                                </a>`;
+                } else {
+                    resultado +=  `<td>`;
+                }
+                resultado += `<a href="cliente/detalhes/${item.CODIGO}" >
+                                <i class="fas fa-search" title="Detalhes do pedido" style="cursosr: pointer; color: #545b62"></i>
+                             </a>
+                            </td>`;
                 resultado += `<td>${item.status.STATUS}</td>`;
                 resultado += `<td>${formatarData(item.DATA_AGENDAMENTO)}</td>`;
                 resultado += `<td>${item.QUANTIDADE}</td>`;

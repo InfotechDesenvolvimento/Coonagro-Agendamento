@@ -155,12 +155,11 @@ $('#quantidade').keyup(function () {
 
             quantidade = parseFloat(quantidade);
             saldo_disponivel = parseFloat(saldo_disponivel);
-
             if(quantidade > saldo_disponivel){
                 $('#invalid-quantidade').css('display', 'block');
                 $(this).addClass('invalido');
                 invalida_quantidade = true;
-            } else if(quantidade > limite_cliente) {
+            } else if(quantidade > limite_cliente && limite_cliente != '') {
                 $('#invalid-limite').css('display', 'block');
                 $(this).addClass('invalido');
             }

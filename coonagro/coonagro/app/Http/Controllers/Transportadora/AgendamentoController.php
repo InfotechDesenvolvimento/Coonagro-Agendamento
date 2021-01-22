@@ -158,11 +158,32 @@ class AgendamentoController extends Controller
     }
 
     public function insert(Agendamento $agendamento){
+        $cliente = Cliente::find($agendamento->COD_CLIENTE);
 
-        $agendamento->DATA_CADASTRO = date("Y/m/d H:i:s");
-        $agendamento->DATA_ALTERACAO = date("Y/m/d H:i:s");
+        $agendamento->DATA_CADASTRO = date("Y-m-d H:i:s");
+        $agendamento->DATA_ALTERACAO = date("Y-m-d H:i:s");
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
         $agendamento->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
+    
+        $data = $agendamento->ToJson();
+        $data = json_decode($data);
+
+        
+        if($cliente->EMAIL != null && Auth::user()->EMAIL != null) {
+            if(!filter_var(Auth::user()->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                $erro = 'Agendamento não pôde ser concluído, e-mail da TRANSPORTADORA inválido! Favor alterar para um endereço válido!';
+                return redirect()->route('transportadora.carregamento.falha', $erro);
+            }
+
+            elseif(!filter_var($cliente->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                $erro = 'Agendamento não pôde ser concluído, e-mail do CLIENTE inválido! Favor alterar para um endereço válido!';
+                return redirect()->route('transportadora.carregamento.falha', $erro);
+            }
+            else {
+                Mail::to($cliente->EMAIL)->send(new EnviaEmail($data));
+                Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
+            }
+        }
 
         if($agendamento->save())
         {
@@ -175,31 +196,25 @@ class AgendamentoController extends Controller
             $objCotaCliente->update($pedido->COD_CLIENTE, $agendamento->DATA_AGENDAMENTO, $agendamento->QUANTIDADE);
 
             $objCotaTransp = PedidosVinculadosTransportadora::where('COD_CLIENTE', $pedido->COD_CLIENTE)->where('COD_TRANSPORTADORA', $agendamento->COD_TRANSPORTADORA)->where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->where('COD_PRODUTO', $agendamento->COD_PRODUTO)->where('DATA', $agendamento->DATA_AGENDAMENTO)->first();
-            $cota = $objCotaTransp->COTA - $agendamento->QUANTIDADE;
-            $objCotaTransp->COTA = $cota;
-            $objCotaTransp->save();
+            if($objCotaTransp != null) {
+                $cota = $objCotaTransp->COTA - $agendamento->QUANTIDADE;
+                $objCotaTransp->COTA = $cota;
+                $objCotaTransp->save();
+            }
         }
+        
 
         $cod_agendamento = $agendamento->CODIGO;
-
+        
         session()->forget('agendamento');
-
-        $data = $agendamento->ToJson();
-        $data = json_decode($data);
-
-        $cliente = Cliente::find($pedido->COD_CLIENTE);
-
-        if(Auth::user()->EMAIL != null) {
-            Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
-        }
-        if($cliente->EMAIL != null) {
-            Mail::to($cliente->EMAIL)->send(new EnviaEmail($data));
-        }
-
         return redirect()->route('transportadora.carregamento.sucesso', $cod_agendamento);
     }
 
-    public function sucesso($cod_agendamento){
+    public function falha($erro) {
+        return view('transportadora.operacao_falha', compact('erro'));
+    }
+
+    public function sucesso($cod_agendamento) {
         return view('transportadora.mensagem-sucesso', compact('cod_agendamento'));
     }
 
@@ -316,6 +331,14 @@ class AgendamentoController extends Controller
                                         $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos, clientes WHERE agendamentos.COD_CLIENTE = clientes.CODIGO AND agendamentos.COD_TRANSPORTADORA = '.$cod_transportadora.' GROUP BY clientes.NOME');
         
         return view('transportadora.pedidos_vinculados', compact('pedidos', 'produtos', 'clientes'));
+    }
+
+    public function verDetalhe($cod_agendamento) {
+        $agendamento = Agendamento::where('CODIGO', $cod_agendamento)->with('tipoVeiculo')->with('embalagem')->first();
+
+        if($agendamento != null) {
+                return view('transportadora.agendamento_detalhes', compact('agendamento'));
+        }
     }
 
 }

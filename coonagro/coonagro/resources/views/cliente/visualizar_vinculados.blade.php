@@ -95,11 +95,15 @@
                                         <i class="fas fa-minus-circle" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="{{route('cliente.editar', ['pedido' => $pedido->CODIGO])}}">
-                                        <i class="fas fa-edit" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
-                                    </a>
-                                </td>
+                                @if($pedido->DATA != NULL && $pedido->COTA != NULL)
+                                    <td>
+                                        <a href="{{route('cliente.editar', ['pedido' => $pedido->CODIGO])}}">
+                                            <i class="fas fa-edit" title="Editar" style="cursor: pointer; color: #545b62"></i>
+                                        </a>
+                                    </td>
+                                @else
+                                    <td></td>
+                                @endif
                             </tr>
                         @endforeach
                     @endif

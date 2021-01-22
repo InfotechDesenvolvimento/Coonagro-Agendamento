@@ -27,7 +27,8 @@
                     <th>Nº Pedido</th>
                     <th>Produto</th>
                     <th>Saldo (T)</th>
-                    <th>Ação</th>
+                    <th>Vincular</th>
+                    <th>Vincular com Data/Limite</th>
                 </thead>
                 <tbody>
                     @if(count($pedidos) == 0)
@@ -40,6 +41,11 @@
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->produto->DESCRICAO}}</td>
                                 <td>{{number_format($pedido->TOTAL - $pedido->TOTAL_AGENDADO, 3, ',', '.')}}</td>
+                                <td>
+                                    <a href="{{route('cliente.vincular_pedido_transportadora_comum', $pedido->NUM_PEDIDO)}}" title="Vincular pedido">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </td>
                                 <td class="agendamento">
                                     <a href="{{route('cliente.vincular_pedido_transportadora', $pedido->NUM_PEDIDO)}}" title="Vincular pedido">
                                         <i class="fas fa-arrow-right"></i>

@@ -5,6 +5,7 @@
 
     <div class="col-12">
         <div class="container" style="padding: 30px; text-align:center; border-radius: 15px; max-width: 750px; margin-top: 20px; background: #E8E8E8">
+
             <h2 style="text-align:center;margin-top: 50px; color:green">
                 <b>AGENDAMENTO REALIZADO COM SUCESSO</b>
                 <i class="fas fa-check-circle"></i>

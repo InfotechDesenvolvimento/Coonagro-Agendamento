@@ -21,15 +21,16 @@ Route::get('/transportadora/filter', 'transportadora\AgendamentoController@filte
 Route::get('transportadora/carregamento/imprimir/{cod_agendamento}', 'transportadora\AgendamentoController@imprimir')->name('transportadora.carregamento.imprimir');
 Route::get('transportadora/carregamento/finalizar', 'transportadora\AgendamentoController@finalizar')->name('transportadora.carregamento.finalizar');
 Route::get('/transportadora/carregamento/sucesso/{cod_agendamento}', 'transportadora\AgendamentoController@sucesso')->name('transportadora.carregamento.sucesso');
+Route::get('/transportadora/carregamento/falha/{erro}', 'transportadora\AgendamentoController@falha')->name('transportadora.carregamento.falha');
 Route::get('/transportadora/configuracoes/', 'transportadora\ConfiguracoesController@opcoes')->name('transportadora.configuracoes');
 Route::post('/transportadora/alterar_dados/', 'transportadora\ConfiguracoesController@alterarDados')->name('transportadora.alterar_dados');
 Route::get('/transportadora/pedidos_vinculados', 'transportadora\AgendamentoController@visualizarPedidosVinculados')->name('transportadora.pedidos_vinculados');
 Route::get('transportadora/total_agendado', 'transportadora\AgendamentoController@totalAgendado')->name('transportadora.total_agendado');
 Route::get('/transportadora/filtrar_vinculados', 'transportadora\AgendamentoController@visualizarPedidosVinculadosFiltrar')->name('transportadora.pedidos_vinculados_filtrar');
-
+Route::get('/transportadora/detalhes/{pedido}', 'transportadora\AgendamentoController@verDetalhe')->name('transportadora.detalhes');
 
 Route::get('cliente', 'cliente\HomeController@index')->name('cliente.home');
-Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');
+Route::get('/cliente/filter', 'cliente\AgendamentoController@filter')->name('cliente.filter');                                                                                           
 Route::get('cliente/operacao', 'cliente\HomeController@operacao')->name('cliente.operacao');
 Route::get('cliente/carregamento', 'cliente\CarregamentoController@index')->name('cliente.carregamento');
 Route::get('cliente/agendamento/{pedido}', 'cliente\AgendamentoController@index')->name('cliente.agendamento');
@@ -41,13 +42,16 @@ Route::get('/cliente/configuracoes/', 'cliente\ConfiguracoesController@opcoes')-
 Route::post('/cliente/alterar_dados/', 'cliente\ConfiguracoesController@alterarDados')->name('cliente.alterar_dados');
 Route::get('cliente/vincular_pedidos/', 'cliente\VincularPedidosController@index')->name('cliente.vincular_pedidos');
 Route::get('cliente/vincular_pedido/{pedido}', 'cliente\VincularPedidosController@vincularPedido')->name('cliente.vincular_pedido_transportadora');
+Route::get('cliente/vincular_pedido_comum/{pedido}', 'cliente\VincularPedidosController@vincularPedidoComum')->name('cliente.vincular_pedido_transportadora_comum');
 Route::post('cliente/vincular/', 'cliente\VincularPedidosController@vincular')->name('cliente.vincular');
+Route::post('cliente/vincular_comum/', 'cliente\VincularPedidosController@vincularComum')->name('cliente.vincular_comum');
 Route::get('cliente/pedidos_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculados')->name('cliente.pedidos_vinculados');
 Route::get('cliente/filtrar_vinculados', 'cliente\VincularPedidosController@visualizarPedidosVinculadosFiltrar')->name('cliente.pedidos_vinculados_filtrar');
 Route::get('cliente/total_agendado', 'cliente\AgendamentoController@totalAgendado')->name('cliente.total_agendado');
 Route::get('cliente/desvincular/{pedido}', 'cliente\VincularPedidosController@desvincular')->name('cliente.desvincular');
 Route::get('cliente/editar/{pedido}', 'cliente\VincularPedidosController@editar')->name('cliente.editar');
 Route::post('cliente/salvar_vinculo/{pedido}', 'cliente\VincularPedidosController@salvarVinculo')->name('cliente.salvar_vinculo');
+Route::get('/cliente/detalhes/{pedido}', 'cliente\AgendamentoController@verDetalhe')->name('cliente.detalhes');
 
 Route::get('/cliente/get/{cod_cliente}', 'administrador\AgendamentoController@getCliente')->name('administrador.get.cliente');
 Route::get('administrador', 'administrador\HomeController@index')->name('administrador.home');

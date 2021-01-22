@@ -1,4 +1,4 @@
-@extends('layouts.form-principal', ['tag' => '1'])
+@extends('layouts.form-principal', ['tag' => '3'])
 
 @section('conteudo')
     <?php date_default_timezone_set('America/Sao_Paulo');  ?>

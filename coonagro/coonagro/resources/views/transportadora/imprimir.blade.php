@@ -21,7 +21,7 @@
             <th></th>
         </thead>
         <tbody>
-            <tr><td></td><td style="padding-left: 50px"></td></tr>
+            <tr><td><b style="color: darkgray">Status</b>{{$agendamento->status->STATUS}}</td><td style="padding-left: 50px"></td></tr>
             <tr>
                 <td>
                     <b style="color: darkgray">Nº Pedido</b>
