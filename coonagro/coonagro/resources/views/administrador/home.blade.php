@@ -178,6 +178,7 @@
                             <th>Transportadora</th>
                             <th>Cliente</th>
                             <th>Data de Cadastro</th>
+                            <th>Hora de Cadastro</th>
                         </tr>
                     </thead>
                 </table>

@@ -140,6 +140,11 @@ function filtrar() {
                 resultado += `<td>${item.PLACA_CARRETA1}</td>`;
                 resultado += `<td>${item.TRANSPORTADORA}</td>`;
                 resultado += `<td>${item.DATA_CADASTRO}</td>`;
+                if(item.HORA_CADASTRO != null) {
+                    resultado += `<td>${item.HORA_CADASTRO}</td>`;
+                } else {
+                    resultado += `<td></td>`;
+                }
             resultado += `</tr>`;
         });
 

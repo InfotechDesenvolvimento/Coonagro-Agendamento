@@ -181,7 +181,8 @@ class AgendamentoController extends Controller
         $agendamento = Agendamento::where('CODIGO', $cod_agendamento)->first();
         $agendamento->COD_STATUS_AGENDAMENTO = 2;
         $agendamento->COD_FUNCIONARIO_APROVA = Auth::user()->getAuthIdentifier();
-        $agendamento->DATA_ALTERACAO = date('Y-m-d H:i:s');
+        $agendamento->DATA_ALTERACAO = date('Y-m-d');
+        $agendamento->HORA_ALTERACAO = now();  
         $agendamento->save();
         
         $cliente = Cliente::where('CODIGO', $agendamento->COD_CLIENTE)->first();

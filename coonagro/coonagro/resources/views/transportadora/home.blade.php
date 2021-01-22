@@ -155,6 +155,7 @@
                             <th>Placa Carreta 1</th>
                             <th>Transportadora</th>
                             <th>Data de Cadastro</th>
+                            <th>Hora de Cadastro</th>
                         </tr>
                     </thead>
                 </table>

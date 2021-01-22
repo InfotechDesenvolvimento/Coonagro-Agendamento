@@ -168,8 +168,10 @@ class AgendamentoController extends Controller
 
         $transportadora = Transportadora::find($agendamento->COD_TRANSPORTADORA);
         
-        $agendamento->DATA_CADASTRO = date("Y-m-d H:i:s");
-        $agendamento->DATA_ALTERACAO = date("Y-m-d H:i:s");
+        $agendamento->DATA_CADASTRO = date("Y-m-d");
+        $agendamento->DATA_ALTERACAO = date("Y-m-d");
+        $agendamento->HORA_CADASTRO = now();
+        $agendamento->HORA_ALTERACAO = now();                                                                       
         $agendamento->COD_STATUS_AGENDAMENTO = 1;
         $agendamento->COD_CLIENTE = Auth::user()->getAuthIdentifier();
 
@@ -201,7 +203,7 @@ class AgendamentoController extends Controller
         }
 
         $cod_agendamento = $agendamento->CODIGO;
-        
+
         if($email == 1) {
             $data = $agendamento->ToJson();
             $data = json_decode($data);
