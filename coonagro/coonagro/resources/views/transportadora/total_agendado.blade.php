@@ -14,6 +14,17 @@
         @endif
 
         <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
+        <form method="POST" action="{{route('transportadora.total_agendado_filtrar')}}">
+            <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+            <div class="row">
+                <div class="col-6">
+                    <input type="date" name="data_agendamento" class="form-control">
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary btn-block"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table id="table" class="table table-striped" style="width: 100%">
                 <thead>

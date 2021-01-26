@@ -251,7 +251,7 @@ function verificarCota() {
         if(quantidade > 0){
             $.getJSON('../api/cota/' + cliente + '/' + data, function (data) {
                 console.log(data);
-                if((data.SALDO_LIVRE - data.TOTAL_AGENDADO) >= quantidade){
+                if(data.SALDO_LIVRE >= quantidade){
                     invalida_cota = false;
                     $('#invalid-cota').css('display', 'none');
                     $('#data_agendamento').removeClass('invalido');

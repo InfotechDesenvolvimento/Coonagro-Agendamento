@@ -65,16 +65,42 @@ class AgendamentoController extends Controller
 
     public function totalAgendadoClientes() {
         $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, clientes.NOME AS CLIENTE FROM agendamentos
-                                    LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE)
-                                    GROUP BY clientes.NOME");
-        $total_agendado = Agendamento::sum('QUANTIDADE');
+                                LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE) WHERE COD_STATUS_AGENDAMENTO <= 3
+                                GROUP BY clientes.NOME");
+        $total_agendado = Agendamento::where('COD_STATUS_AGENDAMENTO', '<=', 3)->sum('QUANTIDADE');
         return view('administrador.total_agendado_clientes', compact('agendamentos', 'total_agendado'));
+    }
+
+    public function filtrarTotalAgendadoClientes(Request $request) {
+
+        if($request->get('data_agendamento') != '') {
+                $data = $request->get('data_agendamento');
+                $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, clientes.NOME AS CLIENTE FROM agendamentos
+                                        LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE) WHERE COD_STATUS_AGENDAMENTO <= 3 and DATA_AGENDAMENTO = '$data'
+                                        GROUP BY clientes.NOME");
+                $total_agendado = Agendamento::where('COD_STATUS_AGENDAMENTO', '<=', 3)->where('DATA_AGENDAMENTO', '=', $request->get('data_agendamento'))->sum('QUANTIDADE');
+                return view('administrador.total_agendado_clientes', compact('agendamentos', 'total_agendado'));
+        } else {
+                return redirect()->route('administrador.total_agendado_clientes');
+        }
     }
 
     public function totalAgendadoTransportadoras() {
         $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_STATUS_AGENDAMENTO <= 3 group by TRANSPORTADORA");
         $total_agendado = Agendamento::where('COD_STATUS_AGENDAMENTO', '<=', 3)->sum('QUANTIDADE');
         return view('administrador.total_agendado_transportadoras', compact('agendamentos', 'total_agendado'));
+    }
+
+    public function filtrarTotalAgendadoTransportadoras(Request $request) {
+
+        if($request->get('data_agendamento') != '') {
+                $data = $request->get('data_agendamento');
+                $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_STATUS_AGENDAMENTO <= 3 and DATA_AGENDAMENTO = '$data' group by TRANSPORTADORA");
+                $total_agendado = Agendamento::where('COD_STATUS_AGENDAMENTO', '<=', 3)->where('DATA_AGENDAMENTO', '=', $request->get('data_agendamento'))->sum('QUANTIDADE');
+                return view('administrador.total_agendado_transportadoras', compact('agendamentos', 'total_agendado'));
+        } else {
+                return redirect()->route('administrador.total_agendado_transportadoras');
+        }
     }
 
     public function visualizarVinculos() {

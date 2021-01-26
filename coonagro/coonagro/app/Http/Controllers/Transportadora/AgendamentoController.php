@@ -302,6 +302,25 @@ class AgendamentoController extends Controller
         return view('transportadora.total_agendado', compact('agendamentos', 'total_agendado'));
     }
 
+    public function filtrarTotalAgendado(Request $request) {
+        $cod_transportadora = Auth::user()->getAuthIdentifier();
+
+        //$agendamentos = Agendamento::where('COD_CLIENTE', $cod_cliente)->groupBy('TRANSPORTADORA')->get();
+        if($request->get('data_agendamento') != '') {
+            $data = $request->get('data_agendamento');
+            $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, clientes.NOME AS CLIENTE FROM agendamentos
+                                        LEFT OUTER JOIN clientes on (clientes.CODIGO = agendamentos.COD_CLIENTE)
+                                        WHERE agendamentos.COD_TRANSPORTADORA = $cod_transportadora
+                                        AND agendamentos.COD_STATUS_AGENDAMENTO <= 3
+                                        AND agendamentos.DATA_AGENDAMENTO = '$data'
+                                        GROUP BY clientes.NOME");
+            $total_agendado = Agendamento::where('COD_TRANSPORTADORA', $cod_transportadora)->where('COD_STATUS_AGENDAMENTO', '<=', '3')->where('DATA_AGENDAMENTO', '=', $request->get('data_agendamento'))->sum('QUANTIDADE');
+            return view('transportadora.total_agendado', compact('agendamentos', 'total_agendado'));
+        } else {
+            return redirect()->route('transportadora.total_agendado');
+        }
+    }
+
     public function formataValor($valor){
         $valor = str_replace('.', '', $valor);
         $valor = str_replace(',', '.', $valor);

@@ -182,7 +182,6 @@ class AgendamentoController extends Controller
                 $erro = 'Agendamento não pôde ser concluído, e-mail do CLIENTE inválido! Favor alterar para um endereço válido!';
                 return redirect()->route('carregamento.falha', $erro);
             }
-
             elseif(!filter_var($transportadora->EMAIL, FILTER_VALIDATE_EMAIL)) {
                 $erro = 'Agendamento não pôde ser concluído, e-mail da TRANSPORTADORA inválido! Favor alterar para um endereço válido!';
                 return redirect()->route('carregamento.falha', $erro);
@@ -302,6 +301,20 @@ class AgendamentoController extends Controller
         $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS_AGENDAMENTO', '<=', '3')->sum('QUANTIDADE');
         
         return view('cliente.total_agendado', compact('agendamentos', 'total_agendado'));
+    }
+
+    public function filtrarTotalAgendado(Request $request) {
+        $cod_cliente = Auth::user()->getAuthIdentifier();
+
+        if($request->get('data_agendamento') != '') {
+            $data = $request->get('data_agendamento');
+            $agendamentos = DB::select("SELECT SUM(QUANTIDADE) AS TOTAL, TRANSPORTADORA from agendamentos where COD_CLIENTE = $cod_cliente and COD_STATUS_AGENDAMENTO<= 3 and DATA_AGENDAMENTO = '$data' group by TRANSPORTADORA");
+            $total_agendado = Agendamento::where('COD_CLIENTE', $cod_cliente)->where('COD_STATUS_AGENDAMENTO', '<=', '3')->where('DATA_AGENDAMENTO', '=', $data)->sum('QUANTIDADE');
+            return view('cliente.total_agendado', compact('agendamentos', 'total_agendado'));
+        }
+        else {
+            return redirect()->route('cliente.total_agendado');
+        }
     }
 
     public function formataValor($valor){
