@@ -159,6 +159,8 @@ class AgendamentoController extends Controller
 
     public function insert(Agendamento $agendamento){
         $cliente = Cliente::find($agendamento->COD_CLIENTE);
+        
+        date_default_timezone_set("America/Sao_Paulo");
 
         $agendamento->DATA_CADASTRO = date("Y-m-d");
         $agendamento->DATA_ALTERACAO = date("Y-m-d");

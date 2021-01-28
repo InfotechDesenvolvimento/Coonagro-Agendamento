@@ -207,6 +207,9 @@ class AgendamentoController extends Controller
         $agendamento = Agendamento::where('CODIGO', $cod_agendamento)->first();
         $agendamento->COD_STATUS_AGENDAMENTO = 2;
         $agendamento->COD_FUNCIONARIO_APROVA = Auth::user()->getAuthIdentifier();
+
+        date_default_timezone_set("America/Sao_Paulo");
+
         $agendamento->DATA_ALTERACAO = date('Y-m-d');
         $agendamento->HORA_ALTERACAO = now();  
         $agendamento->save();

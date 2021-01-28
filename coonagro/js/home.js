@@ -115,7 +115,7 @@ function filtrar() {
         Array.prototype.forEach.call(data, function (item) {
             resultado += `<tr>`;
                 resultado += `<td>${item.CODIGO}</td>`;
-                if(item.status.STATUS != 'CANCELADO') {
+                if(item.status.STATUS == 'LIBERADO') {
                     resultado += `<td>
                                 <a href="cliente/carregamento/imprimir/${item.CODIGO}" target="_blank">
                                     <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
@@ -139,7 +139,7 @@ function filtrar() {
                 resultado += `<td>${item.PLACA_VEICULO}</td>`;
                 resultado += `<td>${item.PLACA_CARRETA1}</td>`;
                 resultado += `<td>${item.TRANSPORTADORA}</td>`;
-                resultado += `<td>${item.DATA_CADASTRO}</td>`;
+                resultado += `<td>${formatarData(item.DATA_CADASTRO)}</td>`;
                 if(item.HORA_CADASTRO != null) {
                     resultado += `<td>${item.HORA_CADASTRO}</td>`;
                 } else {

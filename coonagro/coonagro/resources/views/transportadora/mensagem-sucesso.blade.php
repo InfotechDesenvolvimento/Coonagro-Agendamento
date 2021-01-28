@@ -12,11 +12,6 @@
             </h2>
 
             <br>
-            <a style="text-decoration:none;" href="{{route('transportadora.carregamento.imprimir', $cod_agendamento)}}" target="_blank">
-                <button style="margin-top: 7px; font-size: 17px" type="button" class="btn btn-primary btn-lg btn-block">
-                    <i class="fas fa-print"></i> <b>IMPRIMIR AGENDAMENTO</b>
-                </button>
-            </a>
             <a style="text-decoration:none;" href="{{ route('transportadora.home')  }}">
                 <button style="margin-top: 7px; font-size: 17px" type="button" class="btn btn-warning btn-lg btn-block">
                     <i class="fas fa-plus-circle"></i> <b>INÍCIO </b>

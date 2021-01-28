@@ -168,6 +168,8 @@ class AgendamentoController extends Controller
 
         $transportadora = Transportadora::find($agendamento->COD_TRANSPORTADORA);
         
+        date_default_timezone_set("America/Sao_Paulo");
+
         $agendamento->DATA_CADASTRO = date("Y-m-d");
         $agendamento->DATA_ALTERACAO = date("Y-m-d");
         $agendamento->HORA_CADASTRO = now();
