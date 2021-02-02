@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transportadora;
 
 
 use App\Mail\EnviaEmail;
+use App\Mail\EnviaEmail_alteracao;
 use Mail;
 use App\Agendamento;
 use App\Codigos;
@@ -19,6 +20,8 @@ use App\PedidoTransporte;
 use App\TipoEmbalagem;
 use App\TipoVeiculo;
 use App\Transportadora;
+use App\AgendamentoAlteracao;
+use App\StatusAgendamento;
 use App\Veiculo;
 use App\Produto;
 use App\Cliente;
@@ -150,7 +153,6 @@ class AgendamentoController extends Controller
             $pedido = $objPedidoTransporte->getObjPedido($dados->num_pedido);
             $agendamento->COD_CLIENTE = $pedido->COD_CLIENTE;
 
-            //return json_encode($agendamento);
             return $this->insert($agendamento);
         } else {
             return redirect()->route('transportadora.operacao');
@@ -190,7 +192,7 @@ class AgendamentoController extends Controller
 
         if($agendamento->save())
         {
-            $objPedidoTransporte = new PedidoTransporteController;
+            $objPedidoTransporte = new PedidoTransporteController();
             $objPedidoTransporte->update($agendamento->NUM_PEDIDO, $agendamento->QUANTIDADE);
 
             $pedido = $objPedidoTransporte->getObjPedido($agendamento->NUM_PEDIDO);
@@ -229,6 +231,216 @@ class AgendamentoController extends Controller
 
     public function show($codigo){
         return Agendamento::where('CODIGO', $codigo)->with(['produto', 'embalagem', 'tipoVeiculo', 'cliente'])->first();
+    }
+
+    public function editarAgendamento($cod_agendamento) {
+        $agendamento = $this->show($cod_agendamento);
+        $objMotorista = new MotoristaController();
+        $motorista = $objMotorista->show($agendamento->CPF_CONDUTOR);
+        $motorista = $motorista->getData();
+
+        $tipos = TipoVeiculo::orderBy('TIPO_VEICULO')->get();
+        $embalagens = TipoEmbalagem::orderBy('TIPO_EMBALAGEM')->get();
+
+        return view('transportadora.editar_agendamento', compact(['agendamento', 'tipos', 'embalagens']));
+    }
+
+    public function alterarAgendamento(Request $request) {
+        $alteracao = $request->all();
+
+        $agendamento = Agendamento::find($alteracao['cod_agendamento']);
+        if($agendamento->COD_STATUS_AGENDAMENTO == 1) {
+            $agendamento->PLACA_VEICULO = strtoupper($alteracao['placa_cavalo']);
+            $agendamento->PLACA_CARRETA1 = strtoupper($alteracao['placa_carreta']);
+            $agendamento->PLACA_CARRETA2 = strtoupper($alteracao['placa_carreta2']);
+            $agendamento->PLACA_CARRETA3 = strtoupper($alteracao['placa_carreta3']);
+            $tipo_veiculo = json_decode($alteracao['tipo_veiculo']);
+            $agendamento->COD_TIPO_VEICULO = $tipo_veiculo->id;
+            $agendamento->TRANSPORTADORA = Auth::user()->NOME;
+            $agendamento->CNPJ_TRANSPORTADORA = Auth::user()->CPF_CNPJ;
+            $agendamento->TARA_VEICULO = $this->formataValor($alteracao['tara']);
+            $agendamento->CONDUTOR = $alteracao['nome_motorista'];
+            $agendamento->CPF_CONDUTOR = $alteracao['cpf_motorista'];
+            $agendamento->COD_EMBALAGEM = $alteracao['tipo_embalagem'];
+            $agendamento->OBS = $alteracao['observacao'];
+            date_default_timezone_set("America/Sao_Paulo");
+            $agendamento->DATA_ALTERACAO = date("Y-m-d");
+            $agendamento->HORA_ALTERACAO = now();
+            $agendamento->COD_STATUS_AGENDAMENTO = 1;
+            $agendamento->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
+
+            $objVeiculo = new VeiculoController();
+            $veiculo = $objVeiculo->getVeiculo($alteracao['placa_cavalo']);
+            $veiculo = $veiculo->getData();
+
+            if(count(get_object_vars($veiculo)) == 0){
+                $tipo_veiculo = json_decode($alteracao['tipo_veiculo']);
+
+                $veiculo = new Veiculo();
+
+                $veiculo->PLACA = strtoupper($alteracao['placa_cavalo']);
+                $veiculo->PLACA_CARRETA = strtoupper($alteracao['placa_carreta']);
+                if($alteracao['placa_carreta2'] != null) {
+                    $veiculo->PLACA_CARRETA2 = $alteracao['placa_carreta2'];
+                }
+                if($alteracao['placa_carreta3'] != null) {
+                    $veiculo->PLACA_CARRETA3 = $alteracao['placa_carreta3'];
+                }
+                $veiculo->COD_TIPO_VEICULO = $tipo_veiculo->id;
+                $veiculo->TARA = $this->formataValor($alteracao->tara);
+                $objVeiculo->insert($veiculo);
+            }
+
+            $objMotorista = new MotoristaController();
+            $motorista = $objMotorista->show($alteracao['cpf_motorista']);
+            $motorista = $motorista->getData();
+
+            if(count(get_object_vars($motorista)) == 0){
+                $motorista = new Motorista();
+
+                $motorista->CPF_CNPJ = $alteracao['cpf_motorista'];
+                $motorista->NOME = strtoupper($alteracao['nome_motorista']);
+                $objMotorista->insert($motorista);
+            }
+            
+            $cliente = Cliente::find($agendamento->COD_CLIENTE);
+
+            if($agendamento->save()) {
+                if($cliente->EMAIL != null && Auth::user()->EMAIL != null) {
+                    if(!filter_var(Auth::user()->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                        $erro = 'Alteração concluída! E-mail da TRANSPORTADORA inválido! Favor alterar para um endereço válido!';
+                        session()->forget('agendamento');
+                        return redirect()->route('transportadora.carregamento.falha', $erro);
+                    }
+        
+                    elseif(!filter_var($cliente->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                        $erro = 'Alteração concluída! E-mail do CLIENTE inválido! Favor alterar para um endereço válido!';
+                        session()->forget('agendamento');
+                        return redirect()->route('transportadora.carregamento.falha', $erro);
+                    }
+                    else {
+                        $data = $agendamento->ToJson();
+                        $data = json_decode($data);
+                        Mail::to($cliente->EMAIL)->send(new EnviaEmail($data));
+                        Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail($data));
+                    }
+                }
+                return redirect()->route('transportadora.carregamento.sucesso', $agendamento->CODIGO);
+            }
+            $erro = 'Agendamento não pôde ser editado!';
+            return redirect()->route('transportadora.carregamento.falha', $erro);
+        } elseif($agendamento->COD_STATUS_AGENDAMENTO == 2) {
+            $agendamento_alteracao = new AgendamentoAlteracao();
+            $agendamento_alteracao->COD_AGENDAMENTO = $agendamento->CODIGO;
+            $agendamento_alteracao->PLACA_VEICULO = strtoupper($alteracao['placa_cavalo']);
+            $agendamento_alteracao->PLACA_CARRETA1 = strtoupper($alteracao['placa_carreta']);
+            $agendamento_alteracao->PLACA_CARRETA2 = strtoupper($alteracao['placa_carreta2']);
+            $agendamento_alteracao->PLACA_CARRETA3 = strtoupper($alteracao['placa_carreta3']);
+            $tipo_veiculo = json_decode($alteracao['tipo_veiculo']);
+            $agendamento_alteracao->COD_TIPO_VEICULO = $tipo_veiculo->id;
+            $agendamento_alteracao->TRANSPORTADORA = Auth::user()->NOME;
+            $agendamento_alteracao->CNPJ_TRANSPORTADORA = Auth::user()->CPF_CNPJ;
+            $agendamento_alteracao->TARA_VEICULO = $this->formataValor($alteracao['tara']);
+            $agendamento_alteracao->CONDUTOR = $alteracao['nome_motorista'];
+            $agendamento_alteracao->CPF_CONDUTOR = $alteracao['cpf_motorista'];
+            $agendamento_alteracao->COD_EMBALAGEM = $alteracao['tipo_embalagem'];
+            $agendamento_alteracao->OBS = $alteracao['observacao'];
+            date_default_timezone_set("America/Sao_Paulo");
+            $agendamento_alteracao->DATA_CADASTRO = $agendamento->DATA_CADASTRO;
+            $agendamento_alteracao->HORA_CADASTRO = $agendamento->HORA_CADASTRO;
+            $agendamento_alteracao->DATA_ALTERACAO = date("Y-m-d");
+            $agendamento_alteracao->HORA_ALTERACAO = now();
+            $agendamento_alteracao->COD_STATUS_AGENDAMENTO = 1;
+            $agendamento_alteracao->COD_TRANSPORTADORA = Auth::user()->getAuthIdentifier();
+            $agendamento_alteracao->NUM_PEDIDO = $alteracao['num_pedido'];
+            $agendamento_alteracao->DATA_AGENDAMENTO = $alteracao['data_agendamento'];
+            $agendamento_alteracao->QUANTIDADE = $alteracao['quantidade'];
+            $agendamento_alteracao->COD_STATUS_AGENDAMENTO = $agendamento->COD_STATUS_AGENDAMENTO;
+            $agendamento_alteracao->COD_CLIENTE = $alteracao['cod_cliente'];
+            $agendamento_alteracao->COD_PRODUTO = $alteracao['cod_produto'];
+
+            $objVeiculo = new VeiculoController();
+            $veiculo = $objVeiculo->getVeiculo($alteracao['placa_cavalo']);
+            $veiculo = $veiculo->getData();
+
+            if(count(get_object_vars($veiculo)) == 0){
+                $tipo_veiculo = json_decode($alteracao['tipo_veiculo']);
+
+                $veiculo = new Veiculo();
+
+                $veiculo->PLACA = strtoupper($alteracao['placa_cavalo']);
+                $veiculo->PLACA_CARRETA = strtoupper($alteracao['placa_carreta']);
+                if($alteracao['placa_carreta2'] != null) {
+                    $veiculo->PLACA_CARRETA2 = $alteracao['placa_carreta2'];
+                }
+                if($alteracao['placa_carreta3'] != null) {
+                    $veiculo->PLACA_CARRETA3 = $alteracao['placa_carreta3'];
+                }
+                $veiculo->COD_TIPO_VEICULO = $tipo_veiculo->id;
+                $veiculo->TARA = $this->formataValor($alteracao->tara);
+                $objVeiculo->insert($veiculo);
+            }
+
+            $objMotorista = new MotoristaController();
+            $motorista = $objMotorista->show($alteracao['cpf_motorista']);
+            $motorista = $motorista->getData();
+
+            if(count(get_object_vars($motorista)) == 0){
+                $motorista = new Motorista();
+
+                $motorista->CPF_CNPJ = $alteracao['cpf_motorista'];
+                $motorista->NOME = strtoupper($alteracao['nome_motorista']);
+                $objMotorista->insert($motorista);
+            }
+            
+            $cliente = Cliente::find($agendamento->COD_CLIENTE);
+
+            if($agendamento_alteracao->save()) {
+                if($cliente->EMAIL != null && Auth::user()->EMAIL != null) {
+                    if(!filter_var(Auth::user()->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                        $erro = 'Alteração solicitada, e-mail da TRANSPORTADORA inválido! Favor alterar para um endereço válido!';
+                        session()->forget('agendamento');
+                        return redirect()->route('transportadora.carregamento.falha', $erro);
+                    }
+        
+                    elseif(!filter_var($cliente->EMAIL, FILTER_VALIDATE_EMAIL)) {
+                        $erro = 'Alteração solicitada, e-mail do CLIENTE inválido! Favor alterar para um endereço válido!';
+                        session()->forget('agendamento');
+                        return redirect()->route('transportadora.carregamento.falha', $erro);
+                    }
+                    else {
+                        $data = $agendamento_alteracao->ToJson();
+                        $data = json_decode($data);
+                        Mail::to($cliente->EMAIL)->send(new EnviaEmail_alteracao($data));
+                        Mail::to(Auth::user()->EMAIL)->send(new EnviaEmail_alteracao($data));
+                    }
+                }
+                return redirect()->route('transportadora.carregamento.sucesso', $agendamento->CODIGO);
+            }
+            $erro = 'Agendamento não pôde ser editado!';
+            return redirect()->route('transportadora.carregamento.falha', $erro);
+        }
+    }
+
+    public function excluirAgendamento($cod_agendamento) {
+        $agendamento = Agendamento::find($cod_agendamento);
+
+        $objCC = new CotaClienteController();
+        $objCC->update($agendamento->COD_CLIENTE, $agendamento->DATA, ((-1)*$agendamento->QUANTIDADE)); 
+
+        $objPedidoTransporte = new PedidoTransporteController();
+        $objPedidoTransporte->update($agendamento->NUM_PEDIDO, $agendamento->QUANTIDADE);
+
+        $objCotaTransp = PedidosVinculadosTransportadora::where('COD_CLIENTE', $pedido->COD_CLIENTE)->where('COD_TRANSPORTADORA', $agendamento->COD_TRANSPORTADORA)->where('NUM_PEDIDO', $agendamento->NUM_PEDIDO)->where('COD_PRODUTO', $agendamento->COD_PRODUTO)->where('DATA', $agendamento->DATA_AGENDAMENTO)->first();
+        if($objCotaTransp != null) {
+            $cota = $objCotaTransp->COTA + $agendamento->QUANTIDADE;
+            $objCotaTransp->COTA = $cota;
+            $objCotaTransp->save();
+        }
+
+        $agendamento->delete();
+        $msg = 'Agendamento excluído!';
+        return redirect()->route('transportadora.home', compact('msg'));
     }
 
     public function imprimir($cod_agendamento){

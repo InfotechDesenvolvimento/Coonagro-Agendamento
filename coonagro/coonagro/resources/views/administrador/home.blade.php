@@ -20,6 +20,18 @@
                     <b><i class="fas fa-box"></i> Pedidos </b>
                 </button>
             </a>
+
+            <a href="{{route('administrador.alteracoes')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-mail-bulk"></i> Alterações </b>
+                </button>
+            </a>
+
+            <a href="{{route('administrador.vincular_pedidos')}}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <b><i class="fas fa-boxes"></i> Vincular Transportadora/Pedidos </b>
+                </button>
+            </a>
             <div id="formConsulta">
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">

@@ -8,6 +8,14 @@
     <div class="col-12">
         <div class="container panel-form">
             <h4 style="padding: 30px; color: #63950A"> <b>AGENDAMENTOS</b> </h4>
+
+            @if(isset($msg))
+                <br>
+                <div class="alert alert-warning" role="alert">
+                    {{$msg}}
+                </div>
+                <br>
+            @endif
             
             <a href="{{route('transportadora.operacao')}}"><button class="btn btn-primary btn-lg btn-block">
                     <b><i class="far fa-calendar-plus"></i> Novo </b>

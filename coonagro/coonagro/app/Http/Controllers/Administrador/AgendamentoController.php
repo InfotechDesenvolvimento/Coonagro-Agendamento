@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Administrador;
 use App\Mail\EnviaEmail;
 use Mail;
 use App\Agendamento;
+use App\AgendamentoAlteracao;
 use App\Codigos;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CotaClienteController;
@@ -297,6 +298,87 @@ class AgendamentoController extends Controller
         $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedido_transporte, clientes WHERE pedido_transporte.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
 
         return view('administrador.pedidos', compact('pedidos', 'clientes', 'produtos'));
+    }
+
+    public function filtrarAlteracoes(Request $request) {
+        $alteracoes = AgendamentoAlteracao::when($request->get('num_pedido') != "", function ($query) use ($request) {
+                                                $query->where('NUM_PEDIDO', $request->get('num_pedido'));
+                                        })->when($request->get('produto') != "0", function ($query) use ($request){
+                                                $query->where('COD_PRODUTO', $request->get('produto'));
+                                        })->when($request->get('cliente') != "0", function ($query) use ($request) {
+                                                $query->where('COD_CLIENTE', $request->get('cliente'));
+                                        })->when($request->get('data') != "", function ($query) use ($request) {
+                                                $query->where('DATA_AGENDAMENTO', $request->get('data'));
+                                        })->where('STATUS_ALTERACAO', 'PENDENTE')->with('produto')->with('cliente')->orderBy('CODIGO')->get();
+
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos_alteracao, produtos WHERE agendamentos_alteracao.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos_alteracao, clientes WHERE agendamentos_alteracao.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
+        $transportadoras = DB::select('SELECT TRANSPORTADORA, COD_TRANSPORTADORA FROM agendamentos_alteracao GROUP BY TRANSPORTADORA');
+
+        return view('administrador.visualizar_alteracoes', compact('alteracoes', 'clientes', 'produtos', 'transportadoras'));
+    }
+
+    public function selecionarAlteracao($cod_alteracao) {
+        $alteracao = AgendamentoAlteracao::where('CODIGO', $cod_alteracao)->with('tipoVeiculo')->with('embalagem')->first();
+        $agendamento = Agendamento::where('CODIGO', $alteracao->COD_AGENDAMENTO)->with('tipoVeiculo')->with('embalagem')->first();
+
+        return view('administrador.detalhes_alteracao', compact('alteracao', 'agendamento'));
+    }
+
+    public function visualizarAlteracoes() {
+        $alteracoes = AgendamentoAlteracao::where('STATUS_ALTERACAO', 'PENDENTE')->with('produto')->with('cliente')->get();
+
+        $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos_alteracao, produtos WHERE agendamentos_alteracao.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
+        $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos_alteracao, clientes WHERE agendamentos_alteracao.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
+        $transportadoras = DB::select('SELECT TRANSPORTADORA, COD_TRANSPORTADORA FROM agendamentos_alteracao GROUP BY TRANSPORTADORA');
+
+        return view('administrador.visualizar_alteracoes', compact('alteracoes', 'clientes', 'produtos', 'transportadoras'));
+    }
+
+    public function salvarAlteracoes($cod_alteracao) {
+        $alteracao = AgendamentoAlteracao::find($cod_alteracao);
+        $agendamento = Agendamento::find($alteracao->COD_AGENDAMENTO);
+
+        $agendamento->NUM_PEDIDO = $alteracao->NUM_PEDIDO;
+        $agendamento->DATA_AGENDAMENTO = $alteracao->DATA_AGENDAMENTO;
+        $agendamento->TRANSPORTADORA = $alteracao->TRANSPORTADORA;
+        $agendamento->CNPJ_TRANSPORTADORA = $alteracao->CNPJ_TRANSPORTADORA;
+        $agendamento->PLACA_VEICULO = $alteracao->PLACA_VEICULO;
+        $agendamento->PLACA_CARRETA1 = $alteracao->PLACA_CARRETA1;
+        $agendamento->PLACA_CARRETA2 = $alteracao->PLACA_CARRETA2;
+        $agendamento->PLACA_CARRETA3 = $alteracao->PLACA_CARRETA3;
+        $agendamento->RENAVAM_VEICULO = $alteracao->RENAVAM_VEICULO;
+        $agendamento->COD_TIPO_VEICULO = $alteracao->COD_TIPO_VEICULO;
+        $agendamento->TARA_VEICULO = $alteracao->TARA_VEICULO;
+        $agendamento->CONDUTOR = $alteracao->CONDUTOR;
+        $agendamento->CPF_CONDUTOR = $alteracao->CPF_CONDUTOR;
+        $agendamento->COD_PRODUTO = $alteracao->COD_PRODUTO;
+        $agendamento->QUANTIDADE = $alteracao->QUANTIDADE;
+        $agendamento->COD_EMBALAGEM = $alteracao->COD_EMBALAGEM;
+        $agendamento->OBS = $alteracao->OBS;
+        $agendamento->COD_TRANSPORTADORA = $alteracao->COD_TRANSPORTADORA;
+        $agendamento->DATA_CADASTRO = $alteracao->DATA_CADASTRO;
+        $agendamento->HORA_CADASTRO = $alteracao->HORA_CADASTRO;
+        $agendamento->DATA_ALTERACAO = $alteracao->DATA_ALTERACAO;
+        $agendamento->HORA_ALTERACAO = $alteracao->HORA_ALTERACAO;
+        $agendamento->COD_STATUS_AGENDAMENTO = $alteracao->COD_STATUS_AGENDAMENTO;
+        $agendamento->COD_CLIENTE = $alteracao->COD_CLIENTE;
+        if($agendamento->save()) {
+                $alteracao->STATUS_ALTERACAO = 'APROVADO';
+                $alteracao->COD_RESPONSAVEL_ALTERACAO = Auth::user()->getAuthIdentifier();
+                $alteracao->save();
+        }
+
+        return redirect()->route('administrador.alteracoes');
+    }
+
+    public function cancelarAlteracoes($cod_alteracao) {
+        $alteracao = AgendamentoAlteracao::where('CODIGO', $cod_alteracao)->first();
+        $alteracao->STATUS_ALTERACAO = 'CANCELADO';
+        $alteracao->save();
+
+        $msg = 'Alteração recusada!';
+        return redirect()->route('administrador.alteracoes', compact('msg'));
     }
 
     public function filtrarPedidos(Request $request) {

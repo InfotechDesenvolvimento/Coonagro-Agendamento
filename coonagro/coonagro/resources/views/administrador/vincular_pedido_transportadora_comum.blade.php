@@ -9,7 +9,7 @@
 
         <h4 style="padding: 30px; color: #63950A"> <b>VINCULAR PEDIDO A TRANSPORTADORA</b> </h4>
 
-        <form action="{{route('cliente.vincular_comum')}}" method="post">
+        <form action="{{route('administrador.vincular_comum')}}" method="post">
             <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
             <div class="row">
                 <div class="col-sm-6 col-12">
@@ -54,7 +54,7 @@
                 </div>
                 <input type="hidden" id="cod_transportadora" name="cod_transportadora">
                 <input type="hidden" id="num_cota">
-                <input type="hidden" id="cod_cliente" value="{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}">
+                <input type="hidden" id="cod_cliente" value="{{$pedido->cliente->CODIGO}}">
             </div>
             <div class="invalid-feedback" id="invalid-transportadora">
                 Transportadora inválida!
@@ -64,7 +64,7 @@
             </button>
             <input type="hidden" id="numCota" name="numCota" value="0">
         </form>
-        <a href="{{route('cliente.vincular_pedidos')}}">
+        <a href="{{route('administrador.vincular_pedidos')}}">
             <button class="btn btn-success btn-lg btn-block back">
                 <b><i class="fas fa-arrow-left"></i> Voltar</b>
             </button>

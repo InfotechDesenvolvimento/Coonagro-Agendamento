@@ -90,16 +90,6 @@
                 <h5 class="title">Nome</h5>
                 <h4 class="dado">{{$confirmacao['nome_motorista']}}</h4>
             </div>
-
-            <div class="col-sm-6">
-                <h5 class="title">CNH</h5>
-                <h4 class="dado">{{$confirmacao['cnh']}}</h4>
-            </div>
-
-            <div class="col-sm-6">
-                <h5 class="title">Validade da CNH</h5>
-                <h4 class="dado">{{$confirmacao['validade_cnh_formatado']}}</h4>
-            </div>
         </div>
 
         <hr>

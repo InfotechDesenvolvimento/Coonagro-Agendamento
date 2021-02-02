@@ -117,11 +117,21 @@ function filtrar_transportadora() {
                 resultado += `<td>${item.CODIGO}</td>`;
                 if(item.status.STATUS == 'LIBERADO') {
                     resultado += `<td>
-                                <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
-                                    <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
-                                </a>`;
+                                    <a href="transportadora/carregamento/imprimir/${item.CODIGO}" target="_blank">
+                                        <i class="fas fa-print" title="Ver Detalhe" style="cursor: pointer; color: #545b62"></i>
+                                    </a>
+                                    <a href="transportadora/editar_agendamento_${item.CODIGO}">
+                                        <i class="fas fa-edit" title="Editar Agendamento" style="cursor: pointer; color: #545b62"></i>
+                                    </a>`;
+                } else if(item.status.STATUS == 'AGUARDANDO LIBERAÇÃO') {
+                    resultado +=  `<td>
+                                    <a href="transportadora/editar_agendamento_${item.CODIGO}">
+                                        <i class="fas fa-edit" title="Editar Agendamento" style="cursor: pointer; color: #545b62"></i>
+                                    </a>`;
                 } else {
-                    resultado +=  `<td>`;
+                    resultado += `
+                                <td>
+                                `;
                 }
                 resultado += `<a href="transportadora/detalhes/${item.CODIGO}" >
                                 <i class="fas fa-search" title="Detalhes do pedido" style="cursosr: pointer; color: #545b62"></i>

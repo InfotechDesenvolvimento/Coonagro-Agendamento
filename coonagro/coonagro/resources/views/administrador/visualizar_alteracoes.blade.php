@@ -15,7 +15,7 @@
 
         <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS VINCULADOS À TRANSPORTADORAS</b> </h4>
         
-        <form action="{{route('administrador.filtrar_vinculos')}}">
+        <form action="{{route('administrador.filtrar_alteracoes')}}">
             <div class="row">
                 <div class="col-4">
                     <label>Transportadora:</label>
@@ -25,7 +25,7 @@
                         >
                         <option value="0">TODOS</option>
                         @foreach($transportadoras as $t)
-                            <option value="{{$t->CODIGO}}">{{$t->NOME}}</option>
+                            <option value="{{$t->COD_TRANSPORTADORA}}">{{$t->TRANSPORTADORA}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -76,35 +76,37 @@
         <div class="table-responsive">
             <table id="table" class="table table-striped" style="width: 100%">
                 <thead>
-                    <th>Nº Pedido</th>
+                    <th>Data</th>   
+                    <th>Quantidade (T)</th>
                     <th>Produto</th>
+                    <th>Nº Pedido</th>
+                    <th>Placa Veículo</th>
                     <th>Transportadora</th>
                     <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Quantidade Limite</th>
-                    <th>Desvincular</th>
+                    <th>Data de Alteracao</th>
+                    <th>Hora de Alteracao</th>
+                    <th>Ver Alteração</th>
                 </thead>
                 <tbody>
-                    @if(count($pedidos) == 0)
+                    @if(count($alteracoes) == 0)
                         <tr>
-                            <td colspan="4">Nenhum pedido em aberto</td>
+                            <td colspan="10">Nenhuma alteração solicitada!</td>
                         </tr>
                     @else
-                        @foreach($pedidos as $pedido)
+                        @foreach($alteracoes as $alteracao)
                             <tr>
-                                <td>{{$pedido->NUM_PEDIDO}}</td>
-                                <td>{{$pedido->PRODUTO->DESCRICAO}}</td>
-                                <td>{{$pedido->TRANSPORTADORA->NOME}}</td>
-                                <td>{{$pedido->cliente->NOME}}</td>
-                                @if($pedido->DATA != null)
-                                    <td>{{date_format(date_create($pedido->DATA), 'd/m/Y')}}</td>
-                                @else
-                                    <td></td>
-                                @endif
-                                <td>{{$pedido->COTA}}</td>
-                                <td class="agendamento">
-                                    <a onclick="desvincular({{$pedido->CODIGO}})" target="_blank">
-                                        <i class="fas fa-minus-circle" title="Desvincular pedido" style="cursor: pointer; color: #545b62"></i>
+                                <td>{{date_format(date_create($alteracao->DATA_AGENDAMENTO), 'd/m/Y')}}</td>
+                                <td>{{$alteracao->QUANTIDADE}}</td>
+                                <td>{{$alteracao->produto->DESCRICAO}}</td>
+                                <td>{{$alteracao->NUM_PEDIDO}}</td>
+                                <td>{{$alteracao->PLACA_VEICULO}}</td>
+                                <td>{{$alteracao->TRANSPORTADORA}}</td>
+                                <td>{{$alteracao->cliente->NOME}}</td>
+                                <td>{{date_format(date_create($alteracao->DATA_ALTERACAO), 'd/m/Y')}}</td>
+                                <td>{{$alteracao->HORA_ALTERACAO}}</td>
+                                <td>
+                                    <a href="visualizar_alteracao/{{$alteracao->CODIGO}}" target="_blank">
+                                        <i class="fas fa-arrow-alt-circle-right" title="Visualizar alteração" style="cursor: pointer; color: #545b62"></i>
                                     </a>
                                 </td>
                             </tr>
