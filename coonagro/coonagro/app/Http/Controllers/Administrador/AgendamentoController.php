@@ -105,10 +105,11 @@ class AgendamentoController extends Controller
     }
 
     public function visualizarVinculos() {
-        $pedidos = PedidosVinculadosTransportadora::with('pedido_transporte')->with('produto')->with('cliente')->with('transportadora')->get();
+        $pedidos = PedidosVinculadosTransportadora::with('produto')->with('cliente')->with('transportadora')->with('pedido_transporte')->get();
         $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM pedidos_vinculados_transportadora, produtos WHERE pedidos_vinculados_transportadora.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
         $transportadoras = DB::select('SELECT transportadoras.NOME, transportadoras.CODIGO FROM pedidos_vinculados_transportadora, transportadoras WHERE pedidos_vinculados_transportadora.COD_TRANSPORTADORA = transportadoras.CODIGO GROUP BY transportadoras.NOME');
         $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM pedidos_vinculados_transportadora, clientes WHERE pedidos_vinculados_transportadora.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');
+        //return json_encode($pedidos);
         return view('administrador.visualizar_vinculos', compact('pedidos', 'transportadoras', 'produtos', 'clientes'));
     }
 

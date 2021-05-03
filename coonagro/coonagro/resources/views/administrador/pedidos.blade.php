@@ -75,7 +75,11 @@
                             <tr>
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->PRODUTO->DESCRICAO}}</td>
-                                <td>{{$pedido->CLIENTE->NOME}}</td>
+                                @if($pedido->cliente != null)
+                                    <td>{{$pedido->CLIENTE->NOME}}</td>
+                                @else
+                                    <td></td>
+                                @endif
                                 <td>{{$pedido->SALDO_RESTANTE}}</td>
                             </tr>
                         @endforeach

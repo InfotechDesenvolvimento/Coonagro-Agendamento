@@ -95,7 +95,11 @@
                                 <td>{{$pedido->NUM_PEDIDO}}</td>
                                 <td>{{$pedido->PRODUTO->DESCRICAO}}</td>
                                 <td>{{$pedido->TRANSPORTADORA->NOME}}</td>
-                                <td>{{$pedido->cliente->NOME}}</td>
+                                @if($pedido->cliente != null)
+                                    <td>{{$pedido->cliente->NOME}}</td>
+                                @else
+                                    <td></td>
+                                @endif
                                 @if($pedido->DATA != null)
                                     <td>{{date_format(date_create($pedido->DATA), 'd/m/Y')}}</td>
                                 @else
