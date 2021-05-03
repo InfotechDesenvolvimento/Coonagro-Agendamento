@@ -328,6 +328,7 @@ class AgendamentoController extends Controller
 
     public function visualizarAlteracoes() {
         $alteracoes = AgendamentoAlteracao::where('STATUS_ALTERACAO', 'PENDENTE')->with('produto')->with('cliente')->get();
+        
 
         $produtos = DB::select('SELECT produtos.DESCRICAO, produtos.CODIGO FROM agendamentos_alteracao, produtos WHERE agendamentos_alteracao.COD_PRODUTO = produtos.CODIGO GROUP BY produtos.DESCRICAO');
         $clientes = DB::select('SELECT clientes.NOME, clientes.CODIGO FROM agendamentos_alteracao, clientes WHERE agendamentos_alteracao.COD_CLIENTE = clientes.CODIGO GROUP BY clientes.NOME');

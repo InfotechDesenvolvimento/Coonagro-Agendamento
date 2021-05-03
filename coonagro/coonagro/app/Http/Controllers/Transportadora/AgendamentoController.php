@@ -358,6 +358,7 @@ class AgendamentoController extends Controller
             $agendamento_alteracao->COD_STATUS_AGENDAMENTO = $agendamento->COD_STATUS_AGENDAMENTO;
             $agendamento_alteracao->COD_CLIENTE = $alteracao['cod_cliente'];
             $agendamento_alteracao->COD_PRODUTO = $alteracao['cod_produto'];
+            $agendamento_alteracao->STATUS_ALTERACAO = 'PENDENTE';
 
             $objVeiculo = new VeiculoController();
             $veiculo = $objVeiculo->getVeiculo($alteracao['placa_cavalo']);
