@@ -90,7 +90,8 @@ Route::get('administrador/vincular_pedido_comum/{pedido}', 'administrador\Vincul
 Route::post('administrador/vincular/', 'administrador\VincularPedidosController@vincular')->name('administrador.vincular');
 Route::post('administrador/vincular_comum/', 'administrador\VincularPedidosController@vincularComum')->name('administrador.vincular_comum');
 Route::get('administrador/filtar_pedidos_vincular/', 'administrador\VincularPedidosController@filtrarPedidosVincular')->name('administrador.filtrar_pedidos_vincular');
-
+Route::get('administrador/pedido/novo', 'administrador\PedidoController@index')->name('administrador.novo_pedido');
+Route::post('administrador/pedido/novo/cadastrar', 'administrador\PedidoController@registrarPedido')->name('administrador.novo_pedido_cadastrar');
 //Route::get('transportadora/operacao', 'transportadora\HomeController@operacao')->name('transportadora.operacao');
 
 

@@ -41,6 +41,11 @@ class PedidoTransporteController extends Controller
         }
     }
 
+    public function verificarPedido($num_pedido) {
+        $pedido = PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
+        return response()->json($pedido);
+    }
+
     public function getLimite($num_pedido, $cod_transportadora, $data) {
         $pedido = PedidoTransporte::where('NUM_PEDIDO', $num_pedido)->first();
 

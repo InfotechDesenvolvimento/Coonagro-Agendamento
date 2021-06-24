@@ -13,7 +13,20 @@
             </div>
         @endif
 
+        @if(Session::has('msg'))
+            <br>
+            <div class="alert alert-warning" role="alert">
+                {{Session::get('msg')}}
+            </div>
+        @endif
+
         <h4 style="padding: 30px; color: #63950A"> <b>PEDIDOS ABERTOS</b> </h4>
+
+        <a id="voltar" href="{{route('administrador.novo_pedido')}}">
+            <button class="btn btn-success btn-lg btn-block">
+                <i class="fas fa-scroll"></i> Novo pedido
+            </button>
+        </a>
         
         <form action="{{route('administrador.filtrar_pedidos')}}">
             <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
